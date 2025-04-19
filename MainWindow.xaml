@@ -9,12 +9,13 @@
     mc:Ignorable="d"
     Title="EngrLink">
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Do not click me</Button>
-        <Button x:Name="button" Click="Button_Click" Content="Click Me">
-            
-        </Button>
-        
-    </StackPanel>
-    
+    <Grid>
+        <TextBox Name="NameTextBox" Width="300" Height="30" Margin="20,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" PlaceholderText="Enter Name"/>
+        <TextBox Name="AddressTextBox" Width="300" Height="30" Margin="20,70,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" PlaceholderText="Enter Address"/>
+        <TextBox Name="ContactTextBox" Width="300" Height="30" Margin="20,120,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" PlaceholderText="Enter Contact Number"/>
+        <TextBox Name="ProgramTextBox" Width="300" Height="30" Margin="20,170,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" PlaceholderText="Enter Program"/>
+        <DatePicker Name="BirthdayDatePicker" Margin="20,220,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button Name="SubmitButton" Content="Submit" Width="100" Height="40" Margin="20,270,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="SubmitButton_Click"/>
+    </Grid>
+
 </Window>
