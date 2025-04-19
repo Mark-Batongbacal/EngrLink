@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "EngrLink (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "EngrLink (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
