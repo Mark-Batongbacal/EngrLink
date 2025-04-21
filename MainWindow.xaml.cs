@@ -14,65 +14,64 @@ using Microsoft.UI.Xaml.Navigation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Supabase.Postgrest;
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+
 
 namespace EngrLink
 {
-    /// <summary>
-    /// An empty window that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainWindow : Window
     {
         public MainWindow()
         {
             this.InitializeComponent();
+           
         }
 
-        private async void SubmitButton_Click(object sender, RoutedEventArgs e)
+        private void DisableAndHideButtons()
         {
-            // Collecting values from the input fields
-            string name = NameTextBox.Text;
-            string address = AddressTextBox.Text;
-            string contact = ContactTextBox.Text;  // You might want to handle errors here (e.g., try-catch)
-            string program = ProgramTextBox.Text;
-            string birthday = BirthdayDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd");  // Ensure the user selected a date
-            var lastStudentResponse = await App.SupabaseClient
-            .From<Student>()
-            .Order("id", Supabase.Postgrest.Constants.Ordering.Descending) // true means descending order to get the last inserted record
-            .Limit(1)
-            .Get();
+            StudentButton.IsEnabled = false;
+            FacultyButton.IsEnabled = false;
+            DepartmentButton.IsEnabled = false;
+            AccountingButton.IsEnabled = false;
+            EnrolleeButton.IsEnabled = false;
 
-            int newId = 1;  // Default to 1 if no students exist yet
-
-            if (lastStudentResponse.Models.Count > 0)
-            {
-                // Increment the last student's ID
-                var lastStudent = lastStudentResponse.Models[0];
-                newId = lastStudent.Id + 1;
-            }
-
-            // Create a new student object
-            var newStudent = new Student
-            {
-                Id = newId,
-                Name = name,
-                Address = address,
-                Contact = contact,
-                Year = 2,
-                Fees = 12312,
-                Program = program,
-                Birthday = birthday,
-                Enrolled = false,  // You can change the default based on your requirement
-                Paid = false,      // You can change this as needed
-                Regular = false    // You can change this as needed
-            };
-
-            // Inserting the new student into the database
-            var response = await App.SupabaseClient
-                .From<Student>()
-                .Insert(newStudent);
-
+            StudentButton.Visibility = Visibility.Collapsed;
+            FacultyButton.Visibility = Visibility.Collapsed;
+            DepartmentButton.Visibility = Visibility.Collapsed;
+            AccountingButton.Visibility = Visibility.Collapsed;
+            EnrolleeButton.Visibility = Visibility.Collapsed;
         }
+
+        private void StudentButton_Click(object sender, RoutedEventArgs e)
+        {
+            DisableAndHideButtons();
+            MainFrame.Navigate(typeof(StudentPage)); // Navigate to StudentPage
+        }
+
+        private void FacultyButton_Click(object sender, RoutedEventArgs e)
+        {
+            DisableAndHideButtons();
+            MainFrame.Navigate(typeof(FacultyPage)); // Navigate to FacultyPage
+        }
+
+        private void DepartmentButton_Click(object sender, RoutedEventArgs e)
+        {
+            DisableAndHideButtons();
+            MainFrame.Navigate(typeof(DepartmentPage)); // Navigate to DepartmentPage
+        }
+
+        private void AccountingButton_Click(object sender, RoutedEventArgs e)
+        {
+            DisableAndHideButtons();
+            MainFrame.Navigate(typeof(AccountingPage)); // Navigate to AccountingPage
+        }
+
+        private void EnrolleeButton_Click(object sender, RoutedEventArgs e)
+        {
+            DisableAndHideButtons();
+            MainFrame.Navigate(typeof(EnrolleePage)); // Navigate to EnrolleePage
+        }
+
+
+
     }
 }

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Window
     x:Class="EngrLink.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -6,16 +5,20 @@
     xmlns:local="using:EngrLink"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Title="EngrLink">
+    mc:Ignorable="d">
 
-    <Grid>
-        <TextBox Name="NameTextBox" Width="300" Height="30" Margin="20,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" PlaceholderText="Enter Name"/>
-        <TextBox Name="AddressTextBox" Width="300" Height="30" Margin="20,70,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" PlaceholderText="Enter Address"/>
-        <TextBox Name="ContactTextBox" Width="300" Height="30" Margin="20,120,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" PlaceholderText="Enter Contact Number"/>
-        <TextBox Name="ProgramTextBox" Width="300" Height="30" Margin="20,170,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" PlaceholderText="Enter Program"/>
-        <DatePicker Name="BirthdayDatePicker" Margin="20,220,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Button Name="SubmitButton" Content="Submit" Width="100" Height="40" Margin="20,270,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="SubmitButton_Click"/>
+
+    <Grid Padding="20">
+        <!-- Define the Frame to display content, and set its position to fill the window -->
+        <Frame x:Name="MainFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+        <!-- StackPanel for the navigation buttons -->
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10">
+            <Button x:Name="StudentButton" Content="Student" Width="200" Margin="10" Click="StudentButton_Click"/>
+            <Button x:Name="FacultyButton" Content="Faculty/Instructor" Width="200" Margin="10" Click="FacultyButton_Click"/>
+            <Button x:Name="DepartmentButton" Content="Department Chairman" Width="200" Margin="10" Click="DepartmentButton_Click"/>
+            <Button x:Name="AccountingButton" Content="Accounting" Width="200" Margin="10" Click="AccountingButton_Click"/>
+            <Button x:Name="EnrolleeButton" Content="Enrollee" Width="200" Margin="10" Click="EnrolleeButton_Click"/>
+        </StackPanel>
     </Grid>
-
 </Window>

@@ -25,6 +25,8 @@ namespace EngrLink
 {
     public partial class App : Application
     {
+        
+
         public static Supabase.Client SupabaseClient;
 
         public App()
@@ -34,10 +36,11 @@ namespace EngrLink
 
         protected override async void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
-            await InitializeSupabase();
+            
 
             m_window = new MainWindow();
             m_window.Activate();
+            await InitializeSupabase();
         }
 
         private async Task InitializeSupabase()
