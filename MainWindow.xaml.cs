@@ -75,6 +75,7 @@ namespace EngrLink
                 .Insert(newStudent);
             Console.WriteLine("TITE");
             this.Close();
+            Console.WriteLine("ASKDJIHGAS");
         }
     }
 }
