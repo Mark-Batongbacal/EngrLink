@@ -72,7 +72,7 @@ namespace EngrLink
             var response = await App.SupabaseClient
                 .From<Student>()
                 .Insert(newStudent);
-
+            Console.WriteLine("TITE");
         }
     }
 }
