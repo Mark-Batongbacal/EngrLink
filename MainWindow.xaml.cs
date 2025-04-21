@@ -27,6 +27,7 @@ namespace EngrLink
         public MainWindow()
         {
             this.InitializeComponent();
+            
         }
 
         private async void SubmitButton_Click(object sender, RoutedEventArgs e)
@@ -73,6 +74,7 @@ namespace EngrLink
                 .From<Student>()
                 .Insert(newStudent);
             Console.WriteLine("TITE");
+            this.Close();
         }
     }
 }
