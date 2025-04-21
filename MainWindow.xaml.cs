@@ -23,7 +23,6 @@ namespace EngrLink
         public MainWindow()
         {
             this.InitializeComponent();
-           
         }
 
         private void DisableAndHideButtons()
@@ -62,15 +61,14 @@ namespace EngrLink
         private void AccountingButton_Click(object sender, RoutedEventArgs e)
         {
             DisableAndHideButtons();
-            MainFrame.Navigate(typeof(AccountingPage)); // Navigate to AccountingPage
+            MainFrame.Navigate(typeof(AccountingPage));
         }
 
         private void EnrolleeButton_Click(object sender, RoutedEventArgs e)
         {
             DisableAndHideButtons();
-            MainFrame.Navigate(typeof(EnrolleePage)); // Navigate to EnrolleePage
+            MainFrame.Navigate(typeof(EnrolleePage));
         }
-
 
 
     }
