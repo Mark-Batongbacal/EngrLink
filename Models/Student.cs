@@ -25,7 +25,7 @@ namespace EngrLink.Models
         public string Contact { get; set; }
 
         [Column("year")]
-        public int Year { get; set; }
+        public string Year { get; set; }
 
         [Column("program")]
         public string Program { get; set; }

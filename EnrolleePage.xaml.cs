@@ -32,7 +32,8 @@ namespace EngrLink
             this.InitializeComponent();
             CheckValid();
         }
-
+        public string program;
+        public string year;
         private void CheckValid()
         {
 
@@ -42,21 +43,21 @@ namespace EngrLink
                 bool isValid = !string.IsNullOrWhiteSpace(NameTextBox.Text) &&
                                !string.IsNullOrWhiteSpace(AddressTextBox.Text) &&
                                !string.IsNullOrWhiteSpace(ContactTextBox.Text) &&
-                               !string.IsNullOrWhiteSpace(ProgramTextBox.Text) &&
+                               ProgramComboBox.SelectedItem is ComboBoxItem programItem &&
+                               YearLevelComboBox.SelectedItem is ComboBoxItem yearItem &&
                                BirthdayDatePicker.SelectedDate.HasValue; // Make sure a date is selected
 
                 // Enable/Disable the Submit button based on validity
                 SubmitButton.IsEnabled = isValid;
             }
         }
-
+        
         private async void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
             // Collecting values from the input fields
             string name = NameTextBox.Text;
             string address = AddressTextBox.Text;
             string contact = ContactTextBox.Text;  // You might want to handle errors here (e.g., try-catch)
-            string program = ProgramTextBox.Text;
             string birthday = BirthdayDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd");  // Ensure the user selected a date
             var lastStudentResponse = await App.SupabaseClient
             .From<Student>()
@@ -80,7 +81,7 @@ namespace EngrLink
                 Name = name,
                 Address = address,
                 Contact = contact,
-                Year = 2,
+                Year = year,
                 Fees = 12312,
                 Program = program,
                 Birthday = birthday,
@@ -95,7 +96,7 @@ namespace EngrLink
                 .Insert(newStudent);
             await response;
 
-            Frame.GoBack();
+            //Frame.GoBack(); gawin m to marky dear
 
         }
         private void Input_TextChanged(object sender, TextChangedEventArgs e)
@@ -108,6 +109,25 @@ namespace EngrLink
             CheckValid();
         }
 
+        private void YearLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (YearLevelComboBox.SelectedItem is ComboBoxItem yearitem)
+            {
+                YearLevelComboBox.Header = yearitem.Content;
+                year = yearitem.Content.ToString();
+            }
+            CheckValid();
+        }
+
+        private void Program_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ProgramComboBox.SelectedItem is ComboBoxItem programitem)
+            {
+                ProgramComboBox.Header = programitem.Content;
+                program = programitem.Content.ToString();
+            }
+            CheckValid();
+        }
 
     }
 }
