@@ -43,7 +43,7 @@ namespace EngrLink
         private void StudentButton_Click(object sender, RoutedEventArgs e)
         {
             DisableAndHideButtons();
-            MainFrame.Navigate(typeof(StudentPage)); // Navigate to StudentPage
+            MainFrame.Navigate(typeof(LoginStudent)); // Navigate to StudentPage
         }
 
         private void FacultyButton_Click(object sender, RoutedEventArgs e)
