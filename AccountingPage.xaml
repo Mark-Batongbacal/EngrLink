@@ -9,7 +9,56 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid Padding="20">
+        <!-- Back Button -->
+        <Button
+      x:Name="BackButton"
+      Content="←"
+      HorizontalAlignment="Left"
+      VerticalAlignment="Top"
+      Width="40"
+      Height="40"
+      Click="BackButton_Click" />
 
+        <StackPanel Padding="20,60,20,20" Spacing="20">
+            <!-- Latest Student Record -->
+            <StackPanel Spacing="10" BorderThickness="1" BorderBrush="Gray" Padding="10">
+                <TextBlock Text="Latest Student Record" FontSize="18" FontWeight="Bold"/>
+                <TextBlock Text="Name:"/>
+                <TextBlock x:Name="NameText" Text="--"/>
+                <TextBlock Text="Program:"/>
+                <TextBlock x:Name="ProgramText" Text="--"/>
+                <TextBlock Text="Year:"/>
+                <TextBlock x:Name="YearText" Text="--"/>
+                <TextBlock Text="Total Fees:"/>
+                <TextBlock x:Name="TotalFeesText" Text="--"/>
+                <Button x:Name="LoadLatestStudentButton" Content="Load Latest Student" Click="LoadLatestStudent_Click" Width="160"/>
+            </StackPanel>
+
+            <!-- Search by ID -->
+            <StackPanel Spacing="10">
+                <TextBlock Text="Search Student by ID" FontSize="18" FontWeight="Bold"/>
+                <TextBox x:Name="StudentIdInput" PlaceholderText="Enter Student ID" InputScope="Number" Width="200"/>
+                <Button x:Name="SearchButton" Content="Search" Click="SearchButton_Click" Width="100"/>
+            </StackPanel>
+
+            <!-- Information Display & Payment -->
+            <Border BorderThickness="1" BorderBrush="Gray" Padding="10">
+                <StackPanel x:Name="InfoPanel" Visibility="Collapsed" Spacing="10">
+                    <TextBlock Text="Information of Student" FontSize="18" FontWeight="Bold"/>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Text="Total Fees:"/>
+                        <TextBlock x:Name="S_TotalFeesText" Text="--"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Text="Remaining Balance:"/>
+                        <TextBlock x:Name="RemainingBalanceText" Text="--"/>
+                    </StackPanel>
+                    <TextBlock Text="Amount Paid" FontSize="16"/>
+                    <TextBox x:Name="AmountPaidInput" PlaceholderText="₱0" InputScope="Number" Width="150"/>
+                    <Button x:Name="SubmitPaymentButton" Content="Submit Payment" Click="SubmitPaymentButton_Click" Width="140"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
     </Grid>
 </Page>

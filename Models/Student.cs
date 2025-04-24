@@ -33,6 +33,9 @@ namespace EngrLink.Models
         [Column("fees")]
         public int Fees { get; set; }
 
+        [Column("total_fees")]
+        public int Total { get; set; }
+
         [Column("enrolled")]
         public bool Enrolled { get; set; }
 
