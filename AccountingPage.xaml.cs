@@ -50,16 +50,12 @@ namespace EngrLink
             {
                 
 
-var studentResponse = await supabaseClient
-    .From<Student>()
-    .Filter("id", Postgrest.Constants.Operator.Equals, "9")
-    .Get();
+        var studentResponse = await supabaseClient
+         .From<Student>()
+         .Filter("id", Supabase.Postgrest.Constants.Operator.Equals, int.Parse(StudentIdInput.Text))
+         .Get();
 
-
-
-
-
-                var student = lastStudentResponse.Models.FirstOrDefault();
+                var student = studentResponse.Models.FirstOrDefault();
                 if (student != null)
                 {
                     NameText.Text = student.Name;
