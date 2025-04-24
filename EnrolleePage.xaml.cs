@@ -85,6 +85,7 @@ namespace EngrLink
                 Year = year,
                 Fees = 123123,
                 Program = program,
+                Password = newId.ToString(),
                 Birthday = birthday,
                 Enrolled = false,  // You can change the default based on your requirement
                 Paid = false,      // You can change this as needed
@@ -96,6 +97,32 @@ namespace EngrLink
                 .From<Student>()
                 .Insert(newStudent);
             await response;
+
+            var dialog = new ContentDialog
+            {
+                Title = "Submission Successful",
+                Content = $"Your Student ID is {newId}. Remember this for your Login.",
+                CloseButtonText = "OK",
+                XamlRoot = this.Content.XamlRoot // Required in WinUI 3 to show dialog properly
+            };
+
+            await dialog.ShowAsync();
+
+            NameTextBox.Text = "";
+            AddressTextBox.Text = "";
+            ContactTextBox.Text = "";
+            ProgramComboBox.SelectedItem = null;
+            YearLevelComboBox.SelectedItem = null;
+            ProgramComboBox.Header = "Enter Program";
+            YearLevelComboBox.Header = "Enter Year Level";
+            BirthdayDatePicker.SelectedDate = null;
+
+            // Also reset internal tracking variables
+            program = null;
+            year = null;
+
+            // Disable submit button again
+            SubmitButton.IsEnabled = false;
 
             //Frame.GoBack(); gawin m to marky dear
 

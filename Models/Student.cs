@@ -47,6 +47,9 @@ namespace EngrLink.Models
 
         [Column("bday")]
         public string Birthday { get; set; }
+
+        [Column("password")]
+        public string Password { get; set; }
     }
 }
 
