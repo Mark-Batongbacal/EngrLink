@@ -48,11 +48,16 @@ namespace EngrLink
         {
             try
             {
-                var lastStudentResponse = await supabaseClient
-                    .From<Student>()
-                    .Order("id", Ordering.Descending)
-                    .Limit(1)
-                    .Get();
+                
+
+var studentResponse = await supabaseClient
+    .From<Student>()
+    .Filter("id", Postgrest.Constants.Operator.Equals, "9")
+    .Get();
+
+
+
+
 
                 var student = lastStudentResponse.Models.FirstOrDefault();
                 if (student != null)
