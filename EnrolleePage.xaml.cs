@@ -59,6 +59,7 @@ namespace EngrLink
             string address = AddressTextBox.Text;
             string contact = ContactTextBox.Text;  // You might want to handle errors here (e.g., try-catch)
             string birthday = BirthdayDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd");  // Ensure the user selected a date
+            int units = 0; //placeholder only
             var lastStudentResponse = await App.SupabaseClient
             .From<Student>()
             .Order("id", Supabase.Postgrest.Constants.Ordering.Descending) // true means descending order to get the last inserted record
@@ -82,7 +83,7 @@ namespace EngrLink
                 Address = address,
                 Contact = contact,
                 Year = year,
-                Fees = 12312,
+                Fees = 123123,
                 Program = program,
                 Birthday = birthday,
                 Enrolled = false,  // You can change the default based on your requirement
@@ -128,6 +129,5 @@ namespace EngrLink
             }
             CheckValid();
         }
-
     }
 }
