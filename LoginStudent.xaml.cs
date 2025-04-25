@@ -47,6 +47,11 @@ namespace EngrLink
 
         private async void ChangePasswordButton_Click(object sender, RoutedEventArgs e)
         {
+            ChangePasswordPanel.Visibility = Visibility.Visible;
+        }
+
+        private async void SubmitNewPassword_Click(object sender, RoutedEventArgs e)
+        {
             string studentIdInput = StudentID.Text.Trim();
             string newPassword = NewPassword.Password.Trim();
             string confirmPassword = ConfirmNewPassword.Password.Trim();
@@ -74,15 +79,10 @@ namespace EngrLink
 
                 if (student != null)
                 {
-                    // ?? Set the password
                     student.Password = newPassword;
-
-                    // ? Ensure ID is set so Supabase knows which record to update
                     student.Id = int.Parse(studentIdInput);
 
-                    // ? Use .Update() on a list with the specific student
                     var result = await supabaseClient.From<Student>().Update(student);
-
                     await ShowDialog("Success", "Password successfully changed!");
                 }
                 else
@@ -95,7 +95,6 @@ namespace EngrLink
                 await ShowDialog("Error", $"Something went wrong: {ex.Message}");
             }
         }
-
 
 
         private async void SubmitButton_Click(object sender, RoutedEventArgs e)
