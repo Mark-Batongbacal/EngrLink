@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="EngrLink.FacultyPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -11,13 +10,37 @@
 
     <Grid Padding="20">
         <Button
-    x:Name="BackButton"
-    Content="←"
-    HorizontalAlignment="Left"
-    VerticalAlignment="Top"
-    Width="40"
-    Height="40"
-    Click="BackButton_Click" />
+            x:Name="BackButton"
+            Content="←"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Width="40"
+            Height="40"
+            Click="BackButton_Click" />
 
+        <StackPanel Padding="20,60,20,20" Spacing="20" HorizontalAlignment="Center" Width="500">
+            <TextBlock Text="Faculty Information" FontSize="24" FontWeight="Bold" TextAlignment="Center"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
+                <TextBox x:Name="FacultyIdInput" PlaceholderText="Enter Faculty ID" Width="200"/>
+                <Button x:Name="SearchButton" Content="Search" Click="SearchButton_Click" Width="100"/>
+            </StackPanel>
+
+            <Border BorderBrush="Gray" BorderThickness="1" Padding="20" CornerRadius="10" Background="#FFF9F9F9" Visibility="Collapsed" x:Name="InfoCard">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Name:" FontWeight="SemiBold"/>
+                    <TextBlock x:Name="NameText" Text="--"/>
+
+                    <TextBlock Text="Department:" FontWeight="SemiBold"/>
+                    <TextBlock x:Name="DepartmentText" Text="--"/>
+
+                    <TextBlock Text="Position:" FontWeight="SemiBold"/>
+                    <TextBlock x:Name="PositionText" Text="--"/>
+
+                    <TextBlock Text="Salary:" FontWeight="SemiBold"/>
+                    <TextBlock x:Name="SalaryText" Text="--"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
     </Grid>
 </Page>
