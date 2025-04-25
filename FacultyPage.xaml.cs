@@ -2,6 +2,7 @@ using EngrLink.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Supabase;
+using Supabase.Postgrest;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -46,7 +47,7 @@ namespace EngrLink
         {
             if (!int.TryParse(FacultyIdInput.Text, out var facultyId))
             {
-                await ShowDialogAsync("Please enter a valid Faculty ID.");
+                await ShowDialogAsync("Please enter a valid faculty ID.");
                 return;
             }
 
@@ -57,32 +58,44 @@ namespace EngrLink
                     .Filter("id", Operator.Equals, facultyId)
                     .Get();
 
-                if (response != null && response.Models.Any())
+                if (response != null && response.Models != null && response.Models.Any())
                 {
                     currentFaculty = response.Models.First();
                     NameText.Text = currentFaculty.Name;
                     DepartmentText.Text = currentFaculty.Department;
-                    PositionText.Text = currentFaculty.Position;
-                    SalaryText.Text = $"?{currentFaculty.Salary:N0}";
-                    InfoCard.Visibility = Visibility.Visible;
+                    FacultyInfoPanel.Visibility = Visibility.Visible;
                 }
                 else
                 {
+                    FacultyInfoPanel.Visibility = Visibility.Collapsed;
                     await ShowDialogAsync("Faculty not found.");
-                    InfoCard.Visibility = Visibility.Collapsed;
                 }
             }
             catch (Exception ex)
             {
-                await ShowDialogAsync("Search error: " + ex.Message);
+                await ShowDialogAsync("Error fetching faculty: " + ex.Message);
             }
+        }
+
+        private void ScheduleButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Placeholder for navigation
+            // this.Frame.Navigate(typeof(SchedulePage));
+            _ = ShowDialogAsync("Schedule page not yet available.");
+        }
+
+        private void ListOfStudentsButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Placeholder for navigation
+            // this.Frame.Navigate(typeof(ListOfStudentsPage));
+            _ = ShowDialogAsync("List of Students page not yet available.");
         }
 
         private async Task ShowDialogAsync(string message)
         {
             var dialog = new ContentDialog
             {
-                Title = "Notification",
+                Title = "Info",
                 Content = message,
                 CloseButtonText = "OK",
                 XamlRoot = this.XamlRoot

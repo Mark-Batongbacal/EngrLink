@@ -28,7 +28,7 @@
                 <TextBlock x:Name="ProgramText" Text="--"/>
                 <TextBlock Text="Year:"/>
                 <TextBlock x:Name="YearText" Text="--"/>
-                <TextBlock Text="Total Fees:"/>
+                <TextBlock Text="Total Fees: Php"/>
                 <TextBlock x:Name="TotalFeesText" Text="--"/>
 
                 <TextBlock Text="Search Student by ID" FontSize="16" FontWeight="SemiBold" Margin="0,10,0,0"/>
@@ -40,11 +40,11 @@
                 <StackPanel x:Name="InfoPanel" Visibility="Collapsed" Spacing="10">
                     <TextBlock Text="Payment Details" FontSize="18" FontWeight="Bold"/>
                     <StackPanel Orientation="Horizontal" Spacing="10">
-                        <TextBlock Text="Total Fees:"/>
+                        <TextBlock Text="Total Fees: Php"/>
                         <TextBlock x:Name="S_TotalFeesText" Text="--"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Spacing="10">
-                        <TextBlock Text="Remaining Balance:"/>
+                        <TextBlock Text="Remaining Balance: Php"/>
                         <TextBlock x:Name="RemainingBalanceText" Text="--"/>
                     </StackPanel>
                     <TextBlock Text="Amount Paid" FontSize="16"/>
