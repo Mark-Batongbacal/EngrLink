@@ -32,5 +32,30 @@ namespace EngrLink
             if (Frame.CanGoBack)
                 Frame.GoBack();
         }
+
+        private void Schedules_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ListStudents_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ListFaculty_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Announcements_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Enrollees_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
