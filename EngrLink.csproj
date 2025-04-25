@@ -13,6 +13,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Main Window\Department Chairman\SubPages\Dashboard.xaml" />
     <None Remove="MainPage.xaml" />
   </ItemGroup>
 
@@ -49,7 +50,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Main Window\Department Chairman\SubPages\" />
+    <Page Update="Main Window\Department Chairman\SubPages\Dashboard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <!--
