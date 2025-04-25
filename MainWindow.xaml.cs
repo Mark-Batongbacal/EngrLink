@@ -23,53 +23,7 @@ namespace EngrLink
         public MainWindow()
         {
             this.InitializeComponent();
+            MainFrame.Navigate(typeof(MainPage));
         }
-
-        private void DisableAndHideButtons()
-        {
-            StudentButton.IsEnabled = false;
-            FacultyButton.IsEnabled = false;
-            DepartmentButton.IsEnabled = false;
-            AccountingButton.IsEnabled = false;
-            EnrolleeButton.IsEnabled = false;
-
-            StudentButton.Visibility = Visibility.Collapsed;
-            FacultyButton.Visibility = Visibility.Collapsed;
-            DepartmentButton.Visibility = Visibility.Collapsed;
-            AccountingButton.Visibility = Visibility.Collapsed;
-            EnrolleeButton.Visibility = Visibility.Collapsed;
-        }
-
-        private void StudentButton_Click(object sender, RoutedEventArgs e)
-        {
-            DisableAndHideButtons();
-            MainFrame.Navigate(typeof(LoginStudent)); // Navigate to StudentPage
-        }
-
-        private void FacultyButton_Click(object sender, RoutedEventArgs e)
-        {
-            DisableAndHideButtons();
-            MainFrame.Navigate(typeof(FacultyPage)); // Navigate to FacultyPage
-        }
-
-        private void DepartmentButton_Click(object sender, RoutedEventArgs e)
-        {
-            DisableAndHideButtons();
-            MainFrame.Navigate(typeof(DepartmentPage)); // Navigate to DepartmentPage
-        }
-
-        private void AccountingButton_Click(object sender, RoutedEventArgs e)
-        {
-            DisableAndHideButtons();
-            MainFrame.Navigate(typeof(AccountingPage));
-        }
-
-        private void EnrolleeButton_Click(object sender, RoutedEventArgs e)
-        {
-            DisableAndHideButtons();
-            MainFrame.Navigate(typeof(EnrolleePage));
-        }
-
-
     }
 }

@@ -1,4 +1,4 @@
-<Page
+﻿<Page
     x:Class="EngrLink.EnrolleePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -9,6 +9,14 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Padding="20">
+        <Button
+        x:Name="BackButton"
+        Content="←"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Top"
+        Width="40"
+        Height="40"
+        Click="BackButton_Click" />
         <!-- StackPanel will organize the elements vertically -->
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="15">
             <!-- Name Field -->
