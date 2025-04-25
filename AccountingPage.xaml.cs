@@ -95,62 +95,6 @@ namespace EngrLink
             }
         }
 
-        private async void UpdateStudentInfo_Click(object sender, RoutedEventArgs e)
-        {
-            if (currentStudent == null)
-            {
-                await ShowDialogAsync("No student loaded to update.");
-                return;
-            }
-
-            try
-            {
-                var updatedStudent = new Student
-                {
-                    Id = currentStudent.Id,
-                    Name = NameText.Text,
-                    Program = ProgramText.Text,
-                    Year = YearText.Text
-                };
-
-                var updateResponse = await supabaseClient
-                    .From<Student>()
-                    .Where(x => x.Id == updatedStudent.Id)
-                    .Update(updatedStudent);
-
-                if (updateResponse != null && updateResponse.ResponseMessage.IsSuccessStatusCode)
-                {
-                    await ShowDialogAsync("Student information updated successfully!");
-
-                    var getResponse = await supabaseClient
-                        .From<Student>()
-                        .Where(x => x.Id == currentStudent.Id)
-                        .Get();
-
-                    if (getResponse != null && getResponse.Models != null && getResponse.Models.Any())
-                    {
-                        var refreshedStudent = getResponse.Models.FirstOrDefault();
-                        if (refreshedStudent != null)
-                        {
-                            currentStudent = refreshedStudent;
-                            NameText.Text = currentStudent.Name;
-                            ProgramText.Text = currentStudent.Program;
-                            YearText.Text = currentStudent.Year;
-                        }
-                    }
-                }
-                else
-                {
-                    string errorContent = await updateResponse?.ResponseMessage?.Content?.ReadAsStringAsync();
-                    await ShowDialogAsync($"Failed to update student information: {updateResponse?.ResponseMessage?.ReasonPhrase} - {errorContent}");
-                }
-            }
-            catch (Exception ex)
-            {
-                await ShowDialogAsync("Update error: " + ex.Message);
-            }
-        }
-
         private async void SubmitPaymentButton_Click(object sender, RoutedEventArgs e)
         {
             if (currentStudent == null)
@@ -184,7 +128,7 @@ namespace EngrLink
                 {
                     RemainingBalanceText.Text = currentStudent.Fees?.ToString("N0");
                     AmountPaidInput.Text = string.Empty;
-                    await ShowDialogAsync($"Payment successful. Remaining balance: ?{currentStudent.Fees:N0}");
+                    await ShowDialogAsync($"Payment successful. Remaining balance: {currentStudent.Fees:N0}");
 
                     var getResponse = await supabaseClient
                         .From<Student>()
