@@ -14,11 +14,12 @@
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Spacing="1" Background="Beige" Height="1080" BorderBrush="Black" BorderThickness="0">
         <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="40" Click="BackButton_Click" />
         <AppBarSeparator/>
+            <Button x:Name="Dashboard" Content="Dashboard" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="40" HorizontalContentAlignment="Left" Click="Schedules_Click" />
             <Button x:Name="Schedules" Content="Schedules" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="40" HorizontalContentAlignment="Left" Click="Schedules_Click" />
             <Button x:Name="ListStudents" Content="List of Students" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="40" HorizontalContentAlignment="Left" Click="ListStudents_Click" />
             <Button x:Name="ListFaculty" Content="List of Faculty" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="40" HorizontalContentAlignment="Left" Click="ListFaculty_Click" />
             <Button x:Name="Announcements" Content="Announcements" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="40" HorizontalContentAlignment="Left" Click="Announcements_Click" />
-            <Button x:Name="Enrollees" Content="Enrollees" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" HorizontalContentAlignment="Left" Click="Enrollees_Click" />
+            <Button x:Name="Enrollees" Content="Enrollees" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="40" HorizontalContentAlignment="Left" Click="Enrollees_Click" />
     </StackPanel>
         
     </Grid>
