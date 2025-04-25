@@ -10,14 +10,26 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Padding="20">
-        <Button
-    x:Name="BackButton"
-    Content="←"
-    HorizontalAlignment="Left"
-    VerticalAlignment="Top"
-    Width="40"
-    Height="40"
-    Click="BackButton_Click" />
+        
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Spacing="15" Background="Beige" Height="929" BorderBrush="Black" BorderThickness="1">
+
+            <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="40" Click="BackButton_Click"/>
+
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Spacing="1">
+
+                <Button x:Name="DashboardButton" Content="Dashboard" Width="200" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left"/>
+
+                <Button x:Name="AcadPerformanceButton" Content="Academic Performance" Width="200" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left"/>
+
+                <Button x:Name="PerInfoButton" Content="Personal Information" Width="200" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left"/>
+
+                <Button x:Name="ScheduleButton" Content="Schedule" Width="200" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left"/>
+
+                <Button x:Name="FeesButton" Content="Fees" Width="200" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left"/>
+
+            </StackPanel>
+
+        </StackPanel>
 
     </Grid>
 </Page>
