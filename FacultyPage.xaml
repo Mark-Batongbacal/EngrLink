@@ -9,7 +9,41 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid Padding="20">
+        <Button
+            x:Name="BackButton"
+            Content="←"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Width="40"
+            Height="40"
+            Click="BackButton_Click" />
 
+        <StackPanel Padding="20,60,20,20" Spacing="20">
+            <StackPanel Spacing="10" BorderThickness="1" BorderBrush="Gray" Padding="10">
+                <TextBlock Text="Faculty Information" FontSize="18" FontWeight="Bold"/>
+                <TextBlock Text="Name:"/>
+                <TextBlock x:Name="NameText" Text="--"/>
+                <TextBlock Text="Department:"/>
+                <TextBlock x:Name="DepartmentText" Text="--"/>
+                <TextBlock Text="Position:"/>
+                <TextBlock x:Name="PositionText" Text="--"/>
+
+                <TextBlock Text="Search Faculty by ID" FontSize="16" FontWeight="SemiBold" Margin="0,10,0,0"/>
+                <TextBox x:Name="FacultyIdInput" PlaceholderText="Enter Faculty ID" InputScope="Number" Width="200"/>
+                <Button x:Name="SearchButton" Content="Search" Click="SearchButton_Click" Width="100"/>
+            </StackPanel>
+
+            <Border BorderThickness="1" BorderBrush="Gray" Padding="10">
+                <StackPanel x:Name="InfoPanel" Visibility="Collapsed" Spacing="10">
+                    <TextBlock Text="Details" FontSize="18" FontWeight="Bold"/>
+                    <TextBlock Text="Salary:"/>
+                    <TextBlock x:Name="SalaryText" Text="--"/>
+                    <TextBlock Text="Update Salary" FontSize="16"/>
+                    <TextBox x:Name="NewSalaryInput" PlaceholderText="₱0" InputScope="Number" Width="150"/>
+                    <Button x:Name="UpdateSalaryButton" Content="Update Salary" Click="UpdateSalaryButton_Click" Width="140"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
     </Grid>
 </Page>
