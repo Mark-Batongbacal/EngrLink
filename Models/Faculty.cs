@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using Supabase.Postgrest.Attributes;
 using Supabase.Postgrest.Models;
 
@@ -24,6 +25,6 @@ namespace EngrLink.Models
         public string Position { get; set; }
 
         [Column("salary")]
-        public decimal? Salary { get; set; }
+        public int Salary { get; set; }
     }
 }

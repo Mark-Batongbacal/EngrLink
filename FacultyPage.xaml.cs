@@ -2,7 +2,6 @@ using EngrLink.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Supabase;
-using Supabase.Postgrest;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -47,7 +46,7 @@ namespace EngrLink
         {
             if (!int.TryParse(FacultyIdInput.Text, out var facultyId))
             {
-                await ShowDialogAsync("Please enter a valid faculty ID.");
+                await ShowDialogAsync("Please enter a valid Faculty ID.");
                 return;
             }
 
@@ -58,85 +57,25 @@ namespace EngrLink
                     .Filter("id", Operator.Equals, facultyId)
                     .Get();
 
-                if (response != null && response.Models != null && response.Models.Any())
+                if (response != null && response.Models.Any())
                 {
-                    var faculty = response.Models.FirstOrDefault();
-                    if (faculty != null)
-                    {
-                        currentFaculty = faculty;
-                        NameText.Text = faculty.Name;
-                        DepartmentText.Text = faculty.Department;
-                        PositionText.Text = faculty.Position;
-                        SalaryText.Text = faculty.Salary?.ToString("N0") ?? "?0";
-
-                        InfoPanel.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        ResetFields();
-                        await ShowDialogAsync("Faculty not found.");
-                    }
+                    currentFaculty = response.Models.First();
+                    NameText.Text = currentFaculty.Name;
+                    DepartmentText.Text = currentFaculty.Department;
+                    PositionText.Text = currentFaculty.Position;
+                    SalaryText.Text = $"?{currentFaculty.Salary:N0}";
+                    InfoCard.Visibility = Visibility.Visible;
                 }
                 else
                 {
-                    await ShowDialogAsync("Search error: Faculty not found.");
+                    await ShowDialogAsync("Faculty not found.");
+                    InfoCard.Visibility = Visibility.Collapsed;
                 }
             }
             catch (Exception ex)
             {
                 await ShowDialogAsync("Search error: " + ex.Message);
             }
-        }
-
-        private async void UpdateSalaryButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (currentFaculty == null)
-            {
-                await ShowDialogAsync("No faculty loaded to update.");
-                return;
-            }
-
-            if (!decimal.TryParse(NewSalaryInput.Text, out var newSalary) || newSalary <= 0)
-            {
-                await ShowDialogAsync("Please enter a valid salary amount.");
-                return;
-            }
-
-            try
-            {
-                currentFaculty.Salary = newSalary;
-
-                var updateResponse = await supabaseClient
-                    .From<Faculty>()
-                    .Where(x => x.Id == currentFaculty.Id)
-                    .Update(currentFaculty);
-
-                if (updateResponse != null && updateResponse.ResponseMessage.IsSuccessStatusCode)
-                {
-                    SalaryText.Text = currentFaculty.Salary?.ToString("N0");
-                    NewSalaryInput.Text = string.Empty;
-                    await ShowDialogAsync("Salary updated successfully!");
-                }
-                else
-                {
-                    string errorContent = await updateResponse?.ResponseMessage?.Content?.ReadAsStringAsync();
-                    await ShowDialogAsync($"Failed to update salary: {updateResponse?.ResponseMessage?.ReasonPhrase} - {errorContent}");
-                }
-            }
-            catch (Exception ex)
-            {
-                await ShowDialogAsync("Update error: " + ex.Message);
-            }
-        }
-
-        private void ResetFields()
-        {
-            currentFaculty = null;
-            NameText.Text = "--";
-            DepartmentText.Text = "--";
-            PositionText.Text = "--";
-            SalaryText.Text = "--";
-            InfoPanel.Visibility = Visibility.Collapsed;
         }
 
         private async Task ShowDialogAsync(string message)
@@ -150,11 +89,6 @@ namespace EngrLink
             };
 
             await dialog.ShowAsync();
-        }
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (Frame.CanGoBack)
-                Frame.GoBack();
         }
     }
 }
