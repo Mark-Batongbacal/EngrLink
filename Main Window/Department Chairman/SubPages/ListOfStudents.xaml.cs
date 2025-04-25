@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using EngrLink.Main_Window.Department_Chairman.SubPages;
-using EngrLink.Main_Window.Students;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -18,14 +16,14 @@ using Windows.Foundation.Collections;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace EngrLink.Main_Window.Department_Chairman
+namespace EngrLink.Main_Window.Department_Chairman.SubPages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class DepartmentPage : Page
+    public sealed partial class ListOfStudents : Page
     {
-        public DepartmentPage()
+        public ListOfStudents()
         {
             this.InitializeComponent();
         }
@@ -33,36 +31,6 @@ namespace EngrLink.Main_Window.Department_Chairman
         {
             if (Frame.CanGoBack)
                 Frame.GoBack();
-        }
-
-        private void Schedules_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ListStudents_Click(object sender, RoutedEventArgs e)
-        {
-            DeptartmentChairFrame.Navigate(typeof(ListOfStudents));
-        }
-
-        private void ListFaculty_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Announcements_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Enrollees_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Dashboard_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

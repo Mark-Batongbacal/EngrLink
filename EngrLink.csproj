@@ -14,6 +14,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Main Window\Department Chairman\SubPages\Dashboard.xaml" />
+    <None Remove="Main Window\Department Chairman\SubPages\ListOfStudents.xaml" />
     <None Remove="MainPage.xaml" />
   </ItemGroup>
 
@@ -43,6 +44,11 @@
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250401001" />
     <PackageReference Include="Supabase" Version="1.1.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Main Window\Department Chairman\SubPages\ListOfStudents.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="MainPage.xaml">
