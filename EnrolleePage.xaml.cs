@@ -23,9 +23,6 @@ using Supabase.Postgrest;
 
 namespace EngrLink
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class EnrolleePage : Page
     {
         public EnrolleePage()
@@ -52,7 +49,12 @@ namespace EngrLink
                 SubmitButton.IsEnabled = isValid;
             }
         }
-        
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Frame.CanGoBack)
+                Frame.GoBack();
+        }
         private async void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
             // Collecting values from the input fields

@@ -9,7 +9,15 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid Padding="20">
+        <Button
+    x:Name="BackButton"
+    Content="←"
+    HorizontalAlignment="Left"
+    VerticalAlignment="Top"
+    Width="40"
+    Height="40"
+    Click="BackButton_Click" />
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="15">
             <TextBox x:Name="StudentID" PlaceholderText="Enter ID" TextChanged="Input_TextChanged" Width="300" Height="40" Padding="10"/>
 
