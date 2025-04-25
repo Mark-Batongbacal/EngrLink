@@ -12,7 +12,7 @@ namespace EngrLink.Models
     [Table("Student_Info")]
     public class Student : BaseModel
     {
-        [PrimaryKey("id", false)]
+        [Column("id")]
         public int Id { get; set; }
 
         [Column("name")]
