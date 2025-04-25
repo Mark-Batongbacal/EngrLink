@@ -44,7 +44,59 @@ namespace EngrLink
         {
             CheckValid();
         }
-        
+
+        private async void ChangePasswordButton_Click(object sender, RoutedEventArgs e)
+        {
+            ChangePasswordPanel.Visibility = Visibility.Visible;
+        }
+
+        private async void SubmitNewPassword_Click(object sender, RoutedEventArgs e)
+        {
+            string studentIdInput = StudentID.Text.Trim();
+            string newPassword = NewPassword.Password.Trim();
+            string confirmPassword = ConfirmNewPassword.Password.Trim();
+
+            if (string.IsNullOrEmpty(studentIdInput) || string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmPassword))
+            {
+                await ShowDialog("Missing Fields", "Please fill in all fields.");
+                return;
+            }
+
+            if (newPassword != confirmPassword)
+            {
+                await ShowDialog("Password Mismatch", "New passwords do not match.");
+                return;
+            }
+
+            try
+            {
+                var studentResponse = await supabaseClient
+                    .From<Student>()
+                    .Filter("id", Supabase.Postgrest.Constants.Operator.Equals, int.Parse(studentIdInput))
+                    .Get();
+
+                var student = studentResponse.Models.FirstOrDefault();
+
+                if (student != null)
+                {
+                    student.Password = newPassword;
+                    student.Id = int.Parse(studentIdInput);
+
+                    var result = await supabaseClient.From<Student>().Update(student);
+                    await ShowDialog("Success", "Password successfully changed!");
+                }
+                else
+                {
+                    await ShowDialog("User Not Found", "No student found with the given ID.");
+                }
+            }
+            catch (Exception ex)
+            {
+                await ShowDialog("Error", $"Something went wrong: {ex.Message}");
+            }
+        }
+
+
         private async void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
             string studentid = StudentID.Text.Trim();
@@ -102,5 +154,18 @@ namespace EngrLink
                 await errorDialog.ShowAsync();
             }
         }
+
+        private async Task ShowDialog(string title, string message)
+        {
+            var dialog = new ContentDialog
+            {
+                Title = title,
+                Content = message,
+                CloseButtonText = "OK",
+                XamlRoot = this.XamlRoot
+            };
+            await dialog.ShowAsync();
+        }
+
     }
 }

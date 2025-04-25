@@ -19,13 +19,26 @@
     Height="40"
     Click="BackButton_Click" />
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="15">
+
             <TextBox x:Name="StudentID" PlaceholderText="Enter ID" TextChanged="Input_TextChanged" Width="300" Height="40" Padding="10"/>
 
             <PasswordBox x:Name="Password" PlaceholderText="Enter Password" PasswordChanged="Input_TextChanged" PasswordRevealMode="Peek" Width="300" Height="40" Padding="10"/>
 
             <TextBlock x:Name="PasswordInstruction" Text="New Users will have the same Password as their Student ID" Width="375" Height="40" Padding="10"/>
 
-            <Button Name="SubmitButton" Content="Submit" Width="100" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SubmitButton_Click"/>
+            <Button x:Name="ChangePasswordButton" Content="Change Password" Width="150" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ChangePasswordButton_Click"/>
+
+            <Button x:Name="SubmitButton" Content="Submit" Width="100" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SubmitButton_Click"/>
+
+            <StackPanel x:Name="ChangePasswordPanel" Visibility="Collapsed" Spacing="10">
+
+                <PasswordBox x:Name="NewPassword" PlaceholderText="New Password" Width="300" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <PasswordBox x:Name="ConfirmNewPassword" PlaceholderText="Confirm New Password" Width="300" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <Button Content="Submit New Password" Click="SubmitNewPassword_Click" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            </StackPanel>
 
         </StackPanel>
     </Grid>
