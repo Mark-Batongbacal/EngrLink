@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="EngrLink.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EngrLink"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Padding="20">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10">
+            <Button x:Name="StudentButton" Content="Student" Width="200" Margin="10" Click="StudentButton_Click"/>
+            <Button x:Name="FacultyButton" Content="Faculty/Instructor" Width="200" Margin="10" Click="FacultyButton_Click"/>
+            <Button x:Name="DepartmentButton" Content="Department Chairman" Width="200" Margin="10" Click="DepartmentButton_Click"/>
+            <Button x:Name="AccountingButton" Content="Accounting" Width="200" Margin="10" Click="AccountingButton_Click"/>
+            <Button x:Name="EnrolleeButton" Content="Enrollee" Width="200" Margin="10" Click="EnrolleeButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

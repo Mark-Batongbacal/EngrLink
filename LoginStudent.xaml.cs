@@ -27,7 +27,12 @@ namespace EngrLink
             );
             await supabaseClient.InitializeAsync();
         }
-
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Frame.CanGoBack)
+                Frame.GoBack();
+        }
+        
         private void CheckValid()
         {
             bool isValid = !string.IsNullOrWhiteSpace(StudentID.Text) &&
