@@ -31,7 +31,7 @@ namespace EngrLink.Models
         public string Program { get; set; }
 
         [Column("fees")]
-        public int Fees { get; set; }
+        public int? Fees { get; set; }
 
         [Column("total_fees")]
         public int? Total { get; set; }

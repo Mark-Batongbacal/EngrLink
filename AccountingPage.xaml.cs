@@ -71,7 +71,7 @@ namespace EngrLink
 
                         InfoPanel.Visibility = Visibility.Visible;
                         S_TotalFeesText.Text = student.Total?.ToString("N0") ?? "?0";
-                        RemainingBalanceText.Text = student.Fees.ToString("N0");
+                        RemainingBalanceText.Text = student.Fees?.ToString("N0");
                     }
                     else
                     {
@@ -182,7 +182,7 @@ namespace EngrLink
 
                 if (updateResponse != null && updateResponse.ResponseMessage.IsSuccessStatusCode)
                 {
-                    RemainingBalanceText.Text = currentStudent.Fees.ToString("N0");
+                    RemainingBalanceText.Text = currentStudent.Fees?.ToString("N0");
                     AmountPaidInput.Text = string.Empty;
                     await ShowDialogAsync($"Payment successful. Remaining balance: ?{currentStudent.Fees:N0}");
 
