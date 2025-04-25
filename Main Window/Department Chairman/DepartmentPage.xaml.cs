@@ -57,5 +57,10 @@ namespace EngrLink.Main_Window.Department_Chairman
         {
 
         }
+
+        private void Dashboard_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
