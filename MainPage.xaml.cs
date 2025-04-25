@@ -46,31 +46,31 @@ namespace EngrLink
         private void StudentButton_Click(object sender, RoutedEventArgs e)
         {
             DisableAndHideButtons();
-            Frame.Navigate(typeof(LoginStudent)); // Navigate to StudentPage
+            Frame.Navigate(typeof(Main_Window.Students.LoginStudent)); // Navigate to StudentPage
         }
 
         private void FacultyButton_Click(object sender, RoutedEventArgs e)
         {
             DisableAndHideButtons();
-            Frame.Navigate(typeof(FacultyPage)); // Navigate to FacultyPage
+            Frame.Navigate(typeof(Main_Window.Instructor.FacultyPage)); // Navigate to FacultyPage
         }
 
         private void DepartmentButton_Click(object sender, RoutedEventArgs e)
         {
             DisableAndHideButtons();
-            Frame.Navigate(typeof(DepartmentPage)); // Navigate to DepartmentPage
+            Frame.Navigate(typeof(Main_Window.Department_Chairman.DepartmentPage)); // Navigate to DepartmentPage
         }
 
         private void AccountingButton_Click(object sender, RoutedEventArgs e)
         {
             DisableAndHideButtons();
-            Frame.Navigate(typeof(AccountingPage));
+            Frame.Navigate(typeof(Main_Window.Accounting.AccountingPage));
         }
 
         private void EnrolleeButton_Click(object sender, RoutedEventArgs e)
         {
             DisableAndHideButtons();
-            Frame.Navigate(typeof(EnrolleePage));
+            Frame.Navigate(typeof(Main_Window.Enrollee.EnrolleePage));
         }
     }
 }

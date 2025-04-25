@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using static Supabase.Postgrest.Constants;
 
-namespace EngrLink
+namespace EngrLink.Main_Window.Instructor
 {
     public sealed partial class FacultyPage : Page
     {

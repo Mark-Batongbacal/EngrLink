@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Cryptography.X509Certificates;
 
-namespace EngrLink
+namespace EngrLink.Main_Window.Students
 {
     public sealed partial class LoginStudent : Page
     {

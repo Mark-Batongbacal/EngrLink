@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using static Supabase.Postgrest.Constants;
 
-namespace EngrLink
+namespace EngrLink.Main_Window.Accounting
 {
     public sealed partial class AccountingPage : Page
     {
