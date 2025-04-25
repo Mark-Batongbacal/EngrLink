@@ -28,6 +28,7 @@ namespace EngrLink.Main_Window.Department_Chairman
         public DepartmentPage()
         {
             this.InitializeComponent();
+            DepartmentChairFrame.Navigate(typeof(Dashboard));
         }
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
@@ -42,7 +43,7 @@ namespace EngrLink.Main_Window.Department_Chairman
 
         private void ListStudents_Click(object sender, RoutedEventArgs e)
         {
-            DeptartmentChairFrame.Navigate(typeof(ListOfStudents));
+            DepartmentChairFrame.Navigate(typeof(ListOfStudents));
         }
 
         private void ListFaculty_Click(object sender, RoutedEventArgs e)
@@ -57,12 +58,12 @@ namespace EngrLink.Main_Window.Department_Chairman
 
         private void Enrollees_Click(object sender, RoutedEventArgs e)
         {
-
+            DepartmentChairFrame.Navigate(typeof(Enrollees));
         }
 
         private void Dashboard_Click(object sender, RoutedEventArgs e)
         {
-
+            DepartmentChairFrame.Navigate(typeof(Dashboard));
         }
     }
 }

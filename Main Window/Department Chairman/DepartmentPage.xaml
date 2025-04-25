@@ -29,6 +29,6 @@
         </StackPanel>
 
         <!-- Content Frame -->
-        <Frame x:Name="DeptartmentChairFrame" Grid.Column="1" />
+        <Frame x:Name="DepartmentChairFrame" Grid.Column="1" />
     </Grid>
 </Page>
