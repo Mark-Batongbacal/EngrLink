@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid Padding="0" Background="#f7e8d9">
         <TextBlock Text="Dashboard Placeholder" FontSize="24" Foreground="Blue" HorizontalAlignment="Center" VerticalAlignment="Center" />
     </Grid>
 </Page>
