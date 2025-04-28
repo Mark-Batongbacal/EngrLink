@@ -38,32 +38,57 @@ namespace EngrLink.Main_Window.Department_Chairman
 
         private void Schedules_Click(object sender, RoutedEventArgs e)
         {
-
+            //if (DepartmentChairFrame.Content?.GetType() != typeof(Schedules))
+            //{
+            //    DepartmentChairFrame.Content = null;
+            //    DepartmentChairFrame.Navigate(typeof(Schedules));
+            //}
         }
+       
 
         private void ListStudents_Click(object sender, RoutedEventArgs e)
         {
-            DepartmentChairFrame.Navigate(typeof(ListOfStudents));
+            if (DepartmentChairFrame.Content?.GetType() != typeof(ListOfStudents))
+            {
+                DepartmentChairFrame.Content = null;
+                DepartmentChairFrame.Navigate(typeof(ListOfStudents));
+            }
         }
 
         private void ListFaculty_Click(object sender, RoutedEventArgs e)
         {
-
+            //if (DepartmentChairFrame.Content?.GetType() != typeof(ListOfFaculty))
+            //{
+            //    DepartmentChairFrame.Content = null;
+            //    DepartmentChairFrame.Navigate(typeof(ListOfFaculty));
+            //}
         }
 
         private void Announcements_Click(object sender, RoutedEventArgs e)
         {
-
+            //if (DepartmentChairFrame.Content?.GetType() != typeof(Accouncements))
+            //{
+            //    DepartmentChairFrame.Content = null;
+            //    DepartmentChairFrame.Navigate(typeof(Announcements));
+            //}
         }
 
         private void Enrollees_Click(object sender, RoutedEventArgs e)
         {
-            DepartmentChairFrame.Navigate(typeof(Enrollees));
+            if (DepartmentChairFrame.Content?.GetType() != typeof(Enrollees))
+            {
+                DepartmentChairFrame.Content = null;
+                DepartmentChairFrame.Navigate(typeof(Enrollees));
+            }
         }
 
         private void Dashboard_Click(object sender, RoutedEventArgs e)
         {
-            DepartmentChairFrame.Navigate(typeof(Dashboard));
+            if (DepartmentChairFrame.Content?.GetType() != typeof(Dashboard))
+            {
+                DepartmentChairFrame.Content = null;
+                DepartmentChairFrame.Navigate(typeof(Dashboard));
+            }
         }
     }
 }
