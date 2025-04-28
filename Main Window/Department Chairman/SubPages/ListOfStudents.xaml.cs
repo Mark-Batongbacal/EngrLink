@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using EngrLink.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -26,6 +27,19 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
         public ListOfStudents()
         {
             this.InitializeComponent();
+            LoadStudents();
+        }
+
+        private async void LoadStudents()
+        {
+            var client = App.SupabaseClient;
+
+            var response = await client
+                .From<Student>()
+                .Get();
+
+            // Now you can bind response to your ListView or whatever
+            StudentsListView.ItemsSource = response.Models;
         }
     }
 }
