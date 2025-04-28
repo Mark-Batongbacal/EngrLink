@@ -9,18 +9,24 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Padding="20">
-        <Button
-            x:Name="BackButton"
-            Content="←"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Width="40"
-            Height="40"
-            Click="BackButton_Click" />
+    <Grid Padding="0" Background="#f7e8d9">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- For the Banner -->
+            <RowDefinition Height="*"/>
+            <!-- For the Buttons -->
+        </Grid.RowDefinitions>
 
-        <StackPanel Padding="20,60,20,20" Spacing="20">
-            <StackPanel Spacing="10" BorderThickness="1" BorderBrush="Gray" Padding="10">
+        <Image 
+            Source="C:\Users\STUDENT\Source\Repos\EngrLink\Assets\banner.png" 
+            Stretch="Fill"
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Top"/>
+
+        <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Width="60" Height="40" Click="BackButton_Click" Grid.Row="1" />
+
+        <StackPanel Padding="20,60,20,20" Spacing="20" Grid.Row="1">
+            <StackPanel Spacing="10" BorderThickness="1" BorderBrush="#74441e" Padding="10">
                 <TextBlock Text="Student Information" FontSize="18" FontWeight="Bold"/>
                 <TextBlock Text="Name:"/>
                 <TextBlock x:Name="NameText" Text="--"/>
@@ -36,7 +42,7 @@
                 <Button x:Name="SearchButton" Content="Search" Click="SearchButton_Click" Width="100"/>
             </StackPanel>
 
-            <Border BorderThickness="1" BorderBrush="Gray" Padding="10">
+            <Border BorderThickness="1" BorderBrush="#74441e" Padding="10">
                 <StackPanel x:Name="InfoPanel" Visibility="Collapsed" Spacing="10">
                     <TextBlock Text="Payment Details" FontSize="18" FontWeight="Bold"/>
                     <StackPanel Orientation="Horizontal" Spacing="10">
