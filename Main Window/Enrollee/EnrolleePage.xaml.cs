@@ -135,6 +135,24 @@ namespace EngrLink.Main_Window.Enrollee
             CheckValid();
         }
 
+        private void NumberOnly_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox == null) return;
+
+            int caretIndex = textBox.SelectionStart;
+
+            string filteredText = new string(textBox.Text.Where(char.IsDigit).ToArray());
+
+            if (textBox.Text != filteredText)
+            {
+                textBox.Text = filteredText;
+                textBox.SelectionStart = Math.Min(caretIndex, textBox.Text.Length); // Restore caret position
+            }
+            CheckValid();
+        }
+
+
         private void Input_DateChanged(object sender, DatePickerValueChangedEventArgs e)
         {
             CheckValid();
