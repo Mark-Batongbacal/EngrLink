@@ -9,28 +9,46 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Padding="20">
-        <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="40" Click="BackButton_Click" />
-        
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="15">
+    <Grid Padding="0" Background="#f7e8d9">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- For the Banner -->
+            <RowDefinition Height="*"/>
+            <!-- For the Buttons -->
+        </Grid.RowDefinitions>
 
-            <TextBox x:Name="StudentID" PlaceholderText="Enter ID" TextChanged="Input_TextChanged" Width="300" Height="40" Padding="10"/>
+        <Image 
+            Source="C:\Users\STUDENT\Source\Repos\EngrLink\Assets\banner.png" 
+            Stretch="Fill"
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Top"/>
 
-            <PasswordBox x:Name="Password" PlaceholderText="Enter Password" PasswordChanged="Input_TextChanged" PasswordRevealMode="Peek" Width="300" Height="40" Padding="10"/>
+        <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Width="60" Height="40" Click="BackButton_Click" Grid.Row="1" />
 
-            <TextBlock x:Name="PasswordInstruction" Text="New Users will have the same Password as their Student ID" Width="375" Height="40" Padding="10"/>
+        <StackPanel
+            Grid.Row="1"
+            Orientation="Vertical" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Stretch" 
+            Padding="100">
 
-            <Button x:Name="ChangePasswordButton" Content="Change Password" Width="150" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ChangePasswordButton_Click"/>
+            <TextBox x:Name="StudentID" PlaceholderText="Enter ID" TextChanged="Input_TextChanged" Width="300" Height="40" Margin="5" FontSize="12" FontFamily="Verdana" Padding="10"/>
 
-            <Button x:Name="SubmitButton" Content="Submit" Width="100" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SubmitButton_Click"/>
+            <PasswordBox x:Name="Password" PlaceholderText="Enter Password" PasswordChanged="Input_TextChanged" PasswordRevealMode="Peek" Width="300" Height="40" Margin="5" FontSize="12" FontFamily="Verdana" Padding="10"/>
 
-            <StackPanel x:Name="ChangePasswordPanel" Visibility="Collapsed" Spacing="10">
+            <TextBlock x:Name="PasswordInstruction" Text="New Users will have the same Password as their Student ID" Width="375" Height="40" FontSize="12" FontFamily="Verdana" Foreground="#74441e" Margin="5" Padding="10"/>
 
-                <PasswordBox x:Name="NewPassword" PlaceholderText="New Password" Width="300" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button x:Name="SubmitButton" Content="Submit" Width="300" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SubmitButton_Click" FontSize="14" FontFamily="Verdana" Margin="5" Padding="10" Foreground="#74441e"/>
 
-                <PasswordBox x:Name="ConfirmNewPassword" PlaceholderText="Confirm New Password" Width="300" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button x:Name="ChangePasswordButton" Content="Change Password" Width="300" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ChangePasswordButton_Click" FontSize="14" FontFamily="Verdana" Margin="20" Padding="10" Foreground="#74441e"/>
 
-                <Button Content="Submit New Password" Click="SubmitNewPassword_Click" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <StackPanel x:Name="ChangePasswordPanel" Visibility="Collapsed" Spacing="0">
+
+                <PasswordBox x:Name="NewPassword" PlaceholderText="New Password" Width="300" Height="40" Margin="5" FontSize="12" FontFamily="Verdana" Padding="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <PasswordBox x:Name="ConfirmNewPassword" PlaceholderText="Confirm New Password" Width="300" Height="40" Margin="5" FontSize="12" FontFamily="Verdana" Padding="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <Button Content="Submit New Password" Click="SubmitNewPassword_Click" Width="300" Height="40" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontFamily="Verdana" Foreground="#74441e"/>
 
             </StackPanel>
 
