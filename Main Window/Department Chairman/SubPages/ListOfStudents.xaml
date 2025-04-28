@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="EngrLink.Main_Window.Department_Chairman.SubPages.ListOfStudents"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -9,9 +8,9 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Padding="0">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Spacing="1">
-            <TextBlock Text="List of Students" FontSize="40"/>
+    <Grid Padding="20">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Spacing="20">
+
         </StackPanel>
     </Grid>
 </Page>

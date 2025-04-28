@@ -27,10 +27,5 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
         {
             this.InitializeComponent();
         }
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (Frame.CanGoBack)
-                Frame.GoBack();
-        }
     }
 }
