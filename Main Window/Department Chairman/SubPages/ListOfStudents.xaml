@@ -15,7 +15,7 @@
             <TextBlock Text="List of Students" FontSize="40"/>
             <ListView x:Name="StudentsListView">
                 <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Student">
+                    <DataTemplate x:DataType="models:StudentViewModel">
                         <Button Content="{x:Bind NameStatus}" Click="StudentButton_Click"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>

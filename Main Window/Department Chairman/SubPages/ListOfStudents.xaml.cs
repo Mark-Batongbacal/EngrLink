@@ -39,10 +39,11 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                 .From<Student>()
                 .Get();
 
-            
+            var studentViewModels = response.Models
+                .Select(s => new StudentViewModel { Student2 = s })
+                .ToList();
 
-        // Now you can bind response to your ListView or whatever
-        StudentsListView.ItemsSource = response.Models;
+            StudentsListView.ItemsSource = studentViewModels;
         }
 
         private void StudentButton_Click(object sender, RoutedEventArgs e)

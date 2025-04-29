@@ -69,6 +69,9 @@ namespace EngrLink.Main_Window.Enrollee
             .Limit(1)
             .Get();
 
+  
+            
+
             int newId = 1;  // Default to 1 if no students exist yet
 
             if (lastStudentResponse.Models.Count > 0)
@@ -79,7 +82,7 @@ namespace EngrLink.Main_Window.Enrollee
             }
 
             // Create a new student object
-            var newStudent = new Student
+            var newStudent = new Student()
             {
                 Id = newId,
                 Name = name,
