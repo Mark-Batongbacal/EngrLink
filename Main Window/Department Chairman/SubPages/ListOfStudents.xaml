@@ -16,11 +16,7 @@
             <ListView x:Name="StudentsListView">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="models:Student">
-                        <StackPanel Orientation="Horizontal" Spacing="10">
-                            <TextBlock Text="{x:Bind Name}" FontWeight="Bold" />
-                            <TextBlock Text=" - " />
-                            <TextBlock Text="{x:Bind Regular}" Foreground="Gray" />
-                        </StackPanel>
+                        <Button Content="{x:Bind NameStatus}" Click="StudentButton_Click"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

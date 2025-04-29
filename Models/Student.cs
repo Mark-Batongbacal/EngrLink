@@ -15,6 +15,8 @@ namespace EngrLink.Models
         [PrimaryKey("id", true)]
         public int Id { get; set; }
 
+        public string NameStatus => $"{Name} - {(Regular ? "Regular" : "Irregular")}";
+
         [Column("name")]
         public string Name { get; set; }
 
