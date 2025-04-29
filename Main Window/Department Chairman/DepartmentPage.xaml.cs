@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using EngrLink.Main_Window.Department_Chairman.SubPages;
 using EngrLink.Main_Window.Students;
+using EngrLink.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -66,11 +67,14 @@ namespace EngrLink.Main_Window.Department_Chairman
 
         private void Announcements_Click(object sender, RoutedEventArgs e)
         {
-            if (DepartmentChairFrame.Content?.GetType() != typeof(AnnouncementPage))
-            {
-                DepartmentChairFrame.Content = null;
-                DepartmentChairFrame.Navigate(typeof(AnnouncementPage));
-            }
+            //if (DepartmentChairFrame.Content?.GetType() != typeof(AnnouncementPage))
+            //{
+            //    if (DepartmentChairFrame.CanGoBack)
+            //    {
+            //        DepartmentChairFrame.GoBack();
+            //    }
+            //    DepartmentChairFrame.Navigate(typeof(AnnouncementPage));
+            //}
         }
 
         private void Enrollees_Click(object sender, RoutedEventArgs e)
