@@ -1,4 +1,4 @@
-using EngrLink.Models;
+﻿using EngrLink.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
@@ -9,8 +9,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.UI.Xaml.Input;
 using EngrLink.Dialogs;
+using System.Collections.Generic;
 
-namespace EngrLink.DepartmentChair
+namespace EngrLink.Main_Window.Department_Chairman.SubPages
 {
     public sealed partial class AnnouncementPage : Page
     {
@@ -20,7 +21,15 @@ namespace EngrLink.DepartmentChair
         public AnnouncementPage()
         {
             this.InitializeComponent();
-            Loaded += AnnouncementPage_Loaded;
+            var announcements = new List<string>
+            {
+                "Midterm exams will start on May 5.",
+                "Deadline for enrollment is May 10.",
+                "Engineering General Assembly this Friday at 2PM.",
+                "Faculty meeting scheduled on May 8, 1:00PM."
+            };
+
+            AnnouncementsListView.ItemsSource = announcements;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -112,6 +121,7 @@ namespace EngrLink.DepartmentChair
             await dialog.ShowAsync();
         }
 
+        // 🆕 ADDED THIS METHOD TO FIX THE ERROR
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             if (Frame.CanGoBack)
