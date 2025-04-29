@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -38,8 +39,21 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                 .From<Student>()
                 .Get();
 
-            // Now you can bind response to your ListView or whatever
-            StudentsListView.ItemsSource = response.Models;
+            
+
+        // Now you can bind response to your ListView or whatever
+        StudentsListView.ItemsSource = response.Models;
+        }
+
+        private void StudentButton_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var student = button?.DataContext as Student;
+            if (student != null)
+            {
+                // Do something with the selected student
+                Debug.WriteLine($"Clicked on {student.Name}");
+            }
         }
     }
 }
