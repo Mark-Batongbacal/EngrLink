@@ -17,6 +17,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="models:StudentViewModel">
                         <Button Content="{x:Bind NameStatus}" Click="StudentButton_Click"/>
+                        
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
