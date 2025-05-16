@@ -49,15 +49,24 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
             StudentsListView.ItemsSource = studentViewModels;
         }
 
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Frame.CanGoBack)
+                Frame.GoBack();
+        }
+
         private void StudentButton_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
-            var student = button?.DataContext as Student;
+            var viewModel = button?.DataContext as StudentViewModel;
+            var student = viewModel?.Student2;
+
             if (student != null)
             {
-                // Do something with the selected student
-                Debug.WriteLine($"Clicked on {student.Name}");
+                Frame.Content = null;
+                Frame.Navigate(typeof(ShowGrades), student.Id);
             }
         }
+
     }
 }
