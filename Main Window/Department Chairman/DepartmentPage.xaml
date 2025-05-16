@@ -23,14 +23,6 @@
             <!-- Right panel takes remaining space -->
         </Grid.ColumnDefinitions>
 
-        <Image 
-            Source="C:\Users\STUDENT\Source\Repos\EngrLink\Assets\banner.png" 
-            Stretch="Fill"
-            HorizontalAlignment="Stretch" 
-            VerticalAlignment="Top"
-            Grid.Row="0"
-            Grid.ColumnSpan="2"/>
-
         <!-- Navigation Panel -->
         <StackPanel Grid.Column="0" Background="#ffc797" VerticalAlignment="Stretch" Spacing="1" Grid.Row="1">
             <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Width="60" Height="40" Click="BackButton_Click" Grid.Row="1" />

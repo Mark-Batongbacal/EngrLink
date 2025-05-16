@@ -9,8 +9,14 @@
 
 
     <Grid>
-        <!-- Define the Frame to display content, and set its position to fill the window -->
-        <Frame x:Name="MainFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Image Source="Assets/banner.png" Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Row="0"/>
+        
+        <Frame x:Name="MainFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1"/>
         
     </Grid>
 </Window>

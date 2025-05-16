@@ -17,14 +17,6 @@
             <RowDefinition Height="*"/>
             <!-- For the Buttons -->
         </Grid.RowDefinitions>
-
-        <!-- Banner Image -->
-        <Image 
-            Source="Assets/banner.png" 
-            Stretch="Fill"
-            HorizontalAlignment="Stretch" 
-            VerticalAlignment="Top"/>
-
         <!-- Button Panel -->
         <StackPanel 
             Grid.Row="1"
