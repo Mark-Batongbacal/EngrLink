@@ -13,7 +13,7 @@
 
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Spacing="1">
-            <TextBlock Text="List of Students" FontSize="40" HorizontalAlignment="Center" Padding="0,50,0,50"/>
+            <TextBlock Text="List of Enrollees" FontSize="40" HorizontalAlignment="Center" Padding="0,50,0,50"/>
             <ListView x:Name="StudentsListView" IsItemClickEnabled="False">
                 <ListView.Header>
                     <Grid Padding="10" Background="#f0f0f0" CornerRadius="4" >

@@ -48,7 +48,7 @@
                             <TextBlock Text="{x:Bind Student2.Name}" Grid.Column="1" HorizontalAlignment="Left"/>
                             <TextBlock Text="{x:Bind Student2.Year}" Grid.Column="2" HorizontalAlignment="Left"/>
                             <TextBlock Text="{x:Bind Student2.Program}" Grid.Column="3" HorizontalAlignment="Left"/>
-                            <Button Content="Approve" Click="StudentButton_Click" Grid.Column="4" HorizontalAlignment="Left"/>
+                            <Button Content="View Grades" Click="StudentButton_Click" Grid.Column="4" HorizontalAlignment="Left"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
