@@ -5,12 +5,54 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:EngrLink.Main_Window.Department_Chairman.SubPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:models="using:EngrLink.Models"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     RequestedTheme="Light">
 
     <Grid>
-        <TextBlock Text="Enrollees Placeholder" FontSize="24" Foreground="Blue" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Spacing="1">
+            <TextBlock Text="List of Students" FontSize="40" HorizontalAlignment="Center" Padding="0,50,0,50"/>
+            <ListView x:Name="StudentsListView" IsItemClickEnabled="False">
+                <ListView.Header>
+                    <Grid Padding="10" Background="#f0f0f0" CornerRadius="4" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="ID" FontWeight="Bold" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Name" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Year" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Program" Grid.Column="3" FontWeight="Bold" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Action" Grid.Column="4" FontWeight="Bold" HorizontalAlignment="Left"/>
+                    </Grid>
+                </ListView.Header>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:StudentViewModel">
+                        <Grid Padding="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{x:Bind Student2.Id}" HorizontalAlignment="Left"/>
+                            <TextBlock Text="{x:Bind Student2.Name}" Grid.Column="1" HorizontalAlignment="Left"/>
+                            <TextBlock Text="{x:Bind Student2.Year}" Grid.Column="2" HorizontalAlignment="Left"/>
+                            <TextBlock Text="{x:Bind Student2.Program}" Grid.Column="3" HorizontalAlignment="Left"/>
+                            <Button Content="Approve" Click="StudentButton_Click" Grid.Column="4" HorizontalAlignment="Left"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
     </Grid>
 </Page>

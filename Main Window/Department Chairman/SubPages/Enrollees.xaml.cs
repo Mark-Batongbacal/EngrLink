@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using EngrLink.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -26,6 +28,55 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
         public Enrollees()
         {
             this.InitializeComponent();
+            LoadStudents();
         }
+        private async void LoadStudents()
+        {
+            var client = App.SupabaseClient;
+
+            // Only get students where Enrolled is false
+            var response = await client
+                .From<Student>()
+                .Filter("enrolled", Supabase.Postgrest.Constants.Operator.Equals, "false")
+                .Get();
+
+            var studentViewModels = response.Models
+                .Select(s => new StudentViewModel { Student2 = s })
+                .ToList();
+
+            StudentsListView.ItemsSource = studentViewModels;
+        }
+        private async void StudentButton_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var viewModel = button?.DataContext as StudentViewModel;
+
+            if (viewModel != null)
+            {
+                var student = viewModel.Student2;
+
+                // Toggle or set Enrolled to true
+                student.Enrolled = true;
+
+                // Update the student in the Supabase database
+                var client = App.SupabaseClient;
+                var result = await client
+                    .From<Student>()
+                    .Where(s => s.Id == student.Id) // Use the correct filtering method
+                    .Update(student);
+
+                if (result.Models.Count > 0)
+                {
+                    Debug.WriteLine($"Successfully updated enrollment for {student.Name}.");
+                }
+                else
+                {
+                    Debug.WriteLine($"Failed to update enrollment for {student.Name}.");
+                }
+            }
+            LoadStudents();
+        }
+
+
     }
 }

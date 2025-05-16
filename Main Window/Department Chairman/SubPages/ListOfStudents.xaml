@@ -13,7 +13,7 @@
 
     <Grid Padding="0">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Spacing="1">
-            <TextBlock Text="List of Students" FontSize="40"/>
+            <TextBlock Text="List of Students" FontSize="40" HorizontalAlignment="Center" Padding="0,50,0,50"/>
             <ListView x:Name="StudentsListView" IsItemClickEnabled="False">
                 <ListView.Header>
                     <Grid Padding="10" Background="#f0f0f0" CornerRadius="4" >
@@ -48,7 +48,7 @@
                             <TextBlock Text="{x:Bind Student2.Name}" Grid.Column="1" HorizontalAlignment="Left"/>
                             <TextBlock Text="{x:Bind Student2.Year}" Grid.Column="2" HorizontalAlignment="Left"/>
                             <TextBlock Text="{x:Bind Student2.Program}" Grid.Column="3" HorizontalAlignment="Left"/>
-                            <Button Content="View" Click="StudentButton_Click" Grid.Column="4" HorizontalAlignment="Left"/>
+                            <Button Content="Approve" Click="StudentButton_Click" Grid.Column="4" HorizontalAlignment="Left"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
