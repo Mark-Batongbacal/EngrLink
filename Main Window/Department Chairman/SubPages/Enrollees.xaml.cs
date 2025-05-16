@@ -38,6 +38,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
             var response = await client
                 .From<Student>()
                 .Filter("enrolled", Supabase.Postgrest.Constants.Operator.Equals, "false")
+                .Filter("program", Supabase.Postgrest.Constants.Operator.Equals, "CPE")
                 .Get();
 
             var studentViewModels = response.Models
