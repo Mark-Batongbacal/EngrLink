@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
 
-    <Grid Padding="20">
+    <Grid>
         <!-- Define the Frame to display content, and set its position to fill the window -->
         <Frame x:Name="MainFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         
