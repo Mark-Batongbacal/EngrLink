@@ -49,11 +49,6 @@ public sealed partial class ShowGrades : Page
         }
     }
 
-    private async void LoadStudents()
-    {
-        
-    }
-
     public ShowGrades()
     {
         InitializeComponent();
