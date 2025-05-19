@@ -25,11 +25,23 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
     /// </summary>
     public sealed partial class Enrollees : Page
     {
+
+        public string Program;
         public Enrollees()
         {
             this.InitializeComponent();
-            LoadStudents();
+        }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            if (e.Parameter is string program)
+            {
+                Debug.WriteLine($"Navigated with Department ID: {program}");
+                this.Program = program;
+            }
+            LoadStudents();
         }
         private async void LoadStudents()
         {
@@ -39,7 +51,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
             var response = await client
                 .From<Student>()
                 .Filter("enrolled", Supabase.Postgrest.Constants.Operator.Equals, "false")
-                .Filter("program", Supabase.Postgrest.Constants.Operator.Equals, "CPE")
+                .Filter("program", Supabase.Postgrest.Constants.Operator.Equals, this.Program)
                 .Get();
 
             var studentViewModels = response.Models

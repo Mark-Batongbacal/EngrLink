@@ -27,10 +27,23 @@ namespace EngrLink.Main_Window.Department_Chairman
     /// </summary>
     public sealed partial class DepartmentPage : Page
     {
+        public string Program { get; set; }
+
         public DepartmentPage()
         {
             this.InitializeComponent();
             DepartmentChairFrame.Navigate(typeof(Dashboard));
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            if (e.Parameter is string program)
+            {
+                Debug.WriteLine($"Navigated with Department ID: {program}");
+                this.Program = program;
+            }
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -45,18 +58,18 @@ namespace EngrLink.Main_Window.Department_Chairman
             //if (DepartmentChairFrame.Content?.GetType() != typeof(Schedules))
             //{
             //    DepartmentChairFrame.Content = null;
-            //    DepartmentChairFrame.Navigate(typeof(Schedules));
+            //    DepartmentChairFrame.Navigate(typeof(Schedules), this.Program);
             //}
         }
-       
+
 
         private void ListStudents_Click(object sender, RoutedEventArgs e)
         {
 
             if (DepartmentChairFrame.Content?.GetType() != typeof(ListOfStudents))
-            {
+            { 
                 DepartmentChairFrame.Content = null;
-                DepartmentChairFrame.Navigate(typeof(ListOfStudents));
+                DepartmentChairFrame.Navigate(typeof(ListOfStudents), this.Program);
             }
         }
 
@@ -65,7 +78,7 @@ namespace EngrLink.Main_Window.Department_Chairman
             //if (DepartmentChairFrame.Content?.GetType() != typeof(ListOfFaculty))
             //{
             //    DepartmentChairFrame.Content = null;
-            //    DepartmentChairFrame.Navigate(typeof(ListOfFaculty));
+            //    DepartmentChairFrame.Navigate(typeof(ListOfFaculty), this.Program);
             //}
         }
 
@@ -77,7 +90,7 @@ namespace EngrLink.Main_Window.Department_Chairman
             //    {
             //        DepartmentChairFrame.GoBack();
             //    }
-            //    DepartmentChairFrame.Navigate(typeof(AnnouncementPage));
+            //    DepartmentChairFrame.Navigate(typeof(AnnouncementPage), this.Program);
             //}
         }
 
@@ -86,7 +99,7 @@ namespace EngrLink.Main_Window.Department_Chairman
             if (DepartmentChairFrame.Content?.GetType() != typeof(Enrollees))
             {
                 DepartmentChairFrame.Content = null;
-                DepartmentChairFrame.Navigate(typeof(Enrollees));
+                DepartmentChairFrame.Navigate(typeof(Enrollees), this.Program);
             }
         }
 
@@ -95,7 +108,7 @@ namespace EngrLink.Main_Window.Department_Chairman
             if (DepartmentChairFrame.Content?.GetType() != typeof(Dashboard))
             {
                 DepartmentChairFrame.Content = null;
-                DepartmentChairFrame.Navigate(typeof(Dashboard));
+                DepartmentChairFrame.Navigate(typeof(Dashboard), this.Program);
             }
         }
     }
