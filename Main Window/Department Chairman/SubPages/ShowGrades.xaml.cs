@@ -68,8 +68,8 @@ public sealed partial class ShowGrades : Page
 
             // Get grades for the student
             var gradesResponse = await client
-                .From<Subjects>()
-                .Filter("student_id", Supabase.Postgrest.Constants.Operator.Equals, studentId)
+                .From<IndivSubjects>()
+                .Filter("student_id", Supabase.Postgrest.Constants.Operator.Equals, 231632846)
                 .Get();
 
             StudentsListView.ItemsSource = gradesResponse.Models;
@@ -114,6 +114,7 @@ public sealed partial class ShowGrades : Page
             {
                 StudentProfile.GWA = 0;
             }
+            this.DataContext = this;
         }
     }
 
