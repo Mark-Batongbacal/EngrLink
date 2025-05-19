@@ -25,6 +25,7 @@ public sealed partial class ShowGrades : Page
         private string _name;
         private string _program;
         private string _year;
+        private double _gwa;
 
         public string Name
         {
@@ -42,6 +43,11 @@ public sealed partial class ShowGrades : Page
         {
             get => _year;
             set { _year = value; OnPropertyChanged(nameof(Year)); }
+        }
+        public double GWA
+        {
+            get => _gwa;
+            set { _gwa = value; OnPropertyChanged(nameof(GWA)); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -85,10 +91,31 @@ public sealed partial class ShowGrades : Page
                 Debug.WriteLine(StudentProfile.Program);
                 Debug.WriteLine(StudentProfile.Year);
             }
+            var subjects = gradesResponse.Models;
+
+            double totalUnits = 0;
+            double totalWeightedGrades = 0;
+
+            foreach (var subject in subjects)
+            {
+                // Assuming grades below 50 or 0 mean 'Not Yet Graded'
+                if (subject.Grade > 0)
+                {
+                    totalUnits += subject.Units;
+                    totalWeightedGrades += subject.Grade * subject.Units;
+                }
+            }
+
+            if (totalUnits > 0)
+            {
+                StudentProfile.GWA = Math.Round(totalWeightedGrades / totalUnits, 2);
+            }
+            else
+            {
+                StudentProfile.GWA = 0;
+            }
         }
     }
-
-
 
     public ShowGrades()
     {

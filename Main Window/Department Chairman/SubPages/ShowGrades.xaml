@@ -18,6 +18,8 @@
                     <TextBlock Text="{Binding StudentProfile.Name}" FontSize="24" FontWeight="Bold" />
                     <TextBlock Text="{Binding StudentProfile.Program}" FontSize="18" />
                     <TextBlock Text="{Binding StudentProfile.Year}" FontSize="18" />
+                    <TextBlock Text="GWA:" FontSize="18" FontWeight="SemiBold" Margin="0,10,0,0"/>
+                    <TextBlock Text="{x:Bind StudentProfile.GWA, Mode=OneWay}" FontSize="18" />
                 </StackPanel>
             </Border>
             <TextBlock Text="Grades" FontSize="40" HorizontalAlignment="Center" Padding="0,50,0,50"/>
