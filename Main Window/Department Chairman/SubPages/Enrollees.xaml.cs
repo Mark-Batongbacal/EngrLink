@@ -25,11 +25,23 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
     /// </summary>
     public sealed partial class Enrollees : Page
     {
+
+        public string Program;
         public Enrollees()
         {
             this.InitializeComponent();
-            LoadStudents();
+        }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            if (e.Parameter is string program)
+            {
+                Debug.WriteLine($"Navigated with Department ID: {program}");
+                this.Program = program;
+            }
+            LoadStudents();
         }
         private async void LoadStudents()
         {
@@ -39,7 +51,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
             var response = await client
                 .From<Student>()
                 .Filter("enrolled", Supabase.Postgrest.Constants.Operator.Equals, "false")
-                .Filter("program", Supabase.Postgrest.Constants.Operator.Equals, "CPE")
+                .Filter("program", Supabase.Postgrest.Constants.Operator.Equals, this.Program)
                 .Get();
 
             var studentViewModels = response.Models
@@ -67,9 +79,37 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                     .Where(s => s.Id == student.Id) // Use the correct filtering method
                     .Update(student);
 
+
+                var response = await client
+                .From<Subjects>()
+                .Filter("program", Supabase.Postgrest.Constants.Operator.Equals, student.Program)
+                .Filter("year", Supabase.Postgrest.Constants.Operator.Equals, student.Year)
+                .Get();
+
+
+
                 if (result.Models.Count > 0)
                 {
                     Debug.WriteLine($"Successfully updated enrollment for {student.Name}.");
+                    foreach (var subject in response.Models)
+                    {
+                        // 3. Create a new IndivSubjects entry for the student
+                        var indivSubject = new IndivSubjects
+                        {
+                            Id = student.Id,
+                            Code = subject.Code,
+                            Subject = subject.Subject,
+                            Program = subject.Program,
+                            Remarks = subject.Remarks,
+                            Year = subject.Year,
+                            Units = subject.Units,
+                            Grade = 0
+                        };
+
+                        await client
+                            .From<IndivSubjects>()
+                            .Insert(indivSubject);
+                    }
                 }
                 else
                 {

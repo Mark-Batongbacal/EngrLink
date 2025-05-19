@@ -14,6 +14,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\banner.png" />
+    <None Remove="Main Window\Department Chairman\LoginDepartment.xaml" />
     <None Remove="Main Window\Department Chairman\SubPages\AnnouncementPage.xaml" />
     <None Remove="Main Window\Department Chairman\SubPages\Dashboard.xaml" />
     <None Remove="Main Window\Department Chairman\SubPages\Enrollees.xaml" />
