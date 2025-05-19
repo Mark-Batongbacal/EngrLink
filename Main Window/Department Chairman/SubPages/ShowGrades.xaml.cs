@@ -14,41 +14,88 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using System.ComponentModel;
 
 namespace EngrLink.Main_Window.Department_Chairman.SubPages;
 
 public sealed partial class ShowGrades : Page
 {
-   
+    public class StudentProfileModel : INotifyPropertyChanged
+    {
+        private string _name;
+        private string _program;
+        private string _year;
+
+        public string Name
+        {
+            get => _name;
+            set { _name = value; OnPropertyChanged(nameof(Name)); }
+        }
+
+        public string Program
+        {
+            get => _program;
+            set { _program = value; OnPropertyChanged(nameof(Program)); }
+        }
+
+        public string Year
+        {
+            get => _year;
+            set { _year = value; OnPropertyChanged(nameof(Year)); }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+    public StudentProfileModel StudentProfile { get; set; } = new StudentProfileModel();
+
     protected async override void OnNavigatedTo(NavigationEventArgs e)
     {
-        int Id = 0;
         base.OnNavigatedTo(e);
-        
+
         if (e.Parameter is int studentId)
         {
-            // Now you have the ID and can load student grades
             Debug.WriteLine($"Navigated with Student ID: {studentId}");
-            Id = studentId;
 
             var client = App.SupabaseClient;
-            //tite
-            // Only get students where Enrolled is false
-            var response = await client
+
+            // Get grades for the student
+            var gradesResponse = await client
                 .From<Subjects>()
-                .Filter("student_id", Supabase.Postgrest.Constants.Operator.Equals, Id)
+                .Filter("student_id", Supabase.Postgrest.Constants.Operator.Equals, studentId)
                 .Get();
 
-            StudentsListView.ItemsSource = response.Models;
+            StudentsListView.ItemsSource = gradesResponse.Models;
+
+            // Get student profile
+            var studentResponse = await client
+                .From<Student>()
+                .Filter("id", Supabase.Postgrest.Constants.Operator.Equals, studentId)
+                .Get();
+
+            var student = studentResponse.Models.FirstOrDefault();
+
+            if (student != null)
+            {
+                StudentProfile.Name = student.Name;
+                StudentProfile.Program = student.Program;
+                StudentProfile.Year = student.Year;
+                Debug.WriteLine(StudentProfile.Name);
+                Debug.WriteLine(StudentProfile.Program);
+                Debug.WriteLine(StudentProfile.Year);
+            }
         }
     }
+
 
 
     public ShowGrades()
     {
         InitializeComponent();
+        this.DataContext = this;
     }
-
+    
     private async void SubmitButton_Click(object sender, RoutedEventArgs e)
     {
         var client = App.SupabaseClient;
