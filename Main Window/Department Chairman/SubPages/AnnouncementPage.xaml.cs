@@ -1,53 +1,40 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Supabase.Gotrue;
-using Supabase.Realtime;
-using Supabase.Realtime.Models;
-using Windows.UI.Popups;
+using EngrLink.Models;
+using Supabase;
+using Supabase.Postgrest.Models;
 
 namespace EngrLink.Main_Window.Department_Chairman.SubPages
 {
-    public class AnnouncementViewModel
-    {
-        public string Content { get; set; }
-        public bool ForStudents { get; set; }
-        public bool ForTeachers { get; set; }
-
-        public Visibility ForStudentsVisibility { get; set; }
-        public Visibility ForTeachersVisibility { get; set; }
-
-        public AnnouncementViewModel(Models.Announcement announcement)
-        {
-            this.Content = announcement.Content;
-            this.ForStudents = announcement.ForStudents;
-            this.ForTeachers = announcement.ForTeachers;
-            this.ForStudentsVisibility = announcement.ForStudents ? Visibility.Visible : Visibility.Collapsed;
-            this.ForTeachersVisibility = announcement.ForTeachers ? Visibility.Visible : Visibility.Collapsed;
-        }
-    }
+    
     public sealed partial class AnnouncementPage : Page
     {
-        private readonly Supabase.Client _supabaseClient;
-        public List<AnnouncementViewModel> Announcements { get; set; } = new List<AnnouncementViewModel>();
-
         public AnnouncementPage()
         {
             this.InitializeComponent();
-            _supabaseClient = App.SupabaseClient;
+            this.DataContext = this;
             LoadAnnouncements();
         }
 
+        private async void LoadAnnouncements()
+        {
+            var client = App.SupabaseClient;
+
+            var response = await client
+                .From<Announcement>()
+                .Get();
+
+         
+        }
         private async void PostAnnouncementButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageTextBlock.Visibility = Visibility.Collapsed; // Reset message
+            MessageTextBlock.Visibility = Visibility.Collapsed;
 
             string content = AnnouncementContentTextBox.Text.Trim();
-            bool forStudents = ShowToStudentsCheckBox.IsChecked ?? false; // ?? handles null
-            bool forTeachers = ShowToTeachersCheckBox.IsChecked ?? false;
+            bool forStudents = ShowToStudentsCheckBox.IsChecked == true;
+            bool forTeachers = ShowToTeachersCheckBox.IsChecked == true;
 
             if (string.IsNullOrEmpty(content))
             {
@@ -56,64 +43,35 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                 return;
             }
 
-            var newAnnouncement = new Models.Announcement
+            var newAnnouncement = new Announcement
             {
-                Content = content,
-                ForStudents = forStudents,
-                ForTeachers = forTeachers
+                Announcements = content,
+                ForStud = forStudents,
+                ForFac = forTeachers,
             };
+
+            var client = App.SupabaseClient;
 
             try
             {
-                var response = await _supabaseClient.From<Models.Announcement>().Insert(newAnnouncement);
-                if (response.ResponseMessage.IsSuccessStatusCode)
+                var response = await client
+                    .From<Announcement>()
+                    .Insert(newAnnouncement);
+
+                if (response.Models.Count > 0)
                 {
-                    Announcements.Add(new AnnouncementViewModel(response.Model)); //add to the list
-                    AnnouncementsListView.ItemsSource = null;
-                    AnnouncementsListView.ItemsSource = Announcements;
-                    AnnouncementContentTextBox.Text = ""; // Clear input
+            
+                    AnnouncementContentTextBox.Text = "";
                     ShowToStudentsCheckBox.IsChecked = false;
                     ShowToTeachersCheckBox.IsChecked = false;
-
-                    // Show a success message
-                    var dialog = new MessageDialog("Announcement posted successfully!", "Success");
-                    await dialog.ShowAsync();
-                }
-                else
-                {
-                    MessageTextBlock.Text = $"Error posting announcement: {response.ResponseMessage.ReasonPhrase}";
-                    MessageTextBlock.Visibility = Visibility.Visible;
                 }
             }
             catch (Exception ex)
             {
-                MessageTextBlock.Text = $"An error occurred: {ex.Message}";
+                MessageTextBlock.Text = $"Error posting announcement: {ex.Message}";
                 MessageTextBlock.Visibility = Visibility.Visible;
             }
         }
 
-        private async void LoadAnnouncements()
-        {
-            try
-            {
-                var response = await _supabaseClient.From<Models.Announcement>().Get();
-                if (response.ResponseMessage.IsSuccessStatusCode)
-                {
-                    Announcements = response.Models.Select(a => new AnnouncementViewModel(a)).ToList();
-                    AnnouncementsListView.ItemsSource = Announcements;
-                }
-                else
-                {
-                    var dialog = new MessageDialog($"Failed to load announcements: {response.ResponseMessage.ReasonPhrase}", "Error");
-                    await dialog.ShowAsync();
-                }
-
-            }
-            catch (Exception e)
-            {
-                var dialog = new MessageDialog($"Error loading announcements: {e.Message}", "Error");
-                await dialog.ShowAsync();
-            }
-        }
     }
 }

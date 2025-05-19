@@ -5,6 +5,7 @@
     xmlns:local="using:EngrLink.Main_Window.Department_Chairman.SubPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:EngrLink.Models"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     RequestedTheme="Light">
@@ -32,25 +33,19 @@
                        Foreground="Red"
                        Visibility="Collapsed"/>
 
+            <!-- ListView to show existing announcements -->
             <TextBlock Text="Existing Announcements" FontSize="20" FontWeight="Bold" Margin="0,20,0,0"/>
-            <ListView x:Name="AnnouncementsListView" ItemsSource="{x:Bind Announcements, Mode=OneWay}" IsItemClickEnabled="False">
+            <ListView>
                 <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="local:AnnouncementViewModel">
-                        <Grid Padding="10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="{x:Bind Content}" TextWrapping="Wrap" />
-                            <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                <TextBlock Text="Students:" Visibility="{x:Bind ForStudentsVisibility}" />
-                                <TextBlock Text="Teachers:" Visibility="{x:Bind ForTeachersVisibility}" />
-                            </StackPanel>
-                        </Grid>
+                    <DataTemplate x:DataType="models:Announcement">
+                        <StackPanel Margin="0,10,0,10" Padding="10" Background="#FFEFEFEF" CornerRadius="8">
+                            <TextBlock Text="{x:Bind Announcements}" FontSize="16" TextWrapping="WrapWholeWords"/>
+                            <TextBlock Text="{x:Bind ForStud, Mode=OneWay}" FontStyle="Italic" Foreground="Gray" Visibility="{x:Bind ForStud, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                            <TextBlock Text="{x:Bind ForFac, Mode=OneWay}" FontStyle="Italic" Foreground="Gray" Visibility="{x:Bind ForFac, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-
         </StackPanel>
     </Grid>
 </Page>
