@@ -7,25 +7,38 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    RequestedTheme="Light">
 
     <Grid>
-        
-        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Spacing="1" Background="Beige" Height="1080">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- For the Banner -->
+            <RowDefinition Height="*"/>
+            <!-- For the Buttons -->
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <!-- Left panel fixed width -->
+            <ColumnDefinition Width="*" />
+            <!-- Right panel takes remaining space -->
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Background="#ffc797" VerticalAlignment="Stretch" Spacing="1" Grid.Row="1">
 
             <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="40" Click="BackButton_Click"/>
 
             <AppBarSeparator/>
 
-            <Button x:Name="DashboardButton" Content="Dashboard" Width="200" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left"/>
+            <Button x:Name="DashboardButton" Content="Dashboard" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center"/>
 
-            <Button x:Name="AcadPerformanceButton" Content="Academic Performance" Width="200" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left"/>
+            <Button x:Name="AcadPerformanceButton" Content="Academic Performance" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center"/>
 
-            <Button x:Name="PerInfoButton" Content="Personal Information" Width="200" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left"/>
+            <Button x:Name="PerInfoButton" Content="Personal Information" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center"/>
 
-            <Button x:Name="ScheduleButton" Content="Schedule" Width="200" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left"/>
+            <Button x:Name="ScheduleButton" Content="Schedule" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center"/>
 
-            <Button x:Name="FeesButton" Content="Fees" Width="200" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left"/>
+            <Button x:Name="FeesButton" Content="Fees" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center"/>
 
         </StackPanel>
 

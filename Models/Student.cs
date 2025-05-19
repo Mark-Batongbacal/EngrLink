@@ -23,10 +23,6 @@ namespace EngrLink.Models
     [Table("Student_Info")]
     public class Student : BaseModel
     {
-
- 
-        
-
         [PrimaryKey("id", true)]
         public int Id { get; set; }
 
@@ -66,8 +62,6 @@ namespace EngrLink.Models
         [Column("password")]
         public string Password { get; set; }
     }
-    
-    
 }
 
 

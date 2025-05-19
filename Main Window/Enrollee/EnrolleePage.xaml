@@ -6,7 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    RequestedTheme="Light">
 
     <Grid Padding="0" Background="#f7e8d9">
         <Grid.RowDefinitions>
@@ -15,12 +16,6 @@
             <RowDefinition Height="*"/>
             <!-- For the Buttons -->
         </Grid.RowDefinitions>
-
-        <Image 
-            Source="C:\Users\STUDENT\Source\Repos\EngrLink\Assets\banner.png" 
-            Stretch="Fill"
-            HorizontalAlignment="Stretch" 
-            VerticalAlignment="Top"/>
 
         <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Width="60" Height="40" Click="BackButton_Click" Grid.Row="1" />
         
