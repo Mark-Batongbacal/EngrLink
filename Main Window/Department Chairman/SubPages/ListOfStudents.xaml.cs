@@ -29,6 +29,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
         {
             this.InitializeComponent();
             LoadStudents();
+
         }
 
         private async void LoadStudents()
