@@ -68,8 +68,8 @@ public sealed partial class ShowGrades : Page
 
             // Get grades for the student
             var gradesResponse = await client
-                .From<IndivSubjects>()
-                .Filter("student_id", Supabase.Postgrest.Constants.Operator.Equals, 231632846)
+                .From<IndivSubject>()
+                .Filter("student_id", Supabase.Postgrest.Constants.Operator.Equals, studentId)
                 .Get();
 
             StudentsListView.ItemsSource = gradesResponse.Models;
@@ -129,14 +129,14 @@ public sealed partial class ShowGrades : Page
         var client = App.SupabaseClient;
         bool hasError = false;
 
-        if (StudentsListView.ItemsSource is IEnumerable<Subjects> subjects)
+        if (StudentsListView.ItemsSource is IEnumerable<IndivSubject> subjects)
         {
             foreach (var subject in subjects)
             {
                 try
                 {
                     await client
-                        .From<Subjects>()
+                        .From<IndivSubject>()
                         .Where(x => x.Id == subject.Id)
                         .Set(x => x.Grade, subject.Grade)
                         .Update();

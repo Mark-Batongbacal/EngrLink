@@ -74,12 +74,15 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
         {
             var button = sender as Button;
             var viewModel = button?.DataContext as StudentViewModel;
-            var student = viewModel?.Student2;
 
-            if (student != null)
+            if (viewModel?.Student2 != null)
             {
+                int studentId = viewModel.Student2.Id;
+
+                Debug.WriteLine($"Student ID: {studentId}"); // Output the integer
+
                 Frame.Content = null;
-                Frame.Navigate(typeof(ShowGrades), student.Id);
+                Frame.Navigate(typeof(ShowGrades), studentId); // Pass the ID to the next page
             }
         }
 

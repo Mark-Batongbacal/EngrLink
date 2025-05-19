@@ -94,7 +94,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                     foreach (var subject in response.Models)
                     {
                         // 3. Create a new IndivSubjects entry for the student
-                        var indivSubject = new IndivSubjects
+                        var indivSubject = new IndivSubject
                         {
                             Id = student.Id,
                             Code = subject.Code,
@@ -107,7 +107,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                         };
 
                         await client
-                            .From<IndivSubjects>()
+                            .From<IndivSubject>()
                             .Insert(indivSubject);
                     }
                 }

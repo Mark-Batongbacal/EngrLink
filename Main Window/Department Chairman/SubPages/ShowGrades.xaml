@@ -43,7 +43,7 @@
                 </ListView.Header>
 
                 <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Subjects">
+                    <DataTemplate x:DataType="models:IndivSubject">
                         <Grid Padding="5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100"/>

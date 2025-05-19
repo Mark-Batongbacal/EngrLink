@@ -9,9 +9,9 @@ using Supabase.Postgrest.Models;
 namespace EngrLink.Models
 {
     [Table("Individual_Subjects")]
-    public class IndivSubjects : BaseModel
+    public class IndivSubject : BaseModel
     {
-        [PrimaryKey("record_id", false)]
+        [PrimaryKey("record_id", true)]
         public int Eme { get; set; }
 
         [Column("student_id")]
@@ -20,7 +20,7 @@ namespace EngrLink.Models
         [Column("code")]
         public string Code { get; set; }
 
-        [Column("subject")]
+        [Column("Subject")]
         public string Subject { get; set; }
 
         [Column("grade")]
