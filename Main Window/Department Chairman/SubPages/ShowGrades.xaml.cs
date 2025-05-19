@@ -15,14 +15,8 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace EngrLink.Main_Window.Department_Chairman.SubPages;
 
-/// <summary>
-/// An empty page that can be used on its own or navigated to within a Frame.
-/// </summary>
 public sealed partial class ShowGrades : Page
 {
    
@@ -54,4 +48,46 @@ public sealed partial class ShowGrades : Page
     {
         InitializeComponent();
     }
+
+    private async void SubmitButton_Click(object sender, RoutedEventArgs e)
+    {
+        var client = App.SupabaseClient;
+        bool hasError = false;
+
+        if (StudentsListView.ItemsSource is IEnumerable<Subjects> subjects)
+        {
+            foreach (var subject in subjects)
+            {
+                try
+                {
+                    await client
+                        .From<Subjects>()
+                        .Where(x => x.Id == subject.Id)
+                        .Set(x => x.Grade, subject.Grade)
+                        .Update();
+
+                    Debug.WriteLine($"Updated subject {subject.Subject} with grade {subject.Grade}");
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Error updating subject {subject.Subject}: {ex.Message}");
+                    hasError = true;
+                }
+            }
+
+            var dialog = new ContentDialog
+            {
+                Title = hasError ? "Some Errors Occurred" : "Grades Saved Successfully",
+                Content = hasError
+                    ? "Some grades may not have been saved. Please check the debug output or try again."
+                    : "All grades have been successfully saved to the database.",
+                CloseButtonText = "OK",
+                XamlRoot = this.XamlRoot // Required for WinUI 3
+            };
+
+            await dialog.ShowAsync();
+        }
+    }
+
+
 }
