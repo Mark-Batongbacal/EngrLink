@@ -58,7 +58,7 @@ namespace EngrLink
         private void DepartmentButton_Click(object sender, RoutedEventArgs e)
         {
             DisableAndHideButtons();
-            Frame.Navigate(typeof(Main_Window.Department_Chairman.DepartmentPage)); // Navigate to DepartmentPage
+            Frame.Navigate(typeof(Main_Window.Department_Chairman.LoginDepartment)); // Navigate to DepartmentPage
         }
 
         private void AccountingButton_Click(object sender, RoutedEventArgs e)
