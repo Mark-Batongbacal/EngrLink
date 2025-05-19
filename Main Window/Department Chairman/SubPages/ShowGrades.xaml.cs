@@ -137,7 +137,7 @@ public sealed partial class ShowGrades : Page
                 {
                     await client
                         .From<IndivSubject>()
-                        .Where(x => x.Id == subject.Id)
+                        .Where(x => x.Eme == subject.Eme)
                         .Set(x => x.Grade, subject.Grade)
                         .Update();
 
