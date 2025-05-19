@@ -17,6 +17,7 @@ using EngrLink.Main_Window.Students;
 using Supabase.Interfaces;
 using System.Threading.Tasks;
 using System.Security.Cryptography.X509Certificates;
+using System.Diagnostics;
 
 namespace EngrLink.Main_Window.Department_Chairman
 {
@@ -25,18 +26,8 @@ namespace EngrLink.Main_Window.Department_Chairman
         public LoginDepartment()
         {
             this.InitializeComponent();
-            InitializeSupabaseClient();
         }
 
-        private async void InitializeSupabaseClient()
-        {
-            var client = App.SupabaseClient;
-
-            // Only get students where Enrolled is false
-            var response = await client
-                .From<DeptChair>()
-                .Get();
-        }
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             if (Frame.CanGoBack)
@@ -45,7 +36,7 @@ namespace EngrLink.Main_Window.Department_Chairman
 
         private void CheckValid()
         {
-            bool isValid = !string.IsNullOrWhiteSpace(StudentID.Text) &&
+            bool isValid = !string.IsNullOrWhiteSpace(DepID.Text) &&
                            !string.IsNullOrWhiteSpace(Password.Password);
             SubmitButton.IsEnabled = isValid;
         }
@@ -55,97 +46,35 @@ namespace EngrLink.Main_Window.Department_Chairman
             CheckValid();
         }
 
-        private async void ChangePasswordButton_Click(object sender, RoutedEventArgs e)
-        {
-            ChangePasswordPanel.Visibility = Visibility.Visible;
-        }
-
-        private async void SubmitNewPassword_Click(object sender, RoutedEventArgs e)
-        {
-            string studentIdInput = StudentID.Text.Trim();
-            string newPassword = NewPassword.Password.Trim();
-            string confirmPassword = ConfirmNewPassword.Password.Trim();
-
-            if (string.IsNullOrEmpty(studentIdInput) || string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmPassword))
-            {
-                await ShowDialog("Missing Fields", "Please fill in all fields.");
-                return;
-            }
-
-            if (newPassword != confirmPassword)
-            {
-                await ShowDialog("Password Mismatch", "New passwords do not match.");
-                return;
-            }
-
-            try
-            {
-                var studentResponse = await supabaseClient
-                    .From<Student>()
-                    .Filter("id", Supabase.Postgrest.Constants.Operator.Equals, int.Parse(studentIdInput))
-                    .Get();
-
-                var student = studentResponse.Models.FirstOrDefault();
-
-                if (student != null)
-                {
-                    student.Password = newPassword;
-                    student.Id = int.Parse(studentIdInput);
-
-                    var result = await supabaseClient.From<Student>().Update(student);
-                    await ShowDialog("Success", "Password successfully changed!");
-                }
-                else
-                {
-                    await ShowDialog("User Not Found", "No student found with the given ID.");
-                }
-            }
-            catch (Exception ex)
-            {
-                await ShowDialog("Error", $"Something went wrong: {ex.Message}");
-            }
-        }
-
 
         private async void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            string studentid = StudentID.Text.Trim();
+            string depid = DepID.Text.Trim();
             string password = Password.Password.Trim();
-            string studid = "";
-            string studpassword = "";
+
             try
             {
-                var studentResponse = await supabaseClient
-                    .From<Student>()
-                    .Filter("id", Supabase.Postgrest.Constants.Operator.Equals, int.Parse(StudentID.Text))
+                var response = await App.SupabaseClient
+                    .From<DeptChair>()
+                    .Filter("id", Supabase.Postgrest.Constants.Operator.Equals, depid)
                     .Get();
 
-                var student = studentResponse.Models.FirstOrDefault();
-                if (student != null)
+                var chair = response.Models.FirstOrDefault();
+                Debug.WriteLine($"Returned rows: {response.Models.Count}");
+
+                
+                if (chair != null && chair.Password == password)
                 {
-                    studid = student.Id.ToString();
-                    studpassword = student.Password;
+                    await ShowDialog("Login Successful", "Welcome back!");
+                    Frame.Navigate(typeof(DepartmentPage), chair.Program);
                 }
 
-                if (Password.Password == studpassword)
-                {
-                    ContentDialog successDialog = new ContentDialog
-                    {
-                        Title = "Login Successful",
-                        Content = "Welcome back!",
-                        CloseButtonText = "OK",
-                        XamlRoot = this.XamlRoot
-                    };
-                    await successDialog.ShowAsync();
-                    // Navigate to next page if needed
-                    Frame.Navigate(typeof(StudentPage));
-                }
                 else
                 {
                     ContentDialog failedDialog = new ContentDialog
                     {
                         Title = "Login Failed",
-                        Content = "Invalid Student ID or Password.",
+                        Content = "Invalid Department Chair ID or Password.",
                         CloseButtonText = "Try Again",
                         XamlRoot = this.XamlRoot
                     };

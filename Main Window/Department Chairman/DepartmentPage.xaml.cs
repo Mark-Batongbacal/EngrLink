@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -31,32 +32,27 @@ namespace EngrLink.Main_Window.Department_Chairman
             this.InitializeComponent();
             DepartmentChairFrame.Navigate(typeof(Dashboard));
         }
+
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             if (Frame.CanGoBack)
                 Frame.GoBack();
         }
+  
 
         private void Schedules_Click(object sender, RoutedEventArgs e)
         {
-
-
-
-
             //if (DepartmentChairFrame.Content?.GetType() != typeof(Schedules))
             //{
             //    DepartmentChairFrame.Content = null;
             //    DepartmentChairFrame.Navigate(typeof(Schedules));
             //}
-
-
-
-
         }
        
 
         private void ListStudents_Click(object sender, RoutedEventArgs e)
         {
+
             if (DepartmentChairFrame.Content?.GetType() != typeof(ListOfStudents))
             {
                 DepartmentChairFrame.Content = null;
