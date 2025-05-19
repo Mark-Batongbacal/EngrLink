@@ -54,6 +54,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                 .From<Student>()
                 .Filter("enrolled", Supabase.Postgrest.Constants.Operator.Equals, "true")
                 .Filter("program", Supabase.Postgrest.Constants.Operator.Equals, this.Program)
+                .Filter("id", Supabase.Postgrest.Constants.Operator.GreaterThan, 17)
                 .Get();
 
             var studentViewModels = response.Models
