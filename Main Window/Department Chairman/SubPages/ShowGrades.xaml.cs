@@ -38,7 +38,7 @@ public sealed partial class ShowGrades : Page
             Id = studentId;
 
             var client = App.SupabaseClient;
-
+            //tite
             // Only get students where Enrolled is false
             var response = await client
                 .From<Subjects>()
