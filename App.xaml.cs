@@ -33,13 +33,12 @@ namespace EngrLink
         {
             this.InitializeComponent();
         }
-
+        public static Window? MainWindow { get; private set; }
         protected override async void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
-            
 
-            m_window = new MainWindow();
-            m_window.Activate();
+            MainWindow = new MainWindow();
+            MainWindow.Activate();
             await InitializeSupabase();
         }
 

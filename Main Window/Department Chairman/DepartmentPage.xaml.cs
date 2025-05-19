@@ -75,14 +75,11 @@ namespace EngrLink.Main_Window.Department_Chairman
 
         private void Announcements_Click(object sender, RoutedEventArgs e)
         {
-            //if (DepartmentChairFrame.Content?.GetType() != typeof(AnnouncementPage))
-            //{
-            //    if (DepartmentChairFrame.CanGoBack)
-            //    {
-            //        DepartmentChairFrame.GoBack();
-            //    }
-            //    DepartmentChairFrame.Navigate(typeof(AnnouncementPage));
-            //}
+            if (DepartmentChairFrame.Content?.GetType() != typeof(AnnouncementPage))
+            {
+                DepartmentChairFrame.Content = null;
+                DepartmentChairFrame.Navigate(typeof(AnnouncementPage));
+            }
         }
 
         private void Enrollees_Click(object sender, RoutedEventArgs e)
