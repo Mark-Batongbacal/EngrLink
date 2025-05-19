@@ -1,4 +1,4 @@
-using EngrLink.Models;
+﻿using EngrLink.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -123,7 +123,7 @@ public sealed partial class ShowGrades : Page
         InitializeComponent();
         this.DataContext = this;
     }
-    
+
     private async void SubmitButton_Click(object sender, RoutedEventArgs e)
     {
         var client = App.SupabaseClient;
@@ -150,6 +150,28 @@ public sealed partial class ShowGrades : Page
                 }
             }
 
+            // ✅ Recalculate GWA after submitting
+            double totalUnits = 0;
+            double totalWeightedGrades = 0;
+
+            foreach (var subject in subjects)
+            {
+                if (subject.Grade > 0)
+                {
+                    totalUnits += subject.Units;
+                    totalWeightedGrades += subject.Grade * subject.Units;
+                }
+            }
+
+            if (totalUnits > 0)
+            {
+                StudentProfile.GWA = Math.Round(totalWeightedGrades / totalUnits, 2);
+            }
+            else
+            {
+                StudentProfile.GWA = 0;
+            }
+
             var dialog = new ContentDialog
             {
                 Title = hasError ? "Some Errors Occurred" : "Grades Saved Successfully",
@@ -157,12 +179,13 @@ public sealed partial class ShowGrades : Page
                     ? "Some grades may not have been saved. Please check the debug output or try again."
                     : "All grades have been successfully saved to the database.",
                 CloseButtonText = "OK",
-                XamlRoot = this.XamlRoot // Required for WinUI 3
+                XamlRoot = this.XamlRoot
             };
 
             await dialog.ShowAsync();
         }
     }
+
 
 
 }
