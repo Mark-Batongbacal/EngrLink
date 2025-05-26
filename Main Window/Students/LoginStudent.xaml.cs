@@ -1,11 +1,13 @@
+using EngrLink.Main_Window.Department_Chairman;
+using EngrLink.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using EngrLink.Models;
 using Supabase;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 
 namespace EngrLink.Main_Window.Students
 {
@@ -125,7 +127,7 @@ namespace EngrLink.Main_Window.Students
                             XamlRoot = this.XamlRoot
                         };
                         await successDialog.ShowAsync();
-                        Frame.Navigate(typeof(StudentPage), student.Id.ToString());
+                        Frame.Navigate(typeof(StudentPage), (student.Id.ToString(), student.Program));
                     }
                 }
                 else

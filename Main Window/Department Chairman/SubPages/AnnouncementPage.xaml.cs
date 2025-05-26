@@ -1,15 +1,19 @@
-using System;
-using System.Collections.ObjectModel;
+using EngrLink.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using EngrLink.Models;
 using Supabase;
 using Supabase.Postgrest.Models;
+using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using Microsoft.UI.Xaml.Navigation;
 
 namespace EngrLink.Main_Window.Department_Chairman.SubPages
 {
     public sealed partial class AnnouncementPage : Page
     {
+        public string Program { get; set; }
+
         // ObservableCollection to hold announcements
         public ObservableCollection<Announcement> Announcements { get; set; } = new ObservableCollection<Announcement>();
 
@@ -17,6 +21,17 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
         {
             this.InitializeComponent();
             this.DataContext = this;
+            
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            if (e.Parameter is string program)
+            {
+                Debug.WriteLine($"Navigated with Department ID: {program}");
+                this.Program = program;
+            }
             LoadAnnouncements();
         }
 
@@ -28,6 +43,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
             {
                 var response = await client
                     .From<Announcement>()
+                    .Filter("program", Supabase.Postgrest.Constants.Operator.Equals, this.Program)
                     .Get();
 
                 // Clear existing announcements and add the fetched ones
@@ -65,6 +81,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                 Announcements = content,
                 ForStud = forStudents,
                 ForFac = forTeachers,
+                Program = this.Program
             };
 
             var client = App.SupabaseClient;

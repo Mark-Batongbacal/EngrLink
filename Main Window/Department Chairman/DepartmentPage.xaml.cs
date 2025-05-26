@@ -88,7 +88,7 @@ namespace EngrLink.Main_Window.Department_Chairman
             if (DepartmentChairFrame.Content?.GetType() != typeof(AnnouncementPage))
             {
                 DepartmentChairFrame.Content = null;
-                DepartmentChairFrame.Navigate(typeof(AnnouncementPage));
+                DepartmentChairFrame.Navigate(typeof(AnnouncementPage), this.Program);
             }
         }
 
