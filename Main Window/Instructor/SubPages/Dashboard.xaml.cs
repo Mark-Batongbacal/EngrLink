@@ -9,16 +9,16 @@ using System.Linq; // For Any()
 using Supabase.Postgrest;
 using static Supabase.Postgrest.Constants; // Add this import
 
-namespace EngrLink.Main_Window.Students.SubPages
+namespace EngrLink.Main_Window.Instructor.SubPages
 {
     public sealed partial class Dashboard : Page
     {
-        public ObservableCollection<Announcement> StudentAnnouncements { get; set; } = new ObservableCollection<Announcement>();
+        public ObservableCollection<Announcement> FacultyAnnouncements { get; set; } = new ObservableCollection<Announcement>();
 
         public Dashboard()
         {
             this.InitializeComponent();
-            this.DataContext = this; 
+            this.DataContext = this;
             LoadStudentAnnouncements();
         }
 
@@ -35,18 +35,18 @@ namespace EngrLink.Main_Window.Students.SubPages
 
                 if (response.Models != null && response.Models.Any())
                 {
-                    StudentAnnouncements.Clear();
+                    FacultyAnnouncements.Clear();
 
                     // Filter announcements for students
                     foreach (var announcement in response.Models)
                     {
-                        if (announcement.ForStud)
+                        if (announcement.ForFac)
                         {
-                            StudentAnnouncements.Add(announcement);
+                            FacultyAnnouncements.Add(announcement);
                         }
                     }
 
-                    System.Diagnostics.Debug.WriteLine($"Loaded {StudentAnnouncements.Count} announcements for students.");
+                    System.Diagnostics.Debug.WriteLine($"Loaded {FacultyAnnouncements.Count} announcements for students.");
                 }
                 else
                 {
