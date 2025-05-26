@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Animation;
 using Supabase.Postgrest.Attributes;
 using Supabase.Postgrest.Models;
 
@@ -44,6 +45,8 @@ namespace EngrLink.Models
 
         [Column("bday")]
         public string Birthday { get; set; }
+
+        
     }
 }
 
