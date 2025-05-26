@@ -21,5 +21,8 @@ namespace EngrLink.Models
         [Column("faculty_announcements")]
         public bool ForFac { get; set; }
 
+        [Column("program")]
+        public string Program { get; set; }
+
     }
 }

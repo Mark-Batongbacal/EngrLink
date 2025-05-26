@@ -28,20 +28,24 @@ namespace EngrLink.Main_Window.Students
     public sealed partial class StudentPage : Page
     {
         public string Id { get; set; }
-        public StudentPage()
-        {
-            this.InitializeComponent();
-            StudentsFrame.Navigate(typeof(Dashboard));
-        }
+        public string Program { get; set; }
+        
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            if (e.Parameter is string Id)
+            if (e.Parameter is (string Id, string Program))
             {
-                Debug.WriteLine($"Navigated with Student ID: {Id}");
+                Debug.WriteLine($"Navigated with Student ID: {Id} Program: {Program}");
                 this.Id = Id;
+                this.Program = Program;
             }
+            StudentsFrame.Navigate(typeof(Dashboard), this.Program);
+        }
+        public StudentPage()
+        {
+            this.InitializeComponent();
+           
         }
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
@@ -53,7 +57,7 @@ namespace EngrLink.Main_Window.Students
         {
             if (StudentsFrame.Content?.GetType() != typeof(Dashboard))
             {
-                StudentsFrame.Navigate(typeof(Dashboard));
+                StudentsFrame.Navigate(typeof(Dashboard), this.Program);
             }
         }
 
