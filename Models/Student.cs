@@ -18,6 +18,8 @@ namespace EngrLink.Models
         public Student Student2 { get; set; }
 
         public string NameStatus => $"{Student2.Name}";
+
+        public bool CanEnroll => (Student2.Total ?? 0) - (Student2.Fees ?? 0) >= 5000;
     }
 
 
