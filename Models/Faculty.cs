@@ -9,7 +9,7 @@ using Supabase.Postgrest.Models;
 
 namespace EngrLink.Models
 {
-    [Table("faculty")]
+    [Table("Faculty_Info")]
     public class Faculty : BaseModel
     {
         [Column("id")]
@@ -18,13 +18,10 @@ namespace EngrLink.Models
         [Column("name")]
         public string Name { get; set; }
 
-        [Column("department")]
-        public string Department { get; set; }
+        [Column("password")]
+        public string Password { get; set; }
 
-        [Column("position")]
-        public string Position { get; set; }
-
-        [Column("salary")]
-        public int Salary { get; set; }
+        [Column("profcode")]
+        public string ProfCode { get; set; }
     }
 }
