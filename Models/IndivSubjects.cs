@@ -37,6 +37,12 @@ namespace EngrLink.Models
 
         [Column("units")]
         public int Units { get; set; }
+
+        [Column("schedule")]
+        public string Schedule { get; set; }
+
+        [Column("profcode")]
+        public string ProfCode { get; set; }
     }
 
 

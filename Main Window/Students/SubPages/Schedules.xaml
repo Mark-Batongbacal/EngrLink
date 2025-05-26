@@ -5,12 +5,51 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:EngrLink.Main_Window.Students.SubPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:models="using:EngrLink.Models"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     RequestedTheme="Light"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <ScrollView>
+        <Grid Padding="0">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Spacing="1">
+                <TextBlock Text="Schedule" FontSize="40" HorizontalAlignment="Center" Padding="0,50,0,50"/>
+                <ListView x:Name="ScheduleListView" IsItemClickEnabled="False">
+                    <ListView.Header>
+                        <Grid Padding="10" Background="#f0f0f0" CornerRadius="4" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="100"/>
+                            </Grid.ColumnDefinitions>
 
-    <Grid>
-        <TextBlock Text="Shedules"/>
-    </Grid>
+                            <TextBlock Text="Subject Code" FontWeight="Bold" HorizontalAlignment="Left"/>
+                            <TextBlock Text="Subject Name" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Left"/>
+                            <TextBlock Text="Schedule" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Left"/>
+                            <TextBlock Text="Units" Grid.Column="3" FontWeight="Bold" HorizontalAlignment="Left"/>
+                        </Grid>
+                    </ListView.Header>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="models:IndivSubject">
+                            <Grid Padding="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="100"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="{x:Bind Code}" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{x:Bind Subject}" Grid.Column="1" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{x:Bind Schedule}" Grid.Column="2" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{x:Bind Units}" Grid.Column="3" HorizontalAlignment="Left"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </Grid>
+    </ScrollView>
 </Page>

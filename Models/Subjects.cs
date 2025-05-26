@@ -23,7 +23,7 @@ namespace EngrLink.Models
         [Column("code")]
         public string Code { get; set; }
 
-        [Column("Subject")]
+        [Column("subject")]
         public string Subject { get; set; }
 
         [Column("grade")]
@@ -40,5 +40,11 @@ namespace EngrLink.Models
 
         [Column("units")]
         public int Units { get; set; }
+
+        [Column("schedule")]
+        public string Schedule { get; set; }
+
+        [Column("profcode")]
+        public string ProfCode { get; set; }
     }
 }
