@@ -103,6 +103,8 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                             Program = subject.Program,
                             Remarks = subject.Remarks,
                             Year = subject.Year,
+                            Schedule = subject.Schedule,
+                            ProfCode = subject.ProfCode,
                             Units = subject.Units,
                             Grade = 0
                         };

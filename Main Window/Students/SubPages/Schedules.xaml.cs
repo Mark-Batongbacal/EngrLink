@@ -12,6 +12,8 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using EngrLink.Models;
+using System.ComponentModel;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -23,9 +25,37 @@ namespace EngrLink.Main_Window.Students.SubPages
     /// </summary>
     public sealed partial class Schedules : Page
     {
+        public string Id { get; set; }
         public Schedules()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.Parameter is string Id)
+            {
+                this.Id = Id;
+            }
+            LoadSchedule();
+        }
+        private async void LoadSchedule()
+        {
+            var client = App.SupabaseClient;
+
+            var response = await client
+              .From<IndivSubject>()
+              .Filter("student_id", Supabase.Postgrest.Constants.Operator.Equals, this.Id)
+              .Get();
+
+            ScheduleListView.ItemsSource = response.Models;
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Frame.CanGoBack)
+                Frame.GoBack();
         }
     }
 }
