@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Window
     x:Class="EngrLink.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -6,16 +5,18 @@
     xmlns:local="using:EngrLink"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Title="EngrLink">
+    mc:Ignorable="d">
+
 
     <Grid>
-        <TextBox Name="NameTextBox" Width="300" Height="30" Margin="20,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" PlaceholderText="Enter Name"/>
-        <TextBox Name="AddressTextBox" Width="300" Height="30" Margin="20,70,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" PlaceholderText="Enter Address"/>
-        <TextBox Name="ContactTextBox" Width="300" Height="30" Margin="20,120,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" PlaceholderText="Enter Contact Number"/>
-        <TextBox Name="ProgramTextBox" Width="300" Height="30" Margin="20,170,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" PlaceholderText="Enter Program"/>
-        <DatePicker Name="BirthdayDatePicker" Margin="20,220,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Button Name="SubmitButton" Content="Submit" Width="100" Height="40" Margin="20,270,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="SubmitButton_Click"/>
-    </Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <Image Source="Assets/banner.png" Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Row="0"/>
+        
+        <Frame x:Name="MainFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1"/>
+        
+    </Grid>
 </Window>

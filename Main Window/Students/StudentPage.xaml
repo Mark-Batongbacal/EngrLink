@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="EngrLink.Main_Window.Students.StudentPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EngrLink"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    RequestedTheme="Light">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- For the Banner -->
+            <RowDefinition Height="*"/>
+            <!-- For the Buttons -->
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <!-- Left panel fixed width -->
+            <ColumnDefinition Width="*" />
+            <!-- Right panel takes remaining space -->
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Background="#ffc797" VerticalAlignment="Stretch" Spacing="1" Grid.Row="1">
+
+            <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="40" Click="BackButton_Click"/>
+
+            <AppBarSeparator/>
+
+            <Button x:Name="DashboardButton" Content="Dashboard" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center"/>
+
+            <Button x:Name="AcadPerformanceButton" Content="Academic Performance" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center"/>
+
+            <Button x:Name="PerInfoButton" Content="Personal Information" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center"/>
+
+            <Button x:Name="ScheduleButton" Content="Schedule" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center"/>
+
+            <Button x:Name="FeesButton" Content="Fees" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center"/>
+
+        </StackPanel>
+
+    </Grid>
+</Page>

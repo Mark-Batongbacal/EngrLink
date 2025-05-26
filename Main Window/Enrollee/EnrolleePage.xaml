@@ -1,0 +1,61 @@
+﻿<Page
+    x:Class="EngrLink.Main_Window.Enrollee.EnrolleePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EngrLink"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    RequestedTheme="Light">
+
+    <Grid Padding="0" Background="#f7e8d9">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- For the Banner -->
+            <RowDefinition Height="*"/>
+            <!-- For the Buttons -->
+        </Grid.RowDefinitions>
+
+        <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Width="60" Height="40" Click="BackButton_Click" Grid.Row="1" />
+        
+        <!-- StackPanel will organize the elements vertically -->
+        <StackPanel
+            Grid.Row="1"
+            Orientation="Vertical" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Stretch" 
+            Padding="100">
+            <!-- Name Field -->
+            <TextBox x:Name="NameTextBox" PlaceholderText="Enter Full Name" TextChanged="Input_TextChanged" Width="300" Height="40" Margin="5" FontSize="12" FontFamily="Verdana" Padding="10"/>
+
+            <TextBox x:Name="AddressTextBox" PlaceholderText="Enter Address" TextChanged="Input_TextChanged" Width="300" Height="40" Margin="5" FontSize="12" FontFamily="Verdana" Padding="10"/>
+
+            <!-- Contact Field -->
+            <TextBox x:Name="ContactTextBox" PlaceholderText="Enter Contact" TextChanged="NumberOnly_TextChanged" Width="300" Height="40" Margin="5" FontSize="12" FontFamily="Verdana" Padding="10"/>
+
+            <!-- Program Field -->
+            <ComboBox x:Name="ProgramComboBox" Width="300" Height="60" Padding="10" Margin="5" Header="Enter Program" SelectionChanged="Program_SelectionChanged" FontSize="12" FontFamily="Verdana" Foreground="#74441e">
+                <ComboBoxItem Content="ARCHI" />
+                <ComboBoxItem Content="CE" />
+                <ComboBoxItem Content="CPE" />
+                <ComboBoxItem Content="ECE" />
+            </ComboBox>
+
+            <!-- Year Field -->
+            <ComboBox x:Name="YearLevelComboBox" Width="300" Height="60" Padding="10" Margin="5" Header="Enter Year Level" SelectionChanged="YearLevel_SelectionChanged" FontSize="12" FontFamily="Verdana" Foreground="#74441e">
+                <ComboBoxItem Content="1st Year" />
+                <ComboBoxItem Content="2nd Year" />
+                <ComboBoxItem Content="3rd Year" />
+                <ComboBoxItem Content="4th Year" />
+                <ComboBoxItem Content="5th Year" />
+            </ComboBox>
+
+            <!-- Birthday Picker -->
+            <DatePicker x:Name="BirthdayDatePicker" Header="Enter Birthday" DateChanged="Input_DateChanged" Width="300" Height="60" Margin="5" FontSize="12" FontFamily="Verdana" Foreground="#74441e"/>
+
+            <!-- Submit Button -->
+            <Button Name="SubmitButton" Content="Submit" Width="300" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SubmitButton_Click" FontSize="14" FontFamily="Verdana" Foreground="#74441e"/>
+        </StackPanel>
+    </Grid>
+</Page>

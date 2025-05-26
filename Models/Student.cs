@@ -6,14 +6,25 @@ using System.Threading.Tasks;
 using System.Windows.Media.Animation;
 using Supabase.Postgrest.Attributes;
 using Supabase.Postgrest.Models;
-
+using System.Text.Json.Serialization;
+using System.Diagnostics.CodeAnalysis;
+using System.Xml.Linq;
 
 namespace EngrLink.Models
 {
+
+    public class StudentViewModel
+    {
+        public Student Student2 { get; set; }
+
+        public string NameStatus => $"{Student2.Name} - {(Student2.Regular ? "Regular" : "Irregular")}";
+    }
+
+
     [Table("Student_Info")]
     public class Student : BaseModel
     {
-        [PrimaryKey("id", false)]
+        [PrimaryKey("id", true)]
         public int Id { get; set; }
 
         [Column("name")]
@@ -26,13 +37,16 @@ namespace EngrLink.Models
         public string Contact { get; set; }
 
         [Column("year")]
-        public int Year { get; set; }
+        public string Year { get; set; }
 
         [Column("program")]
         public string Program { get; set; }
 
         [Column("fees")]
-        public int Fees { get; set; }
+        public int? Fees { get; set; }
+
+        [Column("total_fees")]
+        public int? Total { get; set; }
 
         [Column("enrolled")]
         public bool Enrolled { get; set; }
@@ -46,7 +60,8 @@ namespace EngrLink.Models
         [Column("bday")]
         public string Birthday { get; set; }
 
-        
+        [Column("password")]
+        public string Password { get; set; }
     }
 }
 

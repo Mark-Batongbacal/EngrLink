@@ -12,6 +12,16 @@
     <EnableMsixTooling>true</EnableMsixTooling>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Assets\banner.png" />
+    <None Remove="Main Window\Department Chairman\LoginDepartment.xaml" />
+    <None Remove="Main Window\Department Chairman\SubPages\AnnouncementPage.xaml" />
+    <None Remove="Main Window\Department Chairman\SubPages\Dashboard.xaml" />
+    <None Remove="Main Window\Department Chairman\SubPages\Enrollees.xaml" />
+    <None Remove="Main Window\Department Chairman\SubPages\ListOfStudents.xaml" />
+    <None Remove="Main Window\Department Chairman\SubPages\ShowGrades.xaml" />
+    <None Remove="MainPage.xaml" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -38,7 +48,49 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250401001" />
+    <PackageReference Include="postgrest-csharp" Version="3.5.1" />
     <PackageReference Include="Supabase" Version="1.1.1" />
+    <PackageReference Include="Supabase.Postgrest" Version="4.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Assets\banner.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Main Window\Department Chairman\SubPages\AnnouncementPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Main Window\Department Chairman\SubPages\ShowGrades.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Main Window\Department Chairman\SubPages\AnnouncementPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Main Window\Department Chairman\SubPages\Enrollees.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Main Window\Department Chairman\SubPages\ListOfStudents.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Main Window\Department Chairman\SubPages\Dashboard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <!--
