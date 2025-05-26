@@ -30,7 +30,7 @@
 
             <AppBarSeparator/>
 
-            <Button x:Name="DashboardButton" Content="Dashboard" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center"/>
+            <Button x:Name="DashboardButton" Content="Dashboard" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="DashboardButton_Click"/>
 
             <Button x:Name="AcadPerformanceButton" Content="Academic Performance" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center"/>
 
@@ -41,6 +41,7 @@
             <Button x:Name="FeesButton" Content="Fees" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center"/>
 
         </StackPanel>
-
+        
+        <Frame x:Name="StudentsFrame" Grid.Column="1" Grid.Row="1"/>
     </Grid>
 </Page>

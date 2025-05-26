@@ -12,6 +12,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using EngrLink.Main_Window.Students.SubPages;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -31,6 +32,14 @@ namespace EngrLink.Main_Window.Students
         {
             if (Frame.CanGoBack)
                 Frame.GoBack();
+        }
+
+        private void DashboardButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (StudentsFrame.Content?.GetType() != typeof(Dashboard))
+            {
+                StudentsFrame.Navigate(typeof(Dashboard));
+            }
         }
     }
 }
