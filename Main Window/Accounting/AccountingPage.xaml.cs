@@ -1,4 +1,4 @@
-using EngrLink.Models;
+using EngrLink.Models; // Ensure this is the correct namespace for the Student class
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Supabase;
@@ -13,7 +13,7 @@ namespace EngrLink.Main_Window.Accounting
     public sealed partial class AccountingPage : Page
     {
         private Supabase.Client supabaseClient;
-        private Student currentStudent;
+        private EngrLink.Models.Student currentStudent; // Fully qualify the Student type to avoid namespace conflict
 
         public AccountingPage()
         {
@@ -54,7 +54,7 @@ namespace EngrLink.Main_Window.Accounting
             try
             {
                 var response = await supabaseClient
-                    .From<Student>()
+                    .From<EngrLink.Models.Student>() // Fully qualify the Student type
                     .Filter("id", Operator.Equals, studentId)
                     .Get();
 
@@ -120,9 +120,9 @@ namespace EngrLink.Main_Window.Accounting
                 currentStudent.Fees -= amountPaid;
 
                 var updateResponse = await supabaseClient
-                    .From<Student>()
+                    .From<EngrLink.Models.Student>() // Fully qualify the Student type
                     .Where(x => x.Id == currentStudent.Id)
-                    .Update(currentStudent); // Pass the entire updated currentStudent object
+                    .Update(currentStudent);
 
                 if (updateResponse != null && updateResponse.ResponseMessage.IsSuccessStatusCode)
                 {
@@ -131,14 +131,13 @@ namespace EngrLink.Main_Window.Accounting
                     await ShowDialogAsync($"Payment successful. Remaining balance: {currentStudent.Fees:N0}");
 
                     var getResponse = await supabaseClient
-                        .From<Student>()
+                        .From<EngrLink.Models.Student>() // Fully qualify the Student type
                         .Where(x => x.Id == currentStudent.Id)
                         .Get();
 
                     if (getResponse != null && getResponse.Models != null && getResponse.Models.Any())
                     {
                         currentStudent = getResponse.Models.FirstOrDefault();
-                        // Optionally update other displayed fields if needed
                     }
                 }
                 else
