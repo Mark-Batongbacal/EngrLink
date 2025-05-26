@@ -115,20 +115,18 @@ namespace EngrLink.Main_Window.Students
                 {
                     studid = student.Id.ToString();
                     studpassword = student.Password;
-                }
-
-                if (Password.Password == studpassword)
-                {
-                    ContentDialog successDialog = new ContentDialog
+                    if (Password.Password == studpassword)
                     {
-                        Title = "Login Successful",
-                        Content = "Welcome back!",
-                        CloseButtonText = "OK",
-                        XamlRoot = this.XamlRoot
-                    };
-                    await successDialog.ShowAsync();
-                    // Navigate to next page if needed
-                    Frame.Navigate(typeof(StudentPage));
+                        ContentDialog successDialog = new ContentDialog
+                        {
+                            Title = "Login Successful",
+                            Content = "Welcome back!",
+                            CloseButtonText = "OK",
+                            XamlRoot = this.XamlRoot
+                        };
+                        await successDialog.ShowAsync();
+                        Frame.Navigate(typeof(StudentPage), student.Id.ToString());
+                    }
                 }
                 else
                 {
