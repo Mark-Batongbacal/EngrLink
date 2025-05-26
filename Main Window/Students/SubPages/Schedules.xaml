@@ -19,7 +19,7 @@
                         <Grid Padding="10" Background="#f0f0f0" CornerRadius="4" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="350"/>
                                 <ColumnDefinition Width="200"/>
                                 <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
@@ -36,7 +36,7 @@
                             <Grid Padding="10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="350"/>
                                     <ColumnDefinition Width="200"/>
                                     <ColumnDefinition Width="100"/>
                                 </Grid.ColumnDefinitions>
