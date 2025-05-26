@@ -80,5 +80,13 @@ namespace EngrLink.Main_Window.Students
                 StudentsFrame.Navigate(typeof(PersonalInfoPage), this.Id);
             }
         }
+
+        private void FeesButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (StudentsFrame.Content?.GetType() != typeof(FeesPage))
+            {
+                StudentsFrame.Navigate(typeof(FeesPage), this.Id);
+            }
+        }
     }
 }

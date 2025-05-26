@@ -38,7 +38,7 @@
 
             <Button x:Name="ScheduleButton" Content="Schedule" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="ScheduleButton_Click"/>
 
-            <Button x:Name="FeesButton" Content="Fees" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center"/>
+            <Button x:Name="FeesButton" Content="Fees" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="FeesButton_Click"/>
 
         </StackPanel>
         

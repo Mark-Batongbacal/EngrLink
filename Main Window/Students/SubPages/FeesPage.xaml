@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="EngrLink.Main_Window.Students.SubPages.FeesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EngrLink.Main_Window.Students.SubPages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:EngrLink.Models"
+    mc:Ignorable="d"
+    RequestedTheme="Light"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollView>
+        <Grid>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0" Width="400">
+                <TextBlock Text="Financial Information" FontSize="40" FontWeight="Bold" Margin="0,0,0,30" HorizontalAlignment="Center"/>
+
+                <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="0,0,0,20" Background="White">
+                    <StackPanel Spacing="15">
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Student Name:" />
+                        <TextBlock Text="{Binding CurrentStudent.Name}" FontSize="22" FontWeight="SemiBold"/>
+
+                        <Line Stroke="LightGray" StrokeThickness="1" Margin="0,5"/>
+
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Total Fees:" />
+                        <TextBlock Text="{Binding FormattedTotalFees}" FontSize="22" FontWeight="SemiBold" Foreground="#32CD32"/>
+
+                        <Line Stroke="LightGray" StrokeThickness="1" Margin="0,5"/>
+
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Paid Amount:" />
+                        <TextBlock Text="{Binding FormattedPaidAmount}" FontSize="22" FontWeight="SemiBold" Foreground="#1E90FF"/>
+
+                        <Line Stroke="LightGray" StrokeThickness="1" Margin="0,5"/>
+
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Remaining Balance:" />
+                        <TextBlock Text="{Binding FormattedRemainingFees}"
+                                   FontSize="28"
+                                   FontWeight="Bold"
+                                   Foreground="{Binding RemainingFeesColor}"/>
+
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </ScrollView>
+</Page>
