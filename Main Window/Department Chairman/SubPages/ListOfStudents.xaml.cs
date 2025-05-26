@@ -41,6 +41,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
             {
                 Debug.WriteLine($"Navigated with Department ID: {program}");
                 this.Program = program;
+
             }
             LoadStudents();
         }

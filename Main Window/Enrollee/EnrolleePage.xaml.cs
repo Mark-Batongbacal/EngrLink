@@ -69,9 +69,6 @@ namespace EngrLink.Main_Window.Enrollee
             .Limit(1)
             .Get();
 
-  
-            
-
             int newId = 1;  // Default to 1 if no students exist yet
 
             if (lastStudentResponse.Models.Count > 0)
@@ -89,13 +86,14 @@ namespace EngrLink.Main_Window.Enrollee
                 Address = address,
                 Contact = contact,
                 Year = year,
-                Fees = 123123,
+                Fees = FeeCalculators.GetFee(year, program),
+                Total = FeeCalculators.GetFee(year, program),
                 Program = program,
                 Password = newId.ToString(),
                 Birthday = birthday,
                 Enrolled = false,  // You can change the default based on your requirement
                 Paid = false,      // You can change this as needed
-                Regular = false    // You can change this as needed
+                  
             };
 
             // Inserting the new student into the database

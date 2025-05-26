@@ -17,7 +17,7 @@ namespace EngrLink.Models
     {
         public Student Student2 { get; set; }
 
-        public string NameStatus => $"{Student2.Name} - {(Student2.Regular ? "Regular" : "Irregular")}";
+        public string NameStatus => $"{Student2.Name}";
     }
 
 
@@ -53,9 +53,6 @@ namespace EngrLink.Models
 
         [Column("paid")]
         public bool Paid { get; set; }
-
-        [Column("regular")]
-        public bool Regular { get; set; }
 
         [Column("bday")]
         public string Birthday { get; set; }
