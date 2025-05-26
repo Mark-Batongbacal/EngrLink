@@ -64,5 +64,13 @@ namespace EngrLink.Main_Window.Students
                 StudentsFrame.Navigate(typeof(Schedules), this.Id);
             }
         }
+
+        private void AcadPerformanceButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (StudentsFrame.Content?.GetType() != typeof(AcadPerformancePage))
+            {
+                StudentsFrame.Navigate(typeof(AcadPerformancePage), this.Id);
+            }
+        }
     }
 }
