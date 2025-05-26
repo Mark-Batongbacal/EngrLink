@@ -34,7 +34,7 @@
 
             <Button x:Name="AcadPerformanceButton" Content="Academic Performance" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="AcadPerformanceButton_Click"/>
 
-            <Button x:Name="PerInfoButton" Content="Personal Information" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center"/>
+            <Button x:Name="PerInfoButton" Content="Personal Information" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="PerInfoButton_Click"/>
 
             <Button x:Name="ScheduleButton" Content="Schedule" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="ScheduleButton_Click"/>
 

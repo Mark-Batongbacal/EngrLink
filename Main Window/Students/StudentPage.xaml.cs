@@ -72,5 +72,13 @@ namespace EngrLink.Main_Window.Students
                 StudentsFrame.Navigate(typeof(AcadPerformancePage), this.Id);
             }
         }
+
+        private void PerInfoButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (StudentsFrame.Content?.GetType() != typeof(PersonalInfoPage))
+            {
+                StudentsFrame.Navigate(typeof(PersonalInfoPage), this.Id);
+            }
+        }
     }
 }
