@@ -32,6 +32,9 @@ public sealed partial class ShowGrades : Page
     public StudentProfileModel StudentProfile { get; set; } = new();
     public List<IndivSubjectView> SubjectViews { get; set; } = new();
 
+    public bool CanEditGrades { get; set; }
+
+
     public ShowGrades()
     {
         InitializeComponent();
@@ -42,8 +45,11 @@ public sealed partial class ShowGrades : Page
     {
         base.OnNavigatedTo(e);
 
-        if (e.Parameter is int studentId)
+        if (e.Parameter is (int studentId, string profCode))
         {
+
+            CanEditGrades = SubjectViews.Any() && SubjectViews.First().Sub.ProfCode == profCode;
+           
             Debug.WriteLine($"Navigated with Student ID: {studentId}");
             var client = App.SupabaseClient;
 
@@ -54,8 +60,12 @@ public sealed partial class ShowGrades : Page
                 .Get();
 
             SubjectViews = gradesResponse.Models
-                .Select(sub => new IndivSubjectView { Sub = sub })
-                .ToList();
+            .Select(sub => new IndivSubjectView
+            {
+                Sub = sub,
+                IsEditable = sub.ProfCode == profCode   
+            })
+            .ToList();
 
             StudentsListView.ItemsSource = SubjectViews;
 

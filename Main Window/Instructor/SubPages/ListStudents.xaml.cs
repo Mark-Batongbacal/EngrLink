@@ -20,8 +20,7 @@ namespace EngrLink.Main_Window.Instructor.SubPages
 {
     public sealed partial class ListStudents : Page
     {
-        public string Program;
-
+        public string ProfCode;
         public ListStudents()
         {
             this.InitializeComponent();
@@ -34,7 +33,7 @@ namespace EngrLink.Main_Window.Instructor.SubPages
             if (e.Parameter is string program)
             {
                 Debug.WriteLine($"Navigated with Department ID: {program}");
-                this.Program = program;
+                this.ProfCode = program;
 
             }
             LoadStudents();
@@ -47,10 +46,11 @@ namespace EngrLink.Main_Window.Instructor.SubPages
             // Only get students where Enrolled is false
             var response = await client
                 .From<Subjects>()
-                .Filter("profcode", Supabase.Postgrest.Constants.Operator.Equals, this.Program)
+                .Filter("profcode", Supabase.Postgrest.Constants.Operator.Equals, this.ProfCode)
                 .Get();
             if (response.Models is not null)
             {
+
                 // Get distinct (Program, Year) pairs
                 var distinctPairs = response.Models
                     .Select(s => new { Program = s.Program, Year = s.Year })
@@ -102,7 +102,7 @@ namespace EngrLink.Main_Window.Instructor.SubPages
                 int studentId = viewModel.Student2.Id;
 
                 Frame.Content = null;
-                Frame.Navigate(typeof(ShowGrades), studentId);
+                Frame.Navigate(typeof(ShowGrades), (studentId,this.ProfCode));
             }
         }
 

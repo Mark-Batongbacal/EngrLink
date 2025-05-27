@@ -13,6 +13,8 @@ namespace EngrLink.Models
     {
         public IndivSubject Sub { get; set; }
         public string RemarksText => Sub?.Remarks == true ? "Passed" : "Failed";
+
+        public bool IsEditable { get; set; }
     }
 
     [Table("Individual_Subjects")]
