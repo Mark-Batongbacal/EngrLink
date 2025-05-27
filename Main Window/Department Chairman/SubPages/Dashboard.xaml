@@ -5,9 +5,28 @@
     xmlns:local="using:EngrLink.Main_Window.Department_Chairman.SubPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    RequestedTheme="Light">
 
-    <Grid>
-        <!-- Add your UI elements here -->
+    <Page.Background>
+        <ImageBrush ImageSource="ms-appx:///Assets/my_background.png"
+                Stretch="UniformToFill"
+                Opacity="1"/>
+    </Page.Background>
+
+    <Grid Padding="20">
+        <StackPanel>
+            <TextBlock Text="{x:Bind Name, Mode=OneWay}" FontSize="32" FontWeight="Bold" FontFamily="Verdana" Foreground="#74441e" Margin="0,0,0,20" />
+
+            <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="8" Margin="0,0,0,20" Background="White" Height="250" HorizontalAlignment="Stretch">
+                <FlipView x:Name="DashboardFlipView" ItemsSource="{x:Bind ImageSources, Mode=OneWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TabIndex="0" FocusVisualPrimaryThickness="0" FocusVisualSecondaryThickness="0">
+                    <FlipView.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <Image Source="{x:Bind}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </FlipView.ItemTemplate>
+                </FlipView>
+            </Border>
+        </StackPanel>
     </Grid>
 </Page>

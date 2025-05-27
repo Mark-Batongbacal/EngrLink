@@ -1,5 +1,5 @@
-using EngrLink.Models; // Make sure to include your models namespace
-using Microsoft.UI.Xaml; // Needed for DispatcherTimer
+using EngrLink.Models;
+using Microsoft.UI.Xaml; 
 using Microsoft.UI.Xaml.Controls;
 using Supabase;
 using Supabase.Postgrest;

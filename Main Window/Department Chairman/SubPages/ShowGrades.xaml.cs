@@ -15,11 +15,13 @@ public sealed partial class ShowGrades : Page
     public class StudentProfileModel : INotifyPropertyChanged
     {
         private string _name;
+        private string _id;
         private string _program;
         private string _year;
         private double _gwa;
 
         public string Name { get => _name; set { _name = value; OnPropertyChanged(nameof(Name)); } }
+        public string Id { get => _id; set { _id = value; OnPropertyChanged(nameof(Id)); } }
         public string Program { get => _program; set { _program = value; OnPropertyChanged(nameof(Program)); } }
         public string Year { get => _year; set { _year = value; OnPropertyChanged(nameof(Year)); } }
         public double GWA { get => _gwa; set { _gwa = value; OnPropertyChanged(nameof(GWA)); } }
@@ -71,6 +73,7 @@ public sealed partial class ShowGrades : Page
                 StudentProfile.Name = student.Name;
                 StudentProfile.Program = student.Program;
                 StudentProfile.Year = student.Year;
+                StudentProfile.Id = student.Id.ToString();
 
                 Debug.WriteLine(StudentProfile.Name);
                 Debug.WriteLine(StudentProfile.Program);
