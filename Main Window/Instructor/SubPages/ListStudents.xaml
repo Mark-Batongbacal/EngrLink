@@ -7,16 +7,21 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:models="using:EngrLink.Models"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"    
+    mc:Ignorable="d"  
     RequestedTheme="Light">
 
-    <Grid Padding="0">
+    <Page.Background>
+        <ImageBrush ImageSource="ms-appx:///Assets/my_background.png"
+                    Stretch="UniformToFill"
+                    Opacity="1"/>
+    </Page.Background>
+
+    <Grid Padding="20">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Spacing="1">
-            <TextBlock Text="List of Students" FontSize="40" HorizontalAlignment="Center" Padding="0,50,0,50"/>
+            <TextBlock Text="List of Students" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Padding="0,50,0,50" FontFamily="Verdana" Foreground="#74441e"/>
             <ListView x:Name="StudentsListView" IsItemClickEnabled="False">
                 <ListView.Header>
-                    <Grid Padding="10" Background="#f0f0f0" CornerRadius="4" >
+                    <Grid Padding="10" Background="#fad1ac" CornerRadius="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="250"/>
@@ -25,11 +30,11 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="ID" FontWeight="Bold" HorizontalAlignment="Left"/>
-                        <TextBlock Text="Name" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Left"/>
-                        <TextBlock Text="Year" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Left"/>
-                        <TextBlock Text="Program" Grid.Column="3" FontWeight="Bold" HorizontalAlignment="Left"/>
-                        <TextBlock Text="Action" Grid.Column="4" FontWeight="Bold" HorizontalAlignment="Left"/>
+                        <TextBlock Text="   ID" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                        <TextBlock Text="   Name" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                        <TextBlock Text="   Year" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                        <TextBlock Text="   Program" Grid.Column="3" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                        <TextBlock Text="   Action" Grid.Column="4" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
                     </Grid>
                 </ListView.Header>
 
@@ -44,11 +49,11 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="{x:Bind Student2.Id}" HorizontalAlignment="Left"/>
-                            <TextBlock Text="{x:Bind Student2.Name}" Grid.Column="1" HorizontalAlignment="Left"/>
-                            <TextBlock Text="{x:Bind Student2.Year}" Grid.Column="2" HorizontalAlignment="Left"/>
-                            <TextBlock Text="{x:Bind Student2.Program}" Grid.Column="3" HorizontalAlignment="Left"/>
-                            <Button Content="View Grades" Click="StudentButton_Click" Grid.Column="4" HorizontalAlignment="Left"/>
+                            <TextBlock Text="{x:Bind Student2.Id}" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <TextBlock Text="{x:Bind Student2.Name}" Grid.Column="1" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <TextBlock Text="{x:Bind Student2.Year}" Grid.Column="2" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <TextBlock Text="{x:Bind Student2.Program}" Grid.Column="3" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <Button Content="View Grades" Click="StudentButton_Click" Grid.Column="4" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
