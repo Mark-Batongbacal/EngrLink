@@ -12,32 +12,29 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <ScrollView>
-        <Grid>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0" Width="400">
-                <TextBlock Text="Financial Information" FontSize="40" FontWeight="Bold" Margin="0,0,0,30" HorizontalAlignment="Center"/>
+        <Grid Padding="20">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" Width="600">
+                <TextBlock Text="Financial Information" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Padding="0,0,0,50" FontFamily="Verdana" Foreground="#74441e"/>
 
-                <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="0,0,0,20" Background="White">
-                    <StackPanel Spacing="15">
-                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Student Name:" />
-                        <TextBlock Text="{Binding CurrentStudent.Name}" FontSize="22" FontWeight="SemiBold"/>
+                <Border BorderBrush="#74441e" BorderThickness="1" CornerRadius="8" Padding="20" Margin="0,0,0,20" Background="White">
+                    <StackPanel Spacing="10">
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Student Name:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
+                        <TextBlock Text="{Binding CurrentStudent.Name}" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
 
-                        <Line Stroke="LightGray" StrokeThickness="1" Margin="0,5"/>
+                        <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
 
-                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Total Fees:" />
-                        <TextBlock Text="{Binding FormattedTotalFees}" FontSize="22" FontWeight="SemiBold" Foreground="#32CD32"/>
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Total Fees:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
+                        <TextBlock Text="{Binding FormattedTotalFees}" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
 
-                        <Line Stroke="LightGray" StrokeThickness="1" Margin="0,5"/>
+                        <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
 
-                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Paid Amount:" />
-                        <TextBlock Text="{Binding FormattedPaidAmount}" FontSize="22" FontWeight="SemiBold" Foreground="#1E90FF"/>
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Paid Amount:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
+                        <TextBlock Text="{Binding FormattedPaidAmount}" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
 
-                        <Line Stroke="LightGray" StrokeThickness="1" Margin="0,5"/>
+                        <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
 
-                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Remaining Balance:" />
-                        <TextBlock Text="{Binding FormattedRemainingFees}"
-                                   FontSize="28"
-                                   FontWeight="Bold"
-                                   Foreground="{Binding RemainingFeesColor}"/>
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Remaining Balance:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
+                        <TextBlock Text="{Binding FormattedRemainingFees}" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
 
                     </StackPanel>
                 </Border>

@@ -24,6 +24,7 @@
     <None Remove="Main Window\Department Chairman\SubPages\Dashboard.xaml" />
     <None Remove="Main Window\Department Chairman\SubPages\Enrollees.xaml" />
     <None Remove="Main Window\Department Chairman\SubPages\ListOfStudents.xaml" />
+    <None Remove="Main Window\Department Chairman\SubPages\Schedules.xaml" />
     <None Remove="Main Window\Department Chairman\SubPages\ShowGrades.xaml" />
     <None Remove="Main Window\Instructor\FacultyLogin.xaml" />
     <None Remove="Main Window\Instructor\SubPages\Dashboard.xaml" />

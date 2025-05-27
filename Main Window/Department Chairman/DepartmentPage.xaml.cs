@@ -55,11 +55,11 @@ namespace EngrLink.Main_Window.Department_Chairman
 
         private void Schedules_Click(object sender, RoutedEventArgs e)
         {
-            //if (DepartmentChairFrame.Content?.GetType() != typeof(Schedules))
-            //{
-            //    DepartmentChairFrame.Content = null;
-            //    DepartmentChairFrame.Navigate(typeof(Schedules), this.Program);
-            //}
+            if (DepartmentChairFrame.Content?.GetType() != typeof(Schedules))
+            {
+                DepartmentChairFrame.Content = null;
+                DepartmentChairFrame.Navigate(typeof(Schedules), this.Program);
+            }
         }
 
 
