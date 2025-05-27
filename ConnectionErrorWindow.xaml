@@ -9,14 +9,19 @@
     mc:Ignorable="d"
     Title="Connection Error">
 
-    <Grid Background="White">
-        <TextBlock
-            Text="Unable to connect to the server. Please check your internet connection or try again later."
-            FontSize="18"
-            TextWrapping="Wrap"
-            TextAlignment="Center"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            Margin="20"/>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="ms-appx:///Assets/my_background.png" Stretch="UniformToFill" Opacity="1"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Image Source="Assets/banner.png" Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Row="0"/>
+        <StackPanel Grid.Row="1" VerticalAlignment="Center">
+            <TextBlock Text="Unable to connect to the server." FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" TextWrapping="Wrap" FontFamily="Verdana" Margin="0,50,0,50" Foreground="#74441e"/>
+            <TextBlock Text="Please check your internet connection or try again later." FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" TextWrapping="Wrap" FontFamily="Verdana" Margin="0,0,0,150" Foreground="#74441e"/>
+        </StackPanel>
     </Grid>
 </Window>
