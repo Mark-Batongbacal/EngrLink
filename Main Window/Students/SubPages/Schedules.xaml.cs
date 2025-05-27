@@ -42,6 +42,7 @@ namespace EngrLink.Main_Window.Students.SubPages
             var response = await client
               .From<IndivSubject>()
               .Filter("student_id", Supabase.Postgrest.Constants.Operator.Equals, this.Id)
+              .Order("subject", Supabase.Postgrest.Constants.Ordering.Ascending)
               .Get();
 
             ScheduleListView.ItemsSource = response.Models;
