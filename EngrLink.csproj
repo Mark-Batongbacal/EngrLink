@@ -30,6 +30,7 @@
     <None Remove="Main Window\Instructor\SubPages\Dashboard.xaml" />
     <None Remove="Main Window\Instructor\SubPages\ListStudents.xaml" />
     <None Remove="Main Window\Instructor\SubPages\Schedule.xaml" />
+    <None Remove="Main Window\Instructor\SubPages\ShowGrades.xaml" />
     <None Remove="Main Window\Students\SubPages\Dashboard.xaml" />
     <None Remove="Main Window\Students\SubPages\FeesPage.xaml" />
     <None Remove="Main Window\Students\SubPages\PersonalInfoPage.xaml" />
@@ -79,6 +80,11 @@
     <Content Update="Assets\carousel_image3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Main Window\Instructor\SubPages\ShowGrades.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Main Window\Instructor\SubPages\ListStudents.xaml">

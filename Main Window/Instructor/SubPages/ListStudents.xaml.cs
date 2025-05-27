@@ -102,7 +102,7 @@ namespace EngrLink.Main_Window.Instructor.SubPages
                 int studentId = viewModel.Student2.Id;
 
                 Frame.Content = null;
-                //Frame.Navigate(typeof(ShowGrades), studentId); // Pass the ID to the next page
+                Frame.Navigate(typeof(ShowGrades), studentId);
             }
         }
 
