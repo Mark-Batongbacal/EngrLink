@@ -11,21 +11,10 @@
     RequestedTheme="Light">
 
     <Grid Padding="0" Background="#f7e8d9">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <!-- For the Banner -->
-            <RowDefinition Height="*"/>
-            <!-- For the Buttons -->
-        </Grid.RowDefinitions>
 
         <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Width="60" Height="40" Click="BackButton_Click" Grid.Row="1" />
 
-        <StackPanel
-            Grid.Row="1"
-            Orientation="Vertical" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Stretch" 
-            Padding="100">
+        <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Stretch" Padding="100">
 
             <TextBox x:Name="StudentID" PlaceholderText="Enter ID" TextChanged="Input_TextChanged" Width="300" Height="40" Margin="5" FontSize="12" FontFamily="Verdana" Padding="10"/>
 
