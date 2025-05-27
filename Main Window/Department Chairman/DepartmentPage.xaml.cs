@@ -32,18 +32,19 @@ namespace EngrLink.Main_Window.Department_Chairman
         public DepartmentPage()
         {
             this.InitializeComponent();
-            DepartmentChairFrame.Navigate(typeof(Dashboard));
+
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            if (e.Parameter is string program)
+            if (e.Parameter is string Program)
             {
-                Debug.WriteLine($"Navigated with Department ID: {program}");
-                this.Program = program;
+                Debug.WriteLine($"Navigated with Program: {Program}");
+                this.Program = Program;
             }
+            DepartmentChairFrame.Navigate(typeof(Dashboard), this.Program);
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -71,15 +72,6 @@ namespace EngrLink.Main_Window.Department_Chairman
                 DepartmentChairFrame.Content = null;
                 DepartmentChairFrame.Navigate(typeof(ListOfStudents), this.Program);
             }
-        }
-
-        private void ListFaculty_Click(object sender, RoutedEventArgs e)
-        {
-            //if (DepartmentChairFrame.Content?.GetType() != typeof(ListOfFaculty))
-            //{
-            //    DepartmentChairFrame.Content = null;
-            //    DepartmentChairFrame.Navigate(typeof(ListOfFaculty), this.Program);
-            //}
         }
 
         private void Announcements_Click(object sender, RoutedEventArgs e)
