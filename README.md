@@ -100,7 +100,7 @@
 ## 📢 Contact
 
 Have questions, suggestions, or ideas?
-Open an issue or reach out at **[batongbacalmark@gmail.com](mailto:batongbacalmark@gmail.com)**
+Open an issue or reach out at **[batongbacalmark@gmail.com](mailto:batongbacalmark@gmail.com)** **[sarmijustine@gmail.com](mailto:sarmijustine@gmail.com)** **[pinacate.stephen@gmail.com](mailto:pinacate.stephen@gmail.com)** 
 
 ---
 
