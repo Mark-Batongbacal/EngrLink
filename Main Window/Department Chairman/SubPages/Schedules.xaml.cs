@@ -146,23 +146,18 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
 
         private void ViewScheduleButton_Click(object sender, RoutedEventArgs e)
         {
+            if (Frame.CanGoBack)
+                Frame.GoBack();
+
             if (sender is Button button && button.DataContext is Faculty faculty)
             {
                 Debug.WriteLine($"Viewing schedule for: {faculty.Name} (Code: {faculty.ProfCode})");
 
                 // Navigate to the ViewSchedulePage and pass the selected faculty
                 Frame.Navigate(typeof(ViewSchedulePage), faculty);
+
+                button.IsEnabled = false;
             }
-        }
-
-        private void ScrollToTopButton_Click(object sender, RoutedEventArgs e)
-        {
-            SchedulesScrollViewer.ChangeView(null, 0, null);
-        }
-
-        private void ScrollToBottomButton_Click(object sender, RoutedEventArgs e)
-        {
-            SchedulesScrollViewer.ChangeView(null, SchedulesScrollViewer.ScrollableHeight, null);
         }
     }
 }

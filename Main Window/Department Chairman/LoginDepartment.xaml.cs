@@ -30,6 +30,9 @@ namespace EngrLink.Main_Window.Department_Chairman
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
+            button.IsEnabled = false;
+
             if (Frame.CanGoBack)
                 Frame.GoBack();
         }
@@ -49,6 +52,9 @@ namespace EngrLink.Main_Window.Department_Chairman
 
         private async void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
+            button.IsEnabled = false;
+
             string depid = DepID.Text.Trim();
             string password = Password.Password.Trim();
 

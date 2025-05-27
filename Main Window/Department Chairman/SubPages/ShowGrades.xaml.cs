@@ -139,6 +139,8 @@ public sealed partial class ShowGrades : Page
             CloseButtonText = "OK",
             XamlRoot = this.XamlRoot
         };
+        var button = sender as Button;
+        button.IsEnabled = false;
 
         await dialog.ShowAsync();
     }

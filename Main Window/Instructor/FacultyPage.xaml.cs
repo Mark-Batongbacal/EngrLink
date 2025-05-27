@@ -48,12 +48,16 @@ namespace EngrLink.Main_Window.Instructor
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
+            button.IsEnabled = false;
             if (Frame.CanGoBack)
                 Frame.GoBack();
         }
 
         private void DashboardButton_Click(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
+            button.IsEnabled = false;
             if (FacultyFrame.Content?.GetType() != typeof(Instructor.SubPages.Dashboard))
             {
                 FacultyFrame.Navigate(typeof(Instructor.SubPages.Dashboard), (this.Program,this.Id));
@@ -62,6 +66,8 @@ namespace EngrLink.Main_Window.Instructor
 
         private void ListStudents_Click(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
+            button.IsEnabled = false;
 
             if (FacultyFrame.Content?.GetType() != typeof(ListStudents))
             {
@@ -72,6 +78,8 @@ namespace EngrLink.Main_Window.Instructor
 
         private void Schedules_Click(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
+            button.IsEnabled = false;
             if (FacultyFrame.Content?.GetType() != typeof(Schedule))
             {
                 FacultyFrame.Content = null;

@@ -31,6 +31,8 @@ namespace EngrLink.Main_Window.Students
         }
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
+            button.IsEnabled = false;
             if (Frame.CanGoBack)
                 Frame.GoBack();
         }
@@ -54,6 +56,8 @@ namespace EngrLink.Main_Window.Students
 
         private async void SubmitNewPassword_Click(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
+            button.IsEnabled = false;
             string studentIdInput = StudentID.Text.Trim();
             string newPassword = NewPassword.Password.Trim();
             string confirmPassword = ConfirmNewPassword.Password.Trim();
