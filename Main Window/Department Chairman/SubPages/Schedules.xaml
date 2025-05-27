@@ -45,14 +45,15 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{x:Bind ProfCode}" HorizontalAlignment="Left"/>
-                                <TextBlock Text="{x:Bind Name}" Grid.Column="1" HorizontalAlignment="Left"/>
-                                <Button Content="View Schedule" Click="ViewScheduleButton_Click" Grid.Column="2" HorizontalAlignment="Left"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </ScrollViewer>
-        </StackPanel>
-    </Grid>
+                                    <TextBlock Text="{x:Bind ProfCode}" HorizontalAlignment="Left" />
+                                    <TextBlock Text="{x:Bind Name}" Grid.Column="1" HorizontalAlignment="Left"/>
+                                    <Button Content="View Schedule" Click="ViewScheduleButton_Click" Grid.Column="2" HorizontalAlignment="Left"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollViewer>
+            </StackPanel>
+        </Grid>
+    </ScrollView>
 </Page>
