@@ -66,7 +66,7 @@ namespace EngrLink.Main_Window.Accounting
                 if (ac != null && ac.Password == password && ac.Id == 100)
                 {
                     await ShowDialog("Login Successful", "Welcome back!");
-                    Frame.Navigate(typeof(AccountingPage), ac.ProfCode); // Changed 'Program' to 'ProfCode'
+                    Frame.Navigate(typeof(AccountingPage), ac.ProfCode); 
                 }
 
 

@@ -59,7 +59,7 @@ namespace EngrLink.Main_Window.Instructor.SubPages
                     .OrderBy(x => x.Program)
                     .ThenBy(x => x.Year)
                     .ToList();
-
+                var allStudents = new List<StudentViewModel>();
                 foreach (var pair in distinctPairs)
                 {
                     var studResponse = await client
@@ -69,13 +69,20 @@ namespace EngrLink.Main_Window.Instructor.SubPages
                         .Filter("id", Supabase.Postgrest.Constants.Operator.GreaterThan, 17)
                         .Get();
 
-                    // Get student IDs from the response
-                    var studentIds = studResponse.Models
-                        .Select(s => s.Id) // Assuming your Student class has an Id property
-                        .ToList();
+                    if (studResponse.Models != null)
+                    {
+                        var studentViewModels = studResponse.Models
+                            .Select(s => new StudentViewModel
+                            {
+                                Student2 = s
+                            });
 
-                    Debug.WriteLine($"{pair.Program} - {pair.Year}: {string.Join(", ", studentIds)}");
+                        allStudents.AddRange(studentViewModels);
+
+                        Debug.WriteLine($"{pair.Program} - {pair.Year}: {string.Join(", ", studResponse.Models.Select(s => s.Id))}");
+                    }
                 }
+                StudentsListView.ItemsSource = allStudents;
             }
         }
 
@@ -93,8 +100,6 @@ namespace EngrLink.Main_Window.Instructor.SubPages
             if (viewModel?.Student2 != null)
             {
                 int studentId = viewModel.Student2.Id;
-
-                Debug.WriteLine($"Student ID: {studentId}"); // Output the integer
 
                 Frame.Content = null;
                 //Frame.Navigate(typeof(ShowGrades), studentId); // Pass the ID to the next page
