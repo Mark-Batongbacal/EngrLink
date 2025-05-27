@@ -17,6 +17,7 @@
     <None Remove="Assets\carousel_image1.png" />
     <None Remove="Assets\carousel_image2.png" />
     <None Remove="Assets\carousel_image3.png" />
+    <None Remove="Assets\my_background.png" />
     <None Remove="ConnectionErrorWindow.xaml" />
 	<None Remove="Main Window\Accounting\LoginAccounting.xaml" />
     <None Remove="Main Window\Department Chairman\LoginDepartment.xaml" />
@@ -78,6 +79,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\carousel_image3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\my_background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

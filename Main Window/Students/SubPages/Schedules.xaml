@@ -8,8 +8,14 @@
     xmlns:models="using:EngrLink.Models"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    RequestedTheme="Light"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    RequestedTheme="Light">
+    
+    <Page.Background>
+        <ImageBrush ImageSource="ms-appx:///Assets/my_background.png"
+                Stretch="UniformToFill"
+                Opacity="0.7"/>
+    </Page.Background>
+    
     <ScrollView>
         <Grid Padding="20">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,20,0,0" Spacing="1">
