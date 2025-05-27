@@ -38,12 +38,21 @@ namespace EngrLink
         protected override async void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
 
-            MainWindow = new MainWindow();
-            MainWindow.Activate();
-            await InitializeSupabase();
+            bool supabaseReady = await TryInitializeSupabase();
+
+            if (supabaseReady)
+            {
+                MainWindow = new MainWindow();
+                MainWindow.Activate();
+            }
+            else
+            {
+                var errorWindow = new ConnectionErrorWindow();
+                errorWindow.Activate();
+            }
         }
 
-        private async Task InitializeSupabase()
+        private async Task<bool> TryInitializeSupabase()
         {
             var options = new SupabaseOptions
             {
@@ -51,14 +60,27 @@ namespace EngrLink
                 AutoConnectRealtime = true
             };
 
-            SupabaseClient = new Supabase.Client(
-                "https://dpouedmzpftnpodbopbi.supabase.co",
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwb3VlZG16cGZ0bnBvZGJvcGJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDUwNDI2ODMsImV4cCI6MjA2MDYxODY4M30.XeZs98NROksWaNqE_q1HrgdxTLZ-Wmogwz4bWi4d_6s",
-                options
-            );
+            try
+            {
+                SupabaseClient = new Supabase.Client(
+                    "https://dpouedmzpftnpodbopbi.supabase.co",
+                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwb3VlZG16cGZ0bnBvZGJvcGJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDUwNDI2ODMsImV4cCI6MjA2MDYxODY4M30.XeZs98NROksWaNqE_q1HrgdxTLZ-Wmogwz4bWi4d_6s",
+                    options
+                );
 
-            await SupabaseClient.InitializeAsync();
+                await SupabaseClient.InitializeAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Supabase init failed: " + ex.Message);
+                SupabaseClient = null;
+                return false;
+            }
         }
+
+
+
 
         private Window? m_window;
     }

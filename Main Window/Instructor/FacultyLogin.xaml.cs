@@ -67,7 +67,7 @@ namespace EngrLink.Main_Window.Instructor
                 if (fac != null && fac.Password == password && fac.Id != 100)
                 {
                     await ShowDialog("Login Successful", "Welcome back!");
-                    Frame.Navigate(typeof(FacultyPage), fac.Program);
+                    Frame.Navigate(typeof(FacultyPage), fac.ProfCode);
                 }
 
                 else

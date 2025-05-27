@@ -13,21 +13,33 @@ using Microsoft.UI.Xaml.Navigation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using EngrLink.Main_Window.Instructor.SubPages;
+using EngrLink.Main_Window.Department_Chairman.SubPages;
+using System.Diagnostics;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace EngrLink.Main_Window.Instructor
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class FacultyPage : Page
     {
+        public string Profcode { get; set; }
+
         public FacultyPage()
         {
             this.InitializeComponent();
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            if (e.Parameter is string code)
+            {
+                this.Profcode = code;
+            }
+        }
+
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             if (Frame.CanGoBack)
@@ -36,9 +48,19 @@ namespace EngrLink.Main_Window.Instructor
 
         private void DashboardButton_Click(object sender, RoutedEventArgs e)
         {
-            if (FacultyFrame.Content?.GetType() != typeof(Dashboard))
+            if (FacultyFrame.Content?.GetType() != typeof(Instructor.SubPages.Dashboard))
             {
-                FacultyFrame.Navigate(typeof(Dashboard));
+                FacultyFrame.Navigate(typeof(Instructor.SubPages.Dashboard));
+            }
+        }
+
+        private void ListStudents_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (FacultyFrame.Content?.GetType() != typeof(ListStudents))
+            {
+                FacultyFrame.Content = null;
+                FacultyFrame.Navigate(typeof(ListStudents), this.Profcode);
             }
         }
     }

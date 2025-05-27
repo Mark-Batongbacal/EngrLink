@@ -30,7 +30,7 @@
         <AppBarSeparator/>
 
         <Button x:Name="DashboardButton" Content="Dashboard" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="DashboardButton_Click"/>
-
+        <Button x:Name="ListStudents" Content="List of Students" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="ListStudents_Click"/>
         </StackPanel>
 
         <Frame x:Name="FacultyFrame" Grid.Column="1" Grid.Row="1"/>
