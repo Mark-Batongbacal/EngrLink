@@ -25,21 +25,25 @@ namespace EngrLink.Main_Window.Instructor
     {
         public string Profcode { get; set; }
         public string Id { get; set; }
+
+        public string Program { get; set; }
         public FacultyPage()
         {
             this.InitializeComponent();
-            FacultyFrame.Navigate(typeof(Instructor.SubPages.Dashboard));
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            if (e.Parameter is (string code, string id))
+            if (e.Parameter is (string code, string id, string prog))
             {
                 this.Profcode = code;
                 this.Id = id;
+                this.Program = prog;
             }
+
+            FacultyFrame.Navigate(typeof(Instructor.SubPages.Dashboard), (this.Program, this.Id));
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -52,7 +56,7 @@ namespace EngrLink.Main_Window.Instructor
         {
             if (FacultyFrame.Content?.GetType() != typeof(Instructor.SubPages.Dashboard))
             {
-                FacultyFrame.Navigate(typeof(Instructor.SubPages.Dashboard));
+                FacultyFrame.Navigate(typeof(Instructor.SubPages.Dashboard), (this.Program,this.Id));
             }
         }
 

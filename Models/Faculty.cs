@@ -26,6 +26,9 @@ namespace EngrLink.Models
 
         [Column("schedule")]
         public string Schedule { get; set; }
+
+        [Column("program")]
+        public string Program { get; set; }
         public List<ScheduleDetail> ScheduleDetails { get; set; } // Ensure this property exists
     }
 
@@ -34,5 +37,6 @@ namespace EngrLink.Models
         public string Day { get; set; }
         public string Time { get; set; }
         public string Subject { get; set; }
+
     }
 }
