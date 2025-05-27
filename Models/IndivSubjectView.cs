@@ -9,7 +9,7 @@ using Supabase;
 using System.Text.Json.Serialization;
 namespace EngrLink.Models
 {
-    public class IndivSubjectView 
+    public class IndivSubjectView
     {
         public IndivSubject Sub { get; set; }
         public string RemarksText => Sub?.Remarks == true ? "Passed" : "Failed";

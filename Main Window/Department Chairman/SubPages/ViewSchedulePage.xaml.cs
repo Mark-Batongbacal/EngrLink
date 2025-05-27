@@ -4,23 +4,21 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using Supabase;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.UI.Xaml.Markup;
 
 namespace EngrLink.Main_Window.Department_Chairman.SubPages
 {
-    [ContentProperty(Name = "Content")]
     public sealed partial class ViewSchedulePage : Page
     {
-        public Faculty Fac { get; set; }
+        public string FacultyName { get; set; }
+        public ObservableCollection<Subjects> Subjects { get; set; } = new ObservableCollection<Subjects>();
 
         public ViewSchedulePage()
         {
             this.InitializeComponent();
+            this.DataContext = this;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -29,12 +27,45 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
 
             if (e.Parameter is Faculty faculty)
             {
-                Fac = faculty;
-                DataContext = Fac;
+                FacultyName = faculty.Name;
+                _ = LoadSubjects(faculty.ProfCode);
             }
         }
 
-        private void BackButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        private async Task LoadSubjects(string profCode)
+        {
+            var client = App.SupabaseClient;
+
+            if (client == null)
+            {
+                Debug.WriteLine("Error: SupabaseClient is not initialized.");
+                return;
+            }
+
+            try
+            {
+                Debug.WriteLine($"Fetching subjects for ProfCode: {profCode}...");
+                var response = await client
+                    .From<Subjects>()
+                    .Filter("profcode", Supabase.Postgrest.Constants.Operator.Equals, profCode)
+                    .Get();
+
+                if (response.Models != null)
+                {
+                    Subjects.Clear();
+                    foreach (var subject in response.Models)
+                    {
+                        Subjects.Add(subject);
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Debug.WriteLine($"Error fetching subjects: {ex.Message}");
+            }
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             if (Frame.CanGoBack)
                 Frame.GoBack();
