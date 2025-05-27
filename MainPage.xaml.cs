@@ -28,48 +28,28 @@ namespace EngrLink
             this.InitializeComponent();
         }
 
-        private void DisableAndHideButtons()
-        {
-            StudentButton.IsEnabled = false;
-            FacultyButton.IsEnabled = false;
-            DepartmentButton.IsEnabled = false;
-            AccountingButton.IsEnabled = false;
-            EnrolleeButton.IsEnabled = false;
-
-            StudentButton.Visibility = Visibility.Collapsed;
-            FacultyButton.Visibility = Visibility.Collapsed;
-            DepartmentButton.Visibility = Visibility.Collapsed;
-            AccountingButton.Visibility = Visibility.Collapsed;
-            EnrolleeButton.Visibility = Visibility.Collapsed;
-        }
-
         private void StudentButton_Click(object sender, RoutedEventArgs e)
         {
-            DisableAndHideButtons();
-            Frame.Navigate(typeof(Main_Window.Students.LoginStudent)); // Navigate to StudentPage
+            Frame.Navigate(typeof(Main_Window.Students.LoginStudent)); 
         }
 
         private void FacultyButton_Click(object sender, RoutedEventArgs e)
         {
-            DisableAndHideButtons();
-            Frame.Navigate(typeof(Main_Window.Instructor.FacultyPage)); // Navigate to FacultyPage
+            Frame.Navigate(typeof(Main_Window.Instructor.FacultyLogin)); 
         }
 
         private void DepartmentButton_Click(object sender, RoutedEventArgs e)
         {
-            DisableAndHideButtons();
-            Frame.Navigate(typeof(Main_Window.Department_Chairman.LoginDepartment)); // Navigate to DepartmentPage
+            Frame.Navigate(typeof(Main_Window.Department_Chairman.LoginDepartment)); 
         }
 
         private void AccountingButton_Click(object sender, RoutedEventArgs e)
         {
-            DisableAndHideButtons();
-            Frame.Navigate(typeof(Main_Window.Accounting.AccountingPage));
+            Frame.Navigate(typeof(Main_Window.Accounting.LoginAccounting));
         }
 
         private void EnrolleeButton_Click(object sender, RoutedEventArgs e)
         {
-            DisableAndHideButtons();
             Frame.Navigate(typeof(Main_Window.Enrollee.EnrolleePage));
         }
     }

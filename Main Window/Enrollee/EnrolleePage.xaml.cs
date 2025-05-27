@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -78,6 +78,7 @@ namespace EngrLink.Main_Window.Enrollee
                 newId = lastStudent.Id + 1;
             }
 
+            var fee = FeeCalculators.GetFee(year, program);
             // Create a new student object
             var newStudent = new Student()
             {
@@ -86,8 +87,8 @@ namespace EngrLink.Main_Window.Enrollee
                 Address = address,
                 Contact = contact,
                 Year = year,
-                Fees = FeeCalculators.GetFee(year, program),
-                Total = FeeCalculators.GetFee(year, program),
+                Fees = fee,
+                Total = fee,
                 Program = program,
                 Password = newId.ToString(),
                 Birthday = birthday,
@@ -105,7 +106,9 @@ namespace EngrLink.Main_Window.Enrollee
             var dialog = new ContentDialog
             {
                 Title = "Submission Successful",
-                Content = $"Your Student ID is {newId}. Remember this for your Login.",
+                Content = $"Your Student ID is {newId}. Remember this for your Login.\n" +
+                          $"Your Total Balance is ₱{fee}\n" +
+                          $"Please pay a minimum amount of ₱5000\n",
                 CloseButtonText = "OK",
                 XamlRoot = this.Content.XamlRoot // Required in WinUI 3 to show dialog properly
             };
@@ -125,10 +128,9 @@ namespace EngrLink.Main_Window.Enrollee
             program = null;
             year = null;
 
-            // Disable submit button again
             SubmitButton.IsEnabled = false;
 
-            //Frame.GoBack(); gawin m to marky dear
+            Frame.GoBack(); 
 
         }
         private void Input_TextChanged(object sender, TextChangedEventArgs e)
@@ -176,6 +178,22 @@ namespace EngrLink.Main_Window.Enrollee
                 ProgramComboBox.Header = programitem.Content;
                 program = programitem.Content.ToString();
             }
+
+            if (program == "ARCHI")
+                FifthYearItem.Visibility = Visibility.Visible;
+            
+            else
+            {
+                if (YearLevelComboBox.SelectedItem == FifthYearItem)
+                {
+                    YearLevelComboBox.SelectedIndex = -1;
+                    YearLevelComboBox.Header = "Enter Year Level";
+                    year = null;
+                }
+                FifthYearItem.Visibility = Visibility.Collapsed;
+            }
+                
+
             CheckValid();
         }
     }

@@ -17,12 +17,14 @@
     <None Remove="Assets\carousel_image1.png" />
     <None Remove="Assets\carousel_image2.png" />
     <None Remove="Assets\carousel_image3.png" />
+	<None Remove="Main Window\Accounting\LoginAccounting.xaml" />
     <None Remove="Main Window\Department Chairman\LoginDepartment.xaml" />
     <None Remove="Main Window\Department Chairman\SubPages\AnnouncementPage.xaml" />
     <None Remove="Main Window\Department Chairman\SubPages\Dashboard.xaml" />
     <None Remove="Main Window\Department Chairman\SubPages\Enrollees.xaml" />
     <None Remove="Main Window\Department Chairman\SubPages\ListOfStudents.xaml" />
     <None Remove="Main Window\Department Chairman\SubPages\ShowGrades.xaml" />
+    <None Remove="Main Window\Instructor\FacultyLogin.xaml" />
     <None Remove="Main Window\Instructor\SubPages\Dashboard.xaml" />
     <None Remove="Main Window\Students\SubPages\Dashboard.xaml" />
     <None Remove="Main Window\Students\SubPages\FeesPage.xaml" />
@@ -73,6 +75,16 @@
     <Content Update="Assets\carousel_image3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Main Window\Accounting\LoginAccounting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Main Window\Instructor\FacultyLogin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Main Window\Students\SubPages\FeesPage.xaml">
