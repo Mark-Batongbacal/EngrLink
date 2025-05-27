@@ -97,7 +97,7 @@ namespace EngrLink.Main_Window.Instructor.SubPages
                 Debug.WriteLine("Dashboard loaded without specific student info.");
             }
 
-            LoadStudentAnnouncements();
+            LoadFacultyAnnouncements();
 
             // NEW: Start the timer when the page is navigated to and visible
             if (ImageSources.Any()) // Only start if there are images
