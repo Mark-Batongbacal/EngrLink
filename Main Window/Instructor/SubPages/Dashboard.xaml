@@ -2,14 +2,13 @@
     x:Class="EngrLink.Main_Window.Instructor.SubPages.Dashboard"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:EngrLink.Main_Window.Instructor.SubPages"
+    xmlns:local="using:EngrLink.Main_Window.Students.SubPages"
     xmlns:models="using:EngrLink.Models"
     RequestedTheme="Light">
-
     <Page.Background>
         <ImageBrush ImageSource="ms-appx:///Assets/my_background.png"
-            Stretch="UniformToFill"
-            Opacity="1"/>
+                    Stretch="UniformToFill"
+                    Opacity="1"/>
     </Page.Background>
 
     <Grid Padding="20">
@@ -26,14 +25,14 @@
                 </FlipView>
             </Border>
 
-            <TextBlock Text="Announcements" FontSize="18" FontWeight="Bold" Margin="0,10,0,10" />
+            <TextBlock Text="Announcements" FontSize="21" FontWeight="Bold" FontFamily="Verdana" Foreground="#74441e" Margin="0,0,0,20" />
 
             <ScrollViewer VerticalScrollBarVisibility="Auto" Height="400">
-                <ListView ItemsSource="{Binding FacultyAnnouncements}">
+                <ListView ItemsSource="{x:Bind StudentAnnouncements, Mode=OneWay}">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="models:Announcement">
-                            <Border Background="White" CornerRadius="5" Padding="10" Margin="0,5,0,5" BorderBrush="#FF964F" BorderThickness="1">
-                                <TextBlock Text="{x:Bind Announcements}" FontSize="14" TextWrapping="Wrap" />
+                            <Border Background="#20FAFAFA" CornerRadius="5" Padding="20" BorderBrush="#74441e" BorderThickness="1">
+                                <TextBlock Text="{x:Bind Announcements}" FontSize="16" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap" />
                             </Border>
                         </DataTemplate>
                     </ListView.ItemTemplate>

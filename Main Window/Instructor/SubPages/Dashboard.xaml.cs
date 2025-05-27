@@ -1,12 +1,12 @@
+using EngrLink.Models; // Make sure to include your models namespace
+using Microsoft.UI.Xaml; // Needed for DispatcherTimer
+using Microsoft.UI.Xaml.Controls;
+using Supabase;
+using Supabase.Postgrest;
+using Supabase.Postgrest.Models;
 using System;
 using System.Collections.ObjectModel;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using EngrLink.Models; 
-using Supabase;
-using Supabase.Postgrest.Models;
-using System.Linq; 
-using Supabase.Postgrest;
+using System.Linq;
 using static Supabase.Postgrest.Constants;
 using Microsoft.UI.Xaml.Navigation;
 using System.Diagnostics;
@@ -18,22 +18,39 @@ namespace EngrLink.Main_Window.Instructor.SubPages
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ObservableCollection<Announcement> FacultyAnnouncements { get; set; } = new ObservableCollection<Announcement>();
-
-        private ObservableCollection<string> _imageSources;
-        public ObservableCollection<string> ImageSources
+        private string _name;
+        public string Name
         {
-            get => _imageSources;
+            get => _name;
             set
             {
-                if (_imageSources != value)
+                if (_name != value)
                 {
-                    _imageSources = value;
-                    OnPropertyChanged(nameof(ImageSources));
+                    _name = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
                 }
             }
         }
 
+        private string _program;
+        public string Program
+        {
+            get => _program;
+            set
+            {
+                if (_program != value)
+                {
+                    _program = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Program)));
+                }
+            }
+        }
+
+        public ObservableCollection<string> ImageSources { get; set; }
+
+        public ObservableCollection<Announcement> StudentAnnouncements { get; set; } = new ObservableCollection<Announcement>();
+
+        // NEW: Declare a DispatcherTimer
         private DispatcherTimer _autoFlipTimer;
 
         public Dashboard()
@@ -47,79 +64,101 @@ namespace EngrLink.Main_Window.Instructor.SubPages
                 "ms-appx:///Assets/carousel_image2.png",
                 "ms-appx:///Assets/carousel_image3.png"
             };
-            Debug.WriteLine($"Instructor Dashboard: Loaded {ImageSources.Count} images for FlipView.");
 
+            // NEW: Initialize and configure the DispatcherTimer
             _autoFlipTimer = new DispatcherTimer();
-            _autoFlipTimer.Interval = TimeSpan.FromSeconds(5);
-            _autoFlipTimer.Tick += AutoFlipTimer_Tick;
+            _autoFlipTimer.Interval = TimeSpan.FromSeconds(5); // Change image every 5 seconds (adjust as needed)
+            _autoFlipTimer.Tick += AutoFlipTimer_Tick; // Assign the event handler
 
-            LoadFacultyAnnouncements();
+            // No need to start it here. We'll start it after the images are loaded and the page is visible.
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (ImageSources.Any())
+
+            if (e.Parameter is ValueTuple<string, string> parameterTuple)
+            {
+                this.Program = parameterTuple.Item1;
+                string studentId = parameterTuple.Item2;
+
+                var response = await App.SupabaseClient
+                    .From<Faculty>()
+                    .Filter("id", Operator.Equals, studentId)
+                    .Get();
+
+                this.Name = $"Welcome {response.Models.FirstOrDefault()?.Name ?? "Unknown Student"}!";
+                Debug.WriteLine($"Dashboard loaded for student: {this.Name}, Program: {this.Program}, ID: {studentId}");
+            }
+            else
+            {
+                this.Name = "Welcome";
+                this.Program = "N/A";
+                Debug.WriteLine("Dashboard loaded without specific student info.");
+            }
+
+            LoadFacultyAnnouncements();
+
+            // NEW: Start the timer when the page is navigated to and visible
+            if (ImageSources.Any()) // Only start if there are images
             {
                 _autoFlipTimer.Start();
-                Debug.WriteLine("Instructor Dashboard: FlipView timer started.");
             }
         }
+
+        // NEW: Stop the timer when the page is navigated away from
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
-            _autoFlipTimer.Stop();
-            Debug.WriteLine("Instructor Dashboard: FlipView timer stopped.");
+            _autoFlipTimer.Stop(); // Stop the timer to prevent memory leaks and unnecessary processing
         }
 
+        // NEW: Event handler for the DispatcherTimer's Tick event
         private void AutoFlipTimer_Tick(object sender, object e)
         {
-            if (DashboardFlipView != null && ImageSources.Any())
+            if (ImageSources.Any())
             {
-                int currentIndex = DashboardFlipView.SelectedIndex;
-                int nextIndex = (currentIndex + 1) % ImageSources.Count;
+                int currentIndex = DashboardFlipView.SelectedIndex; // Access the FlipView by its x:Name
+                int nextIndex = (currentIndex + 1) % ImageSources.Count; // Calculate the next index, wrapping around
 
-                DashboardFlipView.SelectedIndex = nextIndex;
+                DashboardFlipView.SelectedIndex = nextIndex; // Set the FlipView to the next item
             }
         }
 
         private async void LoadFacultyAnnouncements()
         {
             var client = App.SupabaseClient;
-            Debug.WriteLine("Instructor Dashboard: Attempting to load faculty announcements...");
+            Debug.WriteLine($"Loading announcements for Program: {this.Program}");
 
             try
             {
                 var response = await client
                     .From<Announcement>()
+                    .Filter("program", Operator.Equals, this.Program)
                     .Get();
 
                 if (response?.Models != null && response.Models.Any())
                 {
-                    FacultyAnnouncements.Clear();
+                    StudentAnnouncements.Clear();
 
                     foreach (var announcement in response.Models)
                     {
                         if (announcement.ForFac)
                         {
-                            FacultyAnnouncements.Add(announcement);
+                            StudentAnnouncements.Add(announcement);
                         }
                     }
-                    Debug.WriteLine($"Instructor Dashboard: Loaded {FacultyAnnouncements.Count} announcements for faculty.");
+                    Debug.WriteLine($"Loaded {StudentAnnouncements.Count} announcements for students in program {this.Program}.");
                 }
                 else
                 {
-                    Debug.WriteLine("Instructor Dashboard: No announcements found for faculty.");
+                    Debug.WriteLine($"No announcements found for program {this.Program}.");
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Instructor Dashboard: Error loading faculty announcements: {ex.Message}");
+                Debug.WriteLine($"Error loading student announcements: {ex.Message}");
             }
-        }
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
