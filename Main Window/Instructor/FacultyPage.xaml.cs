@@ -24,7 +24,7 @@ namespace EngrLink.Main_Window.Instructor
     public sealed partial class FacultyPage : Page
     {
         public string Profcode { get; set; }
-
+        public string Id { get; set; }
         public FacultyPage()
         {
             this.InitializeComponent();
@@ -34,9 +34,10 @@ namespace EngrLink.Main_Window.Instructor
         {
             base.OnNavigatedTo(e);
 
-            if (e.Parameter is string code)
+            if (e.Parameter is (string code, string id))
             {
                 this.Profcode = code;
+                this.Id = id;
             }
         }
 
@@ -61,6 +62,15 @@ namespace EngrLink.Main_Window.Instructor
             {
                 FacultyFrame.Content = null;
                 FacultyFrame.Navigate(typeof(ListStudents), this.Profcode);
+            }
+        }
+
+        private void Schedules_Click(object sender, RoutedEventArgs e)
+        {
+            if (FacultyFrame.Content?.GetType() != typeof(Schedule))
+            {
+                FacultyFrame.Content = null;
+                FacultyFrame.Navigate(typeof(Schedule), this.Id);
             }
         }
     }

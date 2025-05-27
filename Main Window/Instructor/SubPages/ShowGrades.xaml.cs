@@ -105,7 +105,9 @@ public sealed partial class ShowGrades : Page
     {
         var client = App.SupabaseClient;
         bool hasError = false;
+        var button = sender as Button;
 
+        button.IsEnabled = false;
         foreach (var view in SubjectViews)
         {
             try
@@ -138,5 +140,6 @@ public sealed partial class ShowGrades : Page
         };
 
         await dialog.ShowAsync();
+        button.IsEnabled = true;
     }
 }
