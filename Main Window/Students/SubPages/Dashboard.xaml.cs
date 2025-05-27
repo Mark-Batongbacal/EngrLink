@@ -10,12 +10,42 @@ using System.Linq; // For Any()
 using static Supabase.Postgrest.Constants; // Add this import
 using Microsoft.UI.Xaml.Navigation;
 using System.Diagnostics;
+using Windows.Devices.AllJoyn;
+using System.ComponentModel;
 
 namespace EngrLink.Main_Window.Students.SubPages
 {
-    public sealed partial class Dashboard : Page
+    public sealed partial class Dashboard : Page, INotifyPropertyChanged
     {
-        public string Program { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
+                }
+            }
+        }
+        private string _program;
+        public string Program
+        {
+            get => _program;
+            set
+            {
+                if (_program != value)
+                {
+                    _program = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Program)));
+                }
+            }
+        }
+
         public ObservableCollection<Announcement> StudentAnnouncements { get; set; } = new ObservableCollection<Announcement>();
 
         public Dashboard()
@@ -23,27 +53,31 @@ namespace EngrLink.Main_Window.Students.SubPages
             this.InitializeComponent();
             this.DataContext = this; 
         }
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            if (e.Parameter is string program)
+            if (e.Parameter is (string program, string id))
             {
                 this.Program = program;
-                Debug.Write(program);
+
+                var response = await App.SupabaseClient
+                    .From<Student>()
+                    .Filter("id", Operator.Equals, id)
+                    .Get();
+
+                this.Name = $"Welcome {response.Models.FirstOrDefault()?.Name ?? "Unknown Student"}!";
+                
             }
             LoadStudentAnnouncements();
         }
 
         private async void LoadStudentAnnouncements()
         {
-            Debug.Write(this.Program);
             var client = App.SupabaseClient;
-
+            Debug.Write($"This is your name and Program{this.Name}, {this.Program}");
             try
             {
-                
-                // Fetch all announcements
                 var response = await client
                     .From<Announcement>()
                     .Filter("program", Operator.Equals, this.Program)

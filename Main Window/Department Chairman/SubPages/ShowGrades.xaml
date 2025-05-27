@@ -43,7 +43,7 @@
                     </ListView.Header>
 
                     <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="models:IndivSubject">
+                        <DataTemplate x:DataType="models:IndivSubjectView">
                             <Grid Padding="5">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="100"/>
@@ -53,11 +53,11 @@
                                     <ColumnDefinition Width="100"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{x:Bind Code}" Grid.Column="0" HorizontalAlignment="Left"/>
-                                <TextBlock Text="{x:Bind Subject}" Grid.Column="1" HorizontalAlignment="Left"/>
-                                <TextBlock Text="{x:Bind Units}" Grid.Column="2" HorizontalAlignment="Left"/>
-                                <TextBox Text="{Binding Grade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" HorizontalAlignment="Left"/>
-                                <TextBlock Text="{Binding Remarks}" Grid.Column="4" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{x:Bind Sub.Code}" Grid.Column="0" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{x:Bind Sub.Subject}" Grid.Column="1" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{x:Bind Sub.Units}" Grid.Column="2" HorizontalAlignment="Left"/>
+                                <TextBox Text="{x:Bind Sub.Grade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{x:Bind RemarksText}" Grid.Column="4" HorizontalAlignment="Left"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>

@@ -8,7 +8,7 @@
 
     <Grid Padding="20">
         <StackPanel>
-            <TextBlock Text="Student Dashboard" 
+            <TextBlock Text="{x:Bind Name, Mode=OneWay}" 
                        FontSize="24" 
                        FontWeight="Bold" 
                        Margin="0,0,0,20" />

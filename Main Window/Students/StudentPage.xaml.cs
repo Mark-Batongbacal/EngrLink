@@ -40,7 +40,7 @@ namespace EngrLink.Main_Window.Students
                 this.Id = Id;
                 this.Program = Program;
             }
-            StudentsFrame.Navigate(typeof(Dashboard), this.Program);
+            StudentsFrame.Navigate(typeof(Dashboard), (this.Program,this.Id));
         }
         public StudentPage()
         {
@@ -57,7 +57,7 @@ namespace EngrLink.Main_Window.Students
         {
             if (StudentsFrame.Content?.GetType() != typeof(Dashboard))
             {
-                StudentsFrame.Navigate(typeof(Dashboard), this.Program);
+                StudentsFrame.Navigate(typeof(Dashboard), (this.Program, this.Id));
             }
         }
 

@@ -5,9 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Supabase.Postgrest.Attributes;
 using Supabase.Postgrest.Models;
-
+using Supabase;
+using System.Text.Json.Serialization;
 namespace EngrLink.Models
 {
+    public class IndivSubjectView 
+    {
+        public IndivSubject Sub { get; set; }
+        public string RemarksText => Sub?.Remarks == true ? "Passed" : "Failed";
+    }
+
     [Table("Individual_Subjects")]
     public class IndivSubject : BaseModel
     {
@@ -43,7 +50,6 @@ namespace EngrLink.Models
 
         [Column("profcode")]
         public string ProfCode { get; set; }
+
     }
-
-
 }
