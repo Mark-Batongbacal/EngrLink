@@ -29,7 +29,6 @@
                                     <ColumnDefinition Width="300"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-
                                 <TextBlock Text="Code" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
                                 <TextBlock Text="Name" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
                                 <TextBlock Text="Action" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
@@ -44,10 +43,9 @@
                                         <ColumnDefinition Width="300"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-
-                                    <TextBlock Text="{x:Bind ProfCode}" HorizontalAlignment="Left" />
-                                    <TextBlock Text="{x:Bind Name}" Grid.Column="1" HorizontalAlignment="Left"/>
-                                    <Button Content="View Schedule" Click="ViewScheduleButton_Click" Grid.Column="2" HorizontalAlignment="Left"/>
+                                    <TextBlock Text="{x:Bind ProfCode}" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                                    <TextBlock Text="{x:Bind Name}" Grid.Column="1" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                                    <Button Content="View Schedule" Click="ViewScheduleButton_Click" Grid.Column="2" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
