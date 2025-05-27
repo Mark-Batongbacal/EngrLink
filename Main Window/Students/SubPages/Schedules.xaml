@@ -11,12 +11,12 @@
     RequestedTheme="Light"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <ScrollView>
-        <Grid Padding="0">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Spacing="1">
-                <TextBlock Text="Schedule" FontSize="40" HorizontalAlignment="Center" Padding="0,50,0,50"/>
+        <Grid Padding="20">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,20,0,0" Spacing="1">
+                <TextBlock Text="Schedule" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Padding="0,0,0,50" FontFamily="Verdana" Foreground="#74441e"/>
                 <ListView x:Name="ScheduleListView" IsItemClickEnabled="False">
                     <ListView.Header>
-                        <Grid Padding="10" Background="#f0f0f0" CornerRadius="4" >
+                        <Grid Padding="10" Background="#fad1ac" CornerRadius="4" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="350"/>
@@ -24,10 +24,10 @@
                                 <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="Subject Code" FontWeight="Bold" HorizontalAlignment="Left"/>
-                            <TextBlock Text="Subject Name" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Left"/>
-                            <TextBlock Text="Schedule" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Left"/>
-                            <TextBlock Text="Units" Grid.Column="3" FontWeight="Bold" HorizontalAlignment="Left"/>
+                            <TextBlock Text="   Code" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <TextBlock Text="   Subject Name" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <TextBlock Text="   Schedule" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <TextBlock Text="   Units" Grid.Column="3" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
                         </Grid>
                     </ListView.Header>
 
@@ -41,10 +41,10 @@
                                     <ColumnDefinition Width="100"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{x:Bind Code}" HorizontalAlignment="Left"/>
-                                <TextBlock Text="{x:Bind Subject}" Grid.Column="1" HorizontalAlignment="Left"/>
-                                <TextBlock Text="{x:Bind Schedule}" Grid.Column="2" HorizontalAlignment="Left"/>
-                                <TextBlock Text="{x:Bind Units}" Grid.Column="3" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{x:Bind Code}" Grid.Column="0" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
+                                <TextBlock Text="{x:Bind Subject}" Grid.Column="1" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
+                                <TextBlock Text="{x:Bind Schedule}" Grid.Column="2" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
+                                <TextBlock Text="{x:Bind Units}" Grid.Column="3" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>

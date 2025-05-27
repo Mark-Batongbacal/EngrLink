@@ -27,6 +27,7 @@ namespace EngrLink.Main_Window.Students.SubPages
         public class StudentProfileModel : INotifyPropertyChanged
         {
             private string _name;
+            private string _id;
             private string _program;
             private string _year;
             private double _gwa;
@@ -35,6 +36,12 @@ namespace EngrLink.Main_Window.Students.SubPages
             {
                 get => _name;
                 set { _name = value; OnPropertyChanged(nameof(Name)); }
+            }
+
+            public string Id
+            {
+                get => _id;
+                set { _id = value; OnPropertyChanged(nameof(Id)); }
             }
 
             public string Program
@@ -143,6 +150,7 @@ namespace EngrLink.Main_Window.Students.SubPages
                 {
                     StudentProfile.Name = student.Name;
                     StudentProfile.Program = student.Program;
+                    StudentProfile.Id = student.Id.ToString();
                     // Ensure 'Year' in your Student model is a string or convert it
                     StudentProfile.Year = student.Year.ToString(); // Assuming student.Year is int/double, convert to string
                     Debug.WriteLine($"Student Profile Loaded - Name: {StudentProfile.Name}, Program: {StudentProfile.Program}, Year: {StudentProfile.Year}");
