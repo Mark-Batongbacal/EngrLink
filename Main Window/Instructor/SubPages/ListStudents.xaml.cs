@@ -65,6 +65,8 @@ namespace EngrLink.Main_Window.Instructor.SubPages
                         .Filter("program", Supabase.Postgrest.Constants.Operator.Equals, pair.Program)
                         .Filter("year", Supabase.Postgrest.Constants.Operator.Equals, pair.Year)
                         .Filter("id", Supabase.Postgrest.Constants.Operator.GreaterThan, 17)
+                        .Order("program", Supabase.Postgrest.Constants.Ordering.Ascending)
+                        .Order("year", Supabase.Postgrest.Constants.Ordering.Ascending)
                         .Get();
 
                     if (studResponse.Models != null)

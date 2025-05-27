@@ -41,6 +41,8 @@ namespace EngrLink.Main_Window.Instructor.SubPages
             var response = await client
                 .From<Subjects>()
                 .Filter("profcode", Supabase.Postgrest.Constants.Operator.Equals, this.Profcode)
+                .Order("program", Supabase.Postgrest.Constants.Ordering.Ascending)
+                .Order("year", Supabase.Postgrest.Constants.Ordering.Ascending)
                 .Get();
 
             ScheduleListView.ItemsSource = response.Models;

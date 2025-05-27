@@ -48,6 +48,9 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                 var response = await client
                     .From<Subjects>()
                     .Filter("profcode", Supabase.Postgrest.Constants.Operator.Equals, profCode)
+                    .Order("program", Supabase.Postgrest.Constants.Ordering.Ascending)
+                    .Order("year", Supabase.Postgrest.Constants.Ordering.Ascending)
+                    .Order("subject", Supabase.Postgrest.Constants.Ordering.Ascending)
                     .Get();
 
                 if (response.Models != null)
