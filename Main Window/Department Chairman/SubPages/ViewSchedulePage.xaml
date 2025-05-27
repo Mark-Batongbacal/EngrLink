@@ -4,59 +4,54 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:EngrLink.Main_Window.Department_Chairman.SubPages"
     xmlns:models="using:EngrLink.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Padding="20">
-        <StackPanel Spacing="20">
-            <TextBlock 
-                Text="{x:Bind Fac.Name}" 
-                FontSize="30" 
-                FontWeight="Bold" />
-            
-            <TextBlock 
-                Text="Schedule Details" 
-                FontSize="20" 
-                FontWeight="SemiBold" />
-            
-            <ListView ItemsSource="{x:Bind Fac.ScheduleDetails}">
+        <StackPanel>
+            <TextBlock Text="{Binding FacultyName}" FontSize="24" FontWeight="Bold" Margin="0,0,0,20" />
+            <TextBlock Text="Schedule Details" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,10" />
+
+            <ListView ItemsSource="{Binding Subjects}">
                 <ListView.Header>
-                    <Grid 
-                        Background="#f0f0f0" 
-                        Padding="10">
+                    <Grid Background="LightGray">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock 
-                            Text="Time" 
-                            FontWeight="Bold" />
-                        <TextBlock 
-                            Text="Subject" 
-                            Grid.Column="1" 
-                            FontWeight="Bold" />
+                        <TextBlock Text="Code" Grid.Column="0" FontWeight="Bold" />
+                        <TextBlock Text="Subject" Grid.Column="1" FontWeight="Bold" />
+                        <TextBlock Text="Time" Grid.Column="2" FontWeight="Bold" />
+                        <TextBlock Text="Program" Grid.Column="3" FontWeight="Bold" />
+                        <TextBlock Text="Year" Grid.Column="4" FontWeight="Bold" />
                     </Grid>
                 </ListView.Header>
                 <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="models:ScheduleDetail">
-                        <Grid Padding="10">
+                    <DataTemplate>
+                        <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock 
-                                Text="{x:Bind Time}" />
-                            <TextBlock 
-                                Text="{x:Bind Subject}" 
-                                Grid.Column="1" />
+                            <TextBlock Text="{Binding Code}" Grid.Column="0" />
+                            <TextBlock Text="{Binding Subject}" Grid.Column="1" />
+                            <TextBlock Text="{Binding Schedule}" Grid.Column="2" />
+                            <TextBlock Text="{Binding Program}" Grid.Column="3" />
+                            <TextBlock Text="{Binding Year}" Grid.Column="4" />
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            
-            <Button 
-                Content="Back" 
-                Click="BackButton_Click" 
-                HorizontalAlignment="Left" />
+
+            <Button Content="Back" HorizontalAlignment="Left" Margin="0,20,0,0" Click="BackButton_Click" />
         </StackPanel>
     </Grid>
 </Page>

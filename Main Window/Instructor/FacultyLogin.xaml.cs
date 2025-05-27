@@ -67,7 +67,7 @@ namespace EngrLink.Main_Window.Instructor
                 {
                     // Assuming 'ProfCode' is the intended property to pass instead of 'Program'
                     await ShowDialog("Login Successful", "Welcome back!");
-                    Frame.Navigate(typeof(FacultyPage), (fac.ProfCode,fac.Id.ToString()));
+                    Frame.Navigate(typeof(FacultyPage), (fac.ProfCode,fac.Id.ToString(), fac.Program));
                 }
                 else
                 {

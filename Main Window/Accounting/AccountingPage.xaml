@@ -7,8 +7,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     RequestedTheme="Light">
+    
+    <Page.Background>
+        <ImageBrush ImageSource="ms-appx:///Assets/my_background.png"
+            Stretch="UniformToFill"
+            Opacity="1"/>
+    </Page.Background>
 
     <ScrollView>
         <Grid Padding="20">
@@ -16,7 +21,7 @@
 
                 <TextBlock Text="Accounting and Payments" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Padding="0,0,0,50" FontFamily="Verdana" Foreground="#74441e"/>
 
-                <Border BorderBrush="#74441e" BorderThickness="1" CornerRadius="8" Padding="20" Margin="0,0,0,20" Background="White">
+                <Border BorderBrush="#74441e" BorderThickness="1" CornerRadius="8" Padding="20" Margin="0,0,0,20" Background="#20FAFAFA">
                     <StackPanel Spacing="10">
                         <TextBlock Text="Search Student by ID" FontSize="21" FontWeight="Bold" FontFamily="Verdana" Foreground="#74441e"/>
                         <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
@@ -45,7 +50,7 @@
                     </StackPanel>
                 </Border>
 
-                <Border x:Name="InfoPanelContainer" Visibility="Collapsed" BorderBrush="#74441e" BorderThickness="1" CornerRadius="8" Padding="20" Margin="0,0,0,20" Background="White">
+                <Border x:Name="InfoPanelContainer" Visibility="Collapsed" BorderBrush="#74441e" BorderThickness="1" CornerRadius="8" Padding="20" Margin="0,0,0,20" Background="#20FAFAFA">
                     <StackPanel x:Name="InfoPanel" Spacing="10">
                         <TextBlock Text="Payment Details" FontSize="21" FontWeight="Bold" FontFamily="Verdana" Foreground="#74441e"/>
                         <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>

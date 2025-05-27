@@ -14,13 +14,25 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
 {
     public sealed partial class Schedules : Page
     {
+        public string Program { get; set; }
         public ObservableCollection<Faculty> FacultySchedules { get; set; } = new ObservableCollection<Faculty>();
 
         public Schedules()
         {
             this.InitializeComponent();
             this.DataContext = this;
-            _ = LoadFacultySchedules(); 
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            if (e.Parameter is string program)
+            {
+                Debug.WriteLine($"Navigated with Program: {program}");
+                this.Program = program;
+            }
+            _ = LoadFacultySchedules();
         }
 
         private async Task LoadFacultySchedules()
@@ -35,21 +47,19 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
 
             try
             {
-                Debug.WriteLine("Attempting to fetch all faculty members from Supabase...");
+                Debug.WriteLine("Attempting to fetch faculty members for the current program...");
+
                 var facultyResponse = await client
                     .From<Faculty>()
+                    .Filter("program", Supabase.Postgrest.Constants.Operator.Equals, this.Program)
                     .Get();
 
                 if (facultyResponse.Models != null && facultyResponse.Models.Any())
                 {
-                    Debug.WriteLine($"Successfully fetched {facultyResponse.Models.Count} faculty members.");
-
                     FacultySchedules.Clear();
 
                     foreach (var faculty in facultyResponse.Models)
                     {
-                        Debug.WriteLine($"Processing faculty: Name='{faculty.Name}', ProfCode='{faculty.ProfCode}' (ID: {faculty.Id})");
-
                         if (string.IsNullOrEmpty(faculty.ProfCode))
                         {
                             Debug.WriteLine($"Warning: Skipping schedule fetch for faculty '{faculty.Name}' due to empty or null ProfCode.");
@@ -60,15 +70,15 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                         {
                             Debug.WriteLine($"Fetching schedules for ProfCode: '{faculty.ProfCode}'...");
                             var scheduleResponse = await client
-                                .From<IndivSubject>()
+                                .From<Subjects>()
                                 .Filter("profcode", Supabase.Postgrest.Constants.Operator.Equals, faculty.ProfCode)
+                                .Filter("program", Supabase.Postgrest.Constants.Operator.Equals, this.Program)
                                 .Get();
 
                             if (scheduleResponse.Models != null && scheduleResponse.Models.Any())
                             {
                                 Debug.WriteLine($"Found {scheduleResponse.Models.Count} schedules for ProfCode: '{faculty.ProfCode}'.");
 
-                                // Ensure all schedules are processed and added
                                 faculty.ScheduleDetails = scheduleResponse.Models
                                     .Where(subject => !string.IsNullOrEmpty(subject.Schedule))
                                     .Select(subject => new ScheduleDetail
@@ -81,7 +91,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                             }
                             else
                             {
-                                Debug.WriteLine($"No schedules found for ProfCode: '{faculty.ProfCode}'.");
+                                Debug.WriteLine($"No schedules found for ProfCode: '{faculty.ProfCode}' in program '{this.Program}'.");
                                 faculty.ScheduleDetails = new List<ScheduleDetail>();
                             }
                         }
@@ -99,7 +109,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                 }
                 else
                 {
-                    Debug.WriteLine("No faculty members found in the 'Faculty' table. Please check your database.");
+                    Debug.WriteLine($"No faculty members found in the '{this.Program}' program. Please check your database.");
                 }
             }
             catch (Exception ex)
@@ -113,7 +123,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
         {
             if (!string.IsNullOrEmpty(schedule))
             {
-                var parts = schedule.Split(' ');
+                var parts = schedule.Split(' ', 1);
                 return parts.Length > 0 ? parts[0] : "Unknown_Day";
             }
             return "Unknown_Day";
@@ -124,10 +134,15 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
             if (!string.IsNullOrEmpty(schedule))
             {
                 var parts = schedule.Split(' ', 2);
-                return parts.Length > 1 ? parts[1] : "Unknown_Time";
+                if (parts.Length > 1)
+                {
+                    return $"{parts[0]} {parts[1]}"; // Combine day and time on the same line
+                }
+                return parts[0]; // Return day if time is missing
             }
             return "Unknown_Time";
         }
+
 
         private void ViewScheduleButton_Click(object sender, RoutedEventArgs e)
         {

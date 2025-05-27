@@ -26,7 +26,7 @@ namespace EngrLink
 {
     public partial class App : Application
     {
-        
+        public static string CurrentProgram { get; set; } = "Current Program"; // Add this property
 
         public static Supabase.Client SupabaseClient;
 
