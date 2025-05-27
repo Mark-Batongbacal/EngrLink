@@ -6,6 +6,14 @@
 
 ---
 
+👥 Contributors
+
+**Mark Jennel M. Batongbacal**
+
+**Kurt Justine D. Sarmiento**
+
+**Stephen Kurl G. Pinacate**
+
 ## 🏩 Departments Supported
 
 * **Computer Engineering (CPE)**
