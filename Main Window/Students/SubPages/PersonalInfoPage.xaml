@@ -8,15 +8,19 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:EngrLink.Models"
     mc:Ignorable="d"
-    RequestedTheme="Light"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    RequestedTheme="Light">
+    <Page.Background>
+        <ImageBrush ImageSource="ms-appx:///Assets/my_background.png"
+                Stretch="UniformToFill"
+                Opacity="1"/>
+    </Page.Background>
 
     <ScrollView>
         <Grid Padding="20">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" Width="600">
                 <TextBlock Text="Personal Information" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Padding="0,0,0,50" FontFamily="Verdana" Foreground="#74441e"/>
 
-                <Border BorderBrush="#74441e" BorderThickness="1" CornerRadius="8" Padding="20" Margin="0,0,0,20" Background="White">
+                <Border BorderBrush="#74441e" BorderThickness="1" CornerRadius="8" Padding="20" Margin="0,0,0,20" Background="#20FAFAFA">
                     <StackPanel Spacing="10">
                         <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Student ID:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
                         <TextBlock Text="{Binding PersonalInfo.Id}" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>

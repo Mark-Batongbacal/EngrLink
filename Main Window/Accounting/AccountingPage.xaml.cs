@@ -69,17 +69,17 @@ namespace EngrLink.Main_Window.Accounting
                         YearText.Text = student.Year;
                         TotalFeesText.Text = student.Total?.ToString("N0") ?? "?0";
 
-                        InfoPanel.Visibility = Visibility.Visible;
+                        InfoPanelContainer.Visibility = Visibility.Visible;
                         S_TotalFeesText.Text = student.Total?.ToString("N0") ?? "?0";
                         RemainingBalanceText.Text = student.Fees?.ToString("N0");
                     }
                     else
                     {
                         currentStudent = null;
-                        NameText.Text = "--";
-                        ProgramText.Text = "--";
-                        YearText.Text = "--";
-                        TotalFeesText.Text = "--";
+                        NameText.Text = null;
+                        ProgramText.Text = null;
+                        YearText.Text = null;
+                        TotalFeesText.Text = null;
                         InfoPanel.Visibility = Visibility.Collapsed;
                         await ShowDialogAsync("Student not found.");
                     }

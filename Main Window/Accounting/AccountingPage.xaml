@@ -7,52 +7,71 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     RequestedTheme="Light">
+    
+    <Page.Background>
+        <ImageBrush ImageSource="ms-appx:///Assets/my_background.png"
+            Stretch="UniformToFill"
+            Opacity="1"/>
+    </Page.Background>
 
-    <Grid Padding="0" Background="#f7e8d9">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <!-- For the Banner -->
-            <RowDefinition Height="*"/>
-            <!-- For the Buttons -->
-        </Grid.RowDefinitions>
+    <ScrollView>
+        <Grid Padding="20">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" Width="600">
 
-        <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Width="60" Height="40" Click="BackButton_Click" Grid.Row="1" />
+                <TextBlock Text="Accounting and Payments" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Padding="0,0,0,50" FontFamily="Verdana" Foreground="#74441e"/>
 
-        <StackPanel Padding="20,60,20,20" Spacing="20" Grid.Row="1">
-            <StackPanel Spacing="10" BorderThickness="1" BorderBrush="#74441e" Padding="10">
-                <TextBlock Text="Student Information" FontSize="18" FontWeight="Bold"/>
-                <TextBlock Text="Name:"/>
-                <TextBlock x:Name="NameText" Text="--"/>
-                <TextBlock Text="Program:"/>
-                <TextBlock x:Name="ProgramText" Text="--"/>
-                <TextBlock Text="Year:"/>
-                <TextBlock x:Name="YearText" Text="--"/>
-                <TextBlock Text="Total Fees: "/>
-                <TextBlock x:Name="TotalFeesText" Text="--"/>
+                <Border BorderBrush="#74441e" BorderThickness="1" CornerRadius="8" Padding="20" Margin="0,0,0,20" Background="#20FAFAFA">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="Search Student by ID" FontSize="21" FontWeight="Bold" FontFamily="Verdana" Foreground="#74441e"/>
+                        <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
 
-                <TextBlock Text="Search Student by ID" FontSize="16" FontWeight="SemiBold" Margin="0,10,0,0"/>
-                <TextBox x:Name="StudentIdInput" PlaceholderText="Enter Student ID" InputScope="Number" Width="200"/>
-                <Button x:Name="SearchButton" Content="Search" Click="SearchButton_Click" Width="100"/>
+                        <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Left">
+                            <TextBox x:Name="StudentIdInput" PlaceholderText="Enter Student ID" InputScope="Number" Width="250" Margin="0,5,0,0" VerticalAlignment="Center"/>
+                            <Button x:Name="SearchButton" Content="Search" Click="SearchButton_Click" Width="100" Height="32" VerticalAlignment="Center" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
+                        </StackPanel>
+
+                        <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
+                        <TextBlock Text="Student Name:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
+                        <TextBlock x:Name="NameText" Text="" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
+
+                        <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
+                        <TextBlock Text="Program:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
+                        <TextBlock x:Name="ProgramText" Text="" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
+
+                        <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
+                        <TextBlock Text="Year:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
+                        <TextBlock x:Name="YearText" Text="" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
+
+                        <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
+                        <TextBlock Text="Total Fees:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
+                        <TextBlock x:Name="TotalFeesText" Text="" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
+
+                    </StackPanel>
+                </Border>
+
+                <Border x:Name="InfoPanelContainer" Visibility="Collapsed" BorderBrush="#74441e" BorderThickness="1" CornerRadius="8" Padding="20" Margin="0,0,0,20" Background="#20FAFAFA">
+                    <StackPanel x:Name="InfoPanel" Spacing="10">
+                        <TextBlock Text="Payment Details" FontSize="21" FontWeight="Bold" FontFamily="Verdana" Foreground="#74441e"/>
+                        <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
+
+                        <TextBlock Text="Total Fees:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
+                        <TextBlock x:Name="S_TotalFeesText" Text="--" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
+
+                        <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
+                        <TextBlock Text="Remaining Balance:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
+                        <TextBlock x:Name="RemainingBalanceText" Text="--" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
+
+                        <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
+                        <TextBlock Text="Amount Paid:" FontSize="21" FontWeight="SemiBold" FontFamily="Verdana" Foreground="#74441e"/>
+                        <TextBox x:Name="AmountPaidInput" PlaceholderText="₱0" InputScope="Number" Width="200" HorizontalAlignment="Left" Margin="0,5,0,0"/>
+
+                        <Button x:Name="SubmitPaymentButton" Content="Submit Payment" Click="SubmitPaymentButton_Click" Width="160" Height="38" HorizontalAlignment="Left" Margin="0,10,0,0" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
+                    </StackPanel>
+                </Border>
             </StackPanel>
 
-            <Border BorderThickness="1" BorderBrush="#74441e" Padding="10">
-                <StackPanel x:Name="InfoPanel" Visibility="Collapsed" Spacing="10">
-                    <TextBlock Text="Payment Details" FontSize="18" FontWeight="Bold"/>
-                    <StackPanel Orientation="Horizontal" Spacing="10">
-                        <TextBlock Text="Total Fees: "/>
-                        <TextBlock x:Name="S_TotalFeesText" Text="--"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Spacing="10">
-                        <TextBlock Text="Remaining Balance: "/>
-                        <TextBlock x:Name="RemainingBalanceText" Text="--"/>
-                    </StackPanel>
-                    <TextBlock Text="Amount Paid" FontSize="16" FontWeight="SemiBold"/>
-                    <TextBox x:Name="AmountPaidInput" PlaceholderText="₱0" InputScope="Number" Width="150"/>
-                    <Button x:Name="SubmitPaymentButton" Content="Submit Payment" Click="SubmitPaymentButton_Click" Width="140"/>
-                </StackPanel>
-            </Border>
-        </StackPanel>
-    </Grid>
+            <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Width="60" Height="40" Click="BackButton_Click" />
+        </Grid>
+    </ScrollView>
 </Page>

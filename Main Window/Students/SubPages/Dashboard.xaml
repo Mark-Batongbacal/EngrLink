@@ -4,8 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:EngrLink.Main_Window.Students.SubPages"
     xmlns:models="using:EngrLink.Models"
-    RequestedTheme="Light"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    RequestedTheme="Light">
+    <Page.Background>
+        <ImageBrush ImageSource="ms-appx:///Assets/my_background.png"
+                    Stretch="UniformToFill"
+                    Opacity="1"/>
+    </Page.Background>
 
     <Grid Padding="20">
         <StackPanel>
@@ -27,7 +31,7 @@
                 <ListView ItemsSource="{x:Bind StudentAnnouncements, Mode=OneWay}">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="models:Announcement">
-                            <Border Background="White" CornerRadius="5" Padding="20" BorderBrush="#74441e" BorderThickness="1">
+                            <Border Background="#20FAFAFA" CornerRadius="5" Padding="20" BorderBrush="#74441e" BorderThickness="1">
                                 <TextBlock Text="{x:Bind Announcements}" FontSize="16" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap" />
                             </Border>
                         </DataTemplate>

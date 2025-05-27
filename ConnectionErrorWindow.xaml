@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="EngrLink.ConnectionErrorWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EngrLink"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Connection Error">
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="ms-appx:///Assets/my_background.png" Stretch="UniformToFill" Opacity="1"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Image Source="Assets/banner.png" Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Row="0"/>
+        <StackPanel Grid.Row="1" VerticalAlignment="Center">
+            <TextBlock Text="Unable to connect to the server." FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" TextWrapping="Wrap" FontFamily="Verdana" Margin="0,50,0,50" Foreground="#74441e"/>
+            <TextBlock Text="Please check your internet connection or try again later." FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" TextWrapping="Wrap" FontFamily="Verdana" Margin="0,0,0,150" Foreground="#74441e"/>
+        </StackPanel>
+    </Grid>
+</Window>
