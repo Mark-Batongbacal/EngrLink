@@ -75,6 +75,13 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                 return;
             }
 
+            if (!forStudents && !forTeachers)
+            {
+                MessageTextBlock.Text = "Please select at least one audience (Students or Teachers).";
+                MessageTextBlock.Visibility = Visibility.Visible;
+                return;
+            }
+
             var newAnnouncement = new Announcement
             {
                 Announcements = content,
