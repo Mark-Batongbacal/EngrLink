@@ -102,10 +102,15 @@ namespace EngrLink.Main_Window.Students.SubPages
                     .Filter("student_id", Supabase.Postgrest.Constants.Operator.Equals, this.Id) // Use this.Id
                     .Get();
 
-                SubjectsListView.ItemsSource = gradesResponse.Models;
+                
 
                 // Calculate GWA using the loaded subjects
                 var subjects = gradesResponse.Models;
+                var subjectViews = subjects
+                .Select(sub => new IndivSubjectView { Sub = sub })
+                .ToList();
+
+                SubjectsListView.ItemsSource = subjectViews;
                 double totalUnits = 0;
                 double totalWeightedGrades = 0;
 
