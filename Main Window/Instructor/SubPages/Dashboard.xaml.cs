@@ -125,7 +125,7 @@ namespace EngrLink.Main_Window.Instructor.SubPages
             }
         }
 
-        private async void LoadStudentAnnouncements()
+        private async void LoadFacultyAnnouncements()
         {
             var client = App.SupabaseClient;
             Debug.WriteLine($"Loading announcements for Program: {this.Program}");
