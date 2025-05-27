@@ -63,8 +63,10 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
         }
         private async void StudentButton_Click(object sender, RoutedEventArgs e)
         {
+
             var button = sender as Button;
             var viewModel = button?.DataContext as StudentViewModel;
+            button.IsEnabled = false;
 
             if (viewModel != null)
             {

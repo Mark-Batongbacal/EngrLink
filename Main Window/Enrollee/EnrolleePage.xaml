@@ -48,7 +48,7 @@
                 <ComboBoxItem Content="2nd Year" />
                 <ComboBoxItem Content="3rd Year" />
                 <ComboBoxItem Content="4th Year" />
-                <ComboBoxItem Content="5th Year" />
+                <ComboBoxItem x:Name="FifthYearItem" Content="5th Year" Visibility="Collapsed"/>
             </ComboBox>
 
             <!-- Birthday Picker -->

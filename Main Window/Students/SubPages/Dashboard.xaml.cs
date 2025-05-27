@@ -1,16 +1,15 @@
 using EngrLink.Models; // Make sure to include your models namespace
-using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml; // Needed for DispatcherTimer
 using Microsoft.UI.Xaml.Controls;
 using Supabase;
 using Supabase.Postgrest;
 using Supabase.Postgrest.Models;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq; // For Any()
-using static Supabase.Postgrest.Constants; // Add this import
+using System.Linq;
+using static Supabase.Postgrest.Constants;
 using Microsoft.UI.Xaml.Navigation;
 using System.Diagnostics;
-using Windows.Devices.AllJoyn;
 using System.ComponentModel;
 
 namespace EngrLink.Main_Window.Students.SubPages
@@ -32,6 +31,7 @@ namespace EngrLink.Main_Window.Students.SubPages
                 }
             }
         }
+
         private string _program;
         public string Program
         {
@@ -46,36 +46,90 @@ namespace EngrLink.Main_Window.Students.SubPages
             }
         }
 
+        public ObservableCollection<string> ImageSources { get; set; }
+
         public ObservableCollection<Announcement> StudentAnnouncements { get; set; } = new ObservableCollection<Announcement>();
+
+        // NEW: Declare a DispatcherTimer
+        private DispatcherTimer _autoFlipTimer;
 
         public Dashboard()
         {
             this.InitializeComponent();
-            this.DataContext = this; 
+            this.DataContext = this;
+
+            ImageSources = new ObservableCollection<string>
+            {
+                "ms-appx:///Assets/carousel_image1.png",
+                "ms-appx:///Assets/carousel_image2.png",
+                "ms-appx:///Assets/carousel_image3.png"
+            };
+
+            // NEW: Initialize and configure the DispatcherTimer
+            _autoFlipTimer = new DispatcherTimer();
+            _autoFlipTimer.Interval = TimeSpan.FromSeconds(5); // Change image every 5 seconds (adjust as needed)
+            _autoFlipTimer.Tick += AutoFlipTimer_Tick; // Assign the event handler
+
+            // No need to start it here. We'll start it after the images are loaded and the page is visible.
         }
+
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            if (e.Parameter is (string program, string id))
+            if (e.Parameter is ValueTuple<string, string> parameterTuple)
             {
-                this.Program = program;
+                this.Program = parameterTuple.Item1;
+                string studentId = parameterTuple.Item2;
 
                 var response = await App.SupabaseClient
                     .From<Student>()
-                    .Filter("id", Operator.Equals, id)
+                    .Filter("id", Operator.Equals, studentId)
                     .Get();
 
                 this.Name = $"Welcome {response.Models.FirstOrDefault()?.Name ?? "Unknown Student"}!";
-                
+                Debug.WriteLine($"Dashboard loaded for student: {this.Name}, Program: {this.Program}, ID: {studentId}");
             }
+            else
+            {
+                this.Name = "Welcome";
+                this.Program = "N/A";
+                Debug.WriteLine("Dashboard loaded without specific student info.");
+            }
+
             LoadStudentAnnouncements();
+
+            // NEW: Start the timer when the page is navigated to and visible
+            if (ImageSources.Any()) // Only start if there are images
+            {
+                _autoFlipTimer.Start();
+            }
+        }
+
+        // NEW: Stop the timer when the page is navigated away from
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            _autoFlipTimer.Stop(); // Stop the timer to prevent memory leaks and unnecessary processing
+        }
+
+        // NEW: Event handler for the DispatcherTimer's Tick event
+        private void AutoFlipTimer_Tick(object sender, object e)
+        {
+            if (ImageSources.Any())
+            {
+                int currentIndex = DashboardFlipView.SelectedIndex; // Access the FlipView by its x:Name
+                int nextIndex = (currentIndex + 1) % ImageSources.Count; // Calculate the next index, wrapping around
+
+                DashboardFlipView.SelectedIndex = nextIndex; // Set the FlipView to the next item
+            }
         }
 
         private async void LoadStudentAnnouncements()
         {
             var client = App.SupabaseClient;
-            Debug.Write($"This is your name and Program{this.Name}, {this.Program}");
+            Debug.WriteLine($"Loading announcements for Program: {this.Program}");
+
             try
             {
                 var response = await client
@@ -83,11 +137,10 @@ namespace EngrLink.Main_Window.Students.SubPages
                     .Filter("program", Operator.Equals, this.Program)
                     .Get();
 
-                    if (response.Models != null && response.Models.Any())
+                if (response?.Models != null && response.Models.Any())
                 {
                     StudentAnnouncements.Clear();
 
-                    // Filter announcements for students
                     foreach (var announcement in response.Models)
                     {
                         if (announcement.ForStud)
@@ -95,17 +148,16 @@ namespace EngrLink.Main_Window.Students.SubPages
                             StudentAnnouncements.Add(announcement);
                         }
                     }
-
-                    System.Diagnostics.Debug.WriteLine($"Loaded {StudentAnnouncements.Count} announcements for students.");
+                    Debug.WriteLine($"Loaded {StudentAnnouncements.Count} announcements for students in program {this.Program}.");
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("No announcements found.");
+                    Debug.WriteLine($"No announcements found for program {this.Program}.");
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error loading student announcements: {ex.Message}");
+                Debug.WriteLine($"Error loading student announcements: {ex.Message}");
             }
         }
     }

@@ -25,11 +25,11 @@
 
         <StackPanel Grid.Column="0" Background="#ffc797" VerticalAlignment="Stretch" Spacing="1" Grid.Row="1">
 
-            <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="40" Click="BackButton_Click"/>
+        <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="40" Click="BackButton_Click"/>
 
-            <AppBarSeparator/>
+        <AppBarSeparator/>
 
-                <Button x:Name="DashboardButton" Content="Dashboard" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="DashboardButton_Click"/>
+        <Button x:Name="DashboardButton" Content="Dashboard" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="DashboardButton_Click"/>
 
         </StackPanel>
 
