@@ -49,7 +49,6 @@ public sealed partial class ShowGrades : Page
             Debug.WriteLine($"Navigated with Student ID: {studentId}");
             var client = App.SupabaseClient;
 
-            // Get grades
             var gradesResponse = await client
                 .From<IndivSubject>()
                 .Filter("student_id", Supabase.Postgrest.Constants.Operator.Equals, studentId)
@@ -61,7 +60,6 @@ public sealed partial class ShowGrades : Page
 
             StudentsListView.ItemsSource = SubjectViews;
 
-            // Get student info
             var studentResponse = await client
                 .From<Student>()
                 .Filter("id", Supabase.Postgrest.Constants.Operator.Equals, studentId)

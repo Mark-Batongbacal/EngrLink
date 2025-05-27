@@ -16,21 +16,20 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!-- Header Section -->
         <TextBlock Text="Announcements" 
                    FontSize="24" 
                    FontWeight="Bold" 
                    Foreground="#FF964F" 
                    Margin="0,0,0,20" />
 
-        <!-- Main Content -->
+ 
         <Grid Grid.Row="1" ColumnSpacing="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="3*" />
             </Grid.ColumnDefinitions>
 
-            <!-- Create Announcement Section -->
+
             <StackPanel Grid.Column="0" Background="#FFF5F5F5" Padding="20" CornerRadius="10" BorderBrush="#FF964F" BorderThickness="1">
                 <TextBlock Text="Create Announcement" 
                            FontSize="18" 
@@ -60,7 +59,7 @@
                            Margin="0,10,0,0" />
             </StackPanel>
 
-            <!-- Existing Announcements Section -->
+
             <StackPanel Grid.Column="1">
                 <TextBlock Text="Existing Announcements" 
                            FontSize="18" 

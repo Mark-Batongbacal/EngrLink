@@ -15,15 +15,10 @@ using Microsoft.UI.Xaml.Navigation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace EngrLink.Main_Window.Department_Chairman.SubPages
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    /// 
+
     public sealed partial class ListOfStudents : Page
     {
         public string Program;
@@ -50,7 +45,6 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
         {
             var client = App.SupabaseClient;
 
-            // Only get students where Enrolled is false
             var response = await client
                 .From<Student>()
                 .Filter("enrolled", Supabase.Postgrest.Constants.Operator.Equals, "true")
@@ -83,10 +77,10 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
             {
                 int studentId = viewModel.Student2.Id;
 
-                Debug.WriteLine($"Student ID: {studentId}"); // Output the integer
+                Debug.WriteLine($"Student ID: {studentId}");
 
                 Frame.Content = null;
-                Frame.Navigate(typeof(ShowGrades), studentId); // Pass the ID to the next page
+                Frame.Navigate(typeof(ShowGrades), studentId); 
 
                 button.IsEnabled = false;
             }

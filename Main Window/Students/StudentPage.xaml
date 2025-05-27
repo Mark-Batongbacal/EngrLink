@@ -13,15 +13,11 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- For the Banner -->
             <RowDefinition Height="*"/>
-            <!-- For the Buttons -->
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250" />
-            <!-- Left panel fixed width -->
             <ColumnDefinition Width="*" />
-            <!-- Right panel takes remaining space -->
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0" Background="#ffc797" VerticalAlignment="Stretch" Spacing="1" Grid.Row="1">

@@ -17,14 +17,9 @@ using Microsoft.UI.Xaml.Navigation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace EngrLink.Main_Window.Department_Chairman
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class DepartmentPage : Page
     {
         public string Program { get; set; }
@@ -59,8 +54,6 @@ namespace EngrLink.Main_Window.Department_Chairman
 
         private void Schedules_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            button.IsEnabled = false;
             if (DepartmentChairFrame.Content?.GetType() != typeof(Schedules))
             {
                 DepartmentChairFrame.Content = null;
@@ -72,8 +65,6 @@ namespace EngrLink.Main_Window.Department_Chairman
 
         private void ListStudents_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            button.IsEnabled = false;
             if (DepartmentChairFrame.Content?.GetType() != typeof(ListOfStudents))
             { 
                 DepartmentChairFrame.Content = null;
@@ -84,9 +75,6 @@ namespace EngrLink.Main_Window.Department_Chairman
 
         private void Announcements_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            button.IsEnabled = false;
-
             if (DepartmentChairFrame.Content?.GetType() != typeof(AnnouncementPage))
             {
                 DepartmentChairFrame.Content = null;
@@ -96,8 +84,6 @@ namespace EngrLink.Main_Window.Department_Chairman
 
         private void Enrollees_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            button.IsEnabled = false;
             if (DepartmentChairFrame.Content?.GetType() != typeof(Enrollees))
             {
                 DepartmentChairFrame.Content = null;
@@ -107,14 +93,10 @@ namespace EngrLink.Main_Window.Department_Chairman
 
         private void Dashboard_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            button.IsEnabled = false;
             if (DepartmentChairFrame.Content?.GetType() != typeof(Dashboard))
             {
                 DepartmentChairFrame.Content = null;
                 DepartmentChairFrame.Navigate(typeof(Dashboard), this.Program);
-
-
             }
         }
     }

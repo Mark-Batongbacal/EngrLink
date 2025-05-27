@@ -1,5 +1,5 @@
-using EngrLink.Models; // Make sure to include your models namespace
-using Microsoft.UI.Xaml; // Needed for DispatcherTimer
+using EngrLink.Models; 
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Supabase;
 using Supabase.Postgrest;
@@ -50,7 +50,6 @@ namespace EngrLink.Main_Window.Instructor.SubPages
 
         public ObservableCollection<Announcement> StudentAnnouncements { get; set; } = new ObservableCollection<Announcement>();
 
-        // NEW: Declare a DispatcherTimer
         private DispatcherTimer _autoFlipTimer;
 
         public Dashboard()
@@ -65,12 +64,10 @@ namespace EngrLink.Main_Window.Instructor.SubPages
                 "ms-appx:///Assets/carousel_image3.png"
             };
 
-            // NEW: Initialize and configure the DispatcherTimer
             _autoFlipTimer = new DispatcherTimer();
-            _autoFlipTimer.Interval = TimeSpan.FromSeconds(5); // Change image every 5 seconds (adjust as needed)
-            _autoFlipTimer.Tick += AutoFlipTimer_Tick; // Assign the event handler
+            _autoFlipTimer.Interval = TimeSpan.FromSeconds(5); 
+            _autoFlipTimer.Tick += AutoFlipTimer_Tick;
 
-            // No need to start it here. We'll start it after the images are loaded and the page is visible.
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -99,29 +96,26 @@ namespace EngrLink.Main_Window.Instructor.SubPages
 
             LoadFacultyAnnouncements();
 
-            // NEW: Start the timer when the page is navigated to and visible
-            if (ImageSources.Any()) // Only start if there are images
+            if (ImageSources.Any())
             {
                 _autoFlipTimer.Start();
             }
         }
 
-        // NEW: Stop the timer when the page is navigated away from
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
-            _autoFlipTimer.Stop(); // Stop the timer to prevent memory leaks and unnecessary processing
+            _autoFlipTimer.Stop();
         }
 
-        // NEW: Event handler for the DispatcherTimer's Tick event
         private void AutoFlipTimer_Tick(object sender, object e)
         {
             if (ImageSources.Any())
             {
-                int currentIndex = DashboardFlipView.SelectedIndex; // Access the FlipView by its x:Name
-                int nextIndex = (currentIndex + 1) % ImageSources.Count; // Calculate the next index, wrapping around
+                int currentIndex = DashboardFlipView.SelectedIndex; 
+                int nextIndex = (currentIndex + 1) % ImageSources.Count; 
 
-                DashboardFlipView.SelectedIndex = nextIndex; // Set the FlipView to the next item
+                DashboardFlipView.SelectedIndex = nextIndex;
             }
         }
 

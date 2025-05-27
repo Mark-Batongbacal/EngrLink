@@ -43,7 +43,6 @@ namespace EngrLink.Main_Window.Instructor.SubPages
         {
             var client = App.SupabaseClient;
 
-            // Only get students where Enrolled is false
             var response = await client
                 .From<Subjects>()
                 .Filter("profcode", Supabase.Postgrest.Constants.Operator.Equals, this.ProfCode)
@@ -51,7 +50,6 @@ namespace EngrLink.Main_Window.Instructor.SubPages
             if (response.Models is not null)
             {
 
-                // Get distinct (Program, Year) pairs
                 var distinctPairs = response.Models
                     .Select(s => new { Program = s.Program, Year = s.Year })
                     .Where(x => !string.IsNullOrEmpty(x.Program) && !string.IsNullOrEmpty(x.Year))

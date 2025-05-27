@@ -136,9 +136,9 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                 var parts = schedule.Split(' ', 2);
                 if (parts.Length > 1)
                 {
-                    return $"{parts[0]} {parts[1]}"; // Combine day and time on the same line
+                    return $"{parts[0]} {parts[1]}"; 
                 }
-                return parts[0]; // Return day if time is missing
+                return parts[0];
             }
             return "Unknown_Time";
         }
@@ -153,7 +153,6 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
             {
                 Debug.WriteLine($"Viewing schedule for: {faculty.Name} (Code: {faculty.ProfCode})");
 
-                // Navigate to the ViewSchedulePage and pass the selected faculty
                 Frame.Navigate(typeof(ViewSchedulePage), faculty);
 
                 button.IsEnabled = false;

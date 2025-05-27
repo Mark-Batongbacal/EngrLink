@@ -12,18 +12,13 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- For the Banner -->
             <RowDefinition Height="*"/>
-            <!-- For the Buttons -->
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250" />
-            <!-- Left panel fixed width -->
             <ColumnDefinition Width="*" />
-            <!-- Right panel takes remaining space -->
         </Grid.ColumnDefinitions>
 
-        <!-- Navigation Panel -->
         <StackPanel Grid.Column="0" Background="#ffc797" VerticalAlignment="Stretch" Spacing="1" Grid.Row="1">
             <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Width="60" Height="40" Click="BackButton_Click" Grid.Row="1" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
             <AppBarSeparator/>
@@ -34,7 +29,6 @@
             <Button x:Name="Enrollees" Content="Enrollees" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="Enrollees_Click" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
         </StackPanel>
 
-        <!-- Content Frame -->
         <Frame x:Name="DepartmentChairFrame" Grid.Column="1" Grid.Row="1"/>
     </Grid>
 </Page>

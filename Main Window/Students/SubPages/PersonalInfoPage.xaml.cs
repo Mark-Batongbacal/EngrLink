@@ -12,21 +12,16 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
-using EngrLink.Models; // Make sure to include your models namespace
-using System.ComponentModel; // For INotifyPropertyChanged
-using System.Diagnostics; // For Debug.WriteLine
+using EngrLink.Models; 
+using System.ComponentModel;
+using System.Diagnostics;
 
 namespace EngrLink.Main_Window.Students.SubPages
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class PersonalInfoPage : Page, INotifyPropertyChanged
     {
-        // Property to hold the student's ID passed from the previous page
         public string StudentId { get; set; }
 
-        // Model to bind personal information to the UI
         private Student _personalInfo;
         public Student PersonalInfo
         {
@@ -44,14 +39,13 @@ namespace EngrLink.Main_Window.Students.SubPages
         public PersonalInfoPage()
         {
             this.InitializeComponent();
-            this.DataContext = this; // Set DataContext so XAML can bind to properties on this page
+            this.DataContext = this;
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            // Get the student ID passed as a parameter
             if (e.Parameter is string studentId)
             {
                 this.StudentId = studentId;
@@ -67,29 +61,25 @@ namespace EngrLink.Main_Window.Students.SubPages
             try
             {
                 var response = await client
-                    .From<Student>() // Use your new StudentPersonalInfo model
+                    .From<Student>()
                     .Filter("id", Supabase.Postgrest.Constants.Operator.Equals, this.StudentId)
-                    .Single(); // Use Single() as you expect only one student profile
+                    .Single();
 
                 if (response != null)
                 {
-                    PersonalInfo = response; // Assign the fetched data to the bound property
+                    PersonalInfo = response;
                     Debug.WriteLine($"Personal Info Loaded for {PersonalInfo.Name}");
                 }
                 else
                 {
                     Debug.WriteLine($"No personal info found for student ID: {this.StudentId}");
-                    // Optionally, you might want to display a message to the user
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error loading personal info: {ex.Message}");
-                // Handle exceptions (e.g., show an error message)
             }
         }
-
-        // INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string propertyName)

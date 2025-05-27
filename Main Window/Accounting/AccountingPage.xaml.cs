@@ -97,6 +97,9 @@ namespace EngrLink.Main_Window.Accounting
 
         private async void SubmitPaymentButton_Click(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
+            button.IsEnabled = false;
+
             if (currentStudent == null)
             {
                 await ShowDialogAsync("Search for a student first.");
