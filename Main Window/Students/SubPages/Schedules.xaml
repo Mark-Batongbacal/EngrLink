@@ -46,7 +46,6 @@
                                     <ColumnDefinition Width="200"/>
                                     <ColumnDefinition Width="100"/>
                                 </Grid.ColumnDefinitions>
-
                                 <TextBlock Text="{x:Bind Code}" Grid.Column="0" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
                                 <TextBlock Text="{x:Bind Subject}" Grid.Column="1" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
                                 <TextBlock Text="{x:Bind Schedule}" Grid.Column="2" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>

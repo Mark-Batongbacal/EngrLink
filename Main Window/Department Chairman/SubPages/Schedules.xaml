@@ -8,46 +8,50 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     RequestedTheme="Light">
 
-    <Grid Padding="0">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Spacing="1">
-            <TextBlock Text="Faculty Schedules" FontSize="40" HorizontalAlignment="Center" Padding="0,50,0,50"/>
+    <Page.Background>
+        <ImageBrush ImageSource="ms-appx:///Assets/my_background.png"
+        Stretch="UniformToFill"
+        Opacity="1"/>
+    </Page.Background>
 
-            <ScrollViewer x:Name="SchedulesScrollViewer">
-                <ListView x:Name="SchedulesListView" ItemsSource="{x:Bind FacultySchedules}" IsItemClickEnabled="False" Height="500">
-                    <ListView.Header>
-                        <Grid Padding="10" Background="#f0f0f0" CornerRadius="4">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="300"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-
-                            <TextBlock Text="Code" FontWeight="Bold" HorizontalAlignment="Left"/>
-                            <TextBlock Text="Name" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Left"/>
-                            <TextBlock Text="Action" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Left"/>
-                        </Grid>
-                    </ListView.Header>
-
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="models:Faculty">
-                            <Grid Padding="10">
+    <ScrollView>
+        <Grid Padding="20">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Spacing="1">
+                <TextBlock Text="Faculty Schedules" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Padding="0,0,0,50" FontFamily="Verdana" Foreground="#74441e"/>
+                <ScrollViewer x:Name="SchedulesScrollViewer">
+                    <ListView x:Name="SchedulesListView" ItemsSource="{x:Bind FacultySchedules}" IsItemClickEnabled="False" Height="500">
+                        <ListView.Header>
+                            <Grid Padding="10" Background="#fad1ac" CornerRadius="4">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="150"/>
                                     <ColumnDefinition Width="300"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-
-                                <TextBlock Text="{x:Bind ProfCode}" HorizontalAlignment="Left"/>
-                                <TextBlock Text="{x:Bind Name}" Grid.Column="1" HorizontalAlignment="Left"/>
-                                <Button Content="View Schedule" Click="ViewScheduleButton_Click" Grid.Column="2" HorizontalAlignment="Left"/>
+                                <TextBlock Text="Code" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Text="Name" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Text="Action" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
                             </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </ScrollViewer>
-        </StackPanel>
-    </Grid>
+                        </ListView.Header>
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Faculty">
+                                <Grid Padding="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="300"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{x:Bind ProfCode}" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                                    <TextBlock Text="{x:Bind Name}" Grid.Column="1" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                                    <Button Content="View Schedule" Click="ViewScheduleButton_Click" Grid.Column="2" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollViewer>
+            </StackPanel>
+        </Grid>
+    </ScrollView>
 </Page>
