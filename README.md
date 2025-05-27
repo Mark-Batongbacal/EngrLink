@@ -6,13 +6,13 @@
 
 ---
 
-👥 Contributors
+## 👥 Contributors
 
-**Mark Jennel M. Batongbacal**
+* **Mark Jennel M. Batongbacal**
 
-**Kurt Justine D. Sarmiento**
+* **Kurt Justine D. Sarmiento**
 
-**Stephen Kurl G. Pinacate**
+* **Stephen Kurl G. Pinacate**
 
 ## 🏩 Departments Supported
 
