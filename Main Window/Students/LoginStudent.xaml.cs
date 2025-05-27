@@ -126,6 +126,8 @@ namespace EngrLink.Main_Window.Students
                             CloseButtonText = "OK",
                             XamlRoot = this.XamlRoot
                         };
+                        var button = sender as Button;
+                        button.IsEnabled = false;
                         await successDialog.ShowAsync();
                         Frame.Navigate(typeof(StudentPage), (student.Id.ToString(), student.Program));
                     }
