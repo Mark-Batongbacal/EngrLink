@@ -63,12 +63,12 @@ namespace EngrLink.Main_Window.Accounting
                 var ac = response.Models.FirstOrDefault();
                 Debug.WriteLine($"Returned rows: {response.Models.Count}");
 
-
                 if (ac != null && ac.Password == password && ac.Id == 100)
                 {
                     await ShowDialog("Login Successful", "Welcome back!");
-                    Frame.Navigate(typeof(AccountingPage), ac.Program);
+                    Frame.Navigate(typeof(AccountingPage), ac.ProfCode); // Changed 'Program' to 'ProfCode'
                 }
+
 
                 else
                 {

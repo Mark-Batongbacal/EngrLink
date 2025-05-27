@@ -63,13 +63,12 @@ namespace EngrLink.Main_Window.Instructor
                 var fac = response.Models.FirstOrDefault();
                 Debug.WriteLine($"Returned rows: {response.Models.Count}");
 
-
                 if (fac != null && fac.Password == password && fac.Id != 100)
                 {
+                    // Assuming 'ProfCode' is the intended property to pass instead of 'Program'
                     await ShowDialog("Login Successful", "Welcome back!");
-                    Frame.Navigate(typeof(FacultyPage), fac.Program);
+                    Frame.Navigate(typeof(FacultyPage), fac.ProfCode);
                 }
-
                 else
                 {
                     ContentDialog failedDialog = new ContentDialog
@@ -94,6 +93,7 @@ namespace EngrLink.Main_Window.Instructor
                 await errorDialog.ShowAsync();
             }
         }
+
 
         private async Task ShowDialog(string title, string message)
         {

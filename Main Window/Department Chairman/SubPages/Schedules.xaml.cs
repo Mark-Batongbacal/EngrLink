@@ -20,10 +20,10 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
         {
             this.InitializeComponent();
             this.DataContext = this;
-            LoadFacultySchedules();
+            _ = LoadFacultySchedules(); 
         }
 
-        private async Task LoadFacultySchedules() // Changed to Task for better async practices
+        private async Task LoadFacultySchedules()
         {
             var client = App.SupabaseClient;
 
@@ -44,10 +44,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                 {
                     Debug.WriteLine($"Successfully fetched {facultyResponse.Models.Count} faculty members.");
 
-                    // Clear the list before adding new data to prevent duplicates on subsequent loads (e.g., OnAppearing)
                     FacultySchedules.Clear();
-                    // If using ObservableCollection, ensure UI updates if needed:
-                    // Device.BeginInvokeOnMainThread(() => FacultySchedules.Clear());
 
                     foreach (var faculty in facultyResponse.Models)
                     {
@@ -58,8 +55,6 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                             Debug.WriteLine($"Warning: Skipping schedule fetch for faculty '{faculty.Name}' due to empty or null ProfCode.");
                             continue;
                         }
-
-                        List<ScheduleDetail> scheduleDetails = new List<ScheduleDetail>();
 
                         try
                         {
@@ -72,42 +67,32 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                             if (scheduleResponse.Models != null && scheduleResponse.Models.Any())
                             {
                                 Debug.WriteLine($"Found {scheduleResponse.Models.Count} schedules for ProfCode: '{faculty.ProfCode}'.");
-                                foreach (var subject in scheduleResponse.Models)
-                                {
-                                    if (!string.IsNullOrEmpty(subject.Schedule))
+
+                                // Ensure all schedules are processed and added
+                                faculty.ScheduleDetails = scheduleResponse.Models
+                                    .Where(subject => !string.IsNullOrEmpty(subject.Schedule))
+                                    .Select(subject => new ScheduleDetail
                                     {
-                                        scheduleDetails.Add(new ScheduleDetail
-                                        {
-                                            Day = ExtractDayFromSchedule(subject.Schedule),
-                                            Time = ExtractTimeFromSchedule(subject.Schedule),
-                                            Subject = subject.Subject
-                                        });
-                                    }
-                                    else
-                                    {
-                                        Debug.WriteLine($"Warning: Subject '{subject.Subject}' for ProfCode '{faculty.ProfCode}' has an empty schedule string.");
-                                    }
-                                }
+                                        Day = ExtractDayFromSchedule(subject.Schedule),
+                                        Time = ExtractTimeFromSchedule(subject.Schedule),
+                                        Subject = subject.Subject
+                                    })
+                                    .ToList();
                             }
                             else
                             {
-                                Debug.WriteLine($"No schedules found for ProfCode: '{faculty.ProfCode}'. This is common if a professor has no assigned subjects.");
+                                Debug.WriteLine($"No schedules found for ProfCode: '{faculty.ProfCode}'.");
+                                faculty.ScheduleDetails = new List<ScheduleDetail>();
                             }
                         }
                         catch (Exception scheduleEx)
                         {
                             Debug.WriteLine($"Error fetching schedules for ProfCode '{faculty.ProfCode}': {scheduleEx.Message}");
                             Debug.WriteLine(scheduleEx.StackTrace);
+                            faculty.ScheduleDetails = new List<ScheduleDetail>();
                         }
 
-                        FacultySchedules.Add(new Faculty
-                        {
-                            Id = faculty.Id,
-                            Name = faculty.Name,
-                            ProfCode = faculty.ProfCode,
-                            ScheduleDetails = scheduleDetails
-                        });
-
+                        FacultySchedules.Add(faculty);
                     }
 
                     Debug.WriteLine($"Finished loading faculty schedules. Total faculty with schedules/details processed: {FacultySchedules.Count}.");
@@ -121,8 +106,6 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
             {
                 Debug.WriteLine($"Critical Error loading faculty schedules: {ex.Message}");
                 Debug.WriteLine(ex.StackTrace);
-                // Consider showing a user-friendly error message here
-                // await DisplayAlert("Error", "Failed to load faculty schedules. Please try again later.", "OK");
             }
         }
 
