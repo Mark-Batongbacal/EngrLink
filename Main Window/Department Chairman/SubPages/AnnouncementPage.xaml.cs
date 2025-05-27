@@ -89,6 +89,8 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                 ForFac = forTeachers,
                 Program = this.Program
             };
+            if (Frame.CanGoBack)
+                Frame.GoBack();
 
             var client = App.SupabaseClient;
 

@@ -48,11 +48,6 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </ScrollViewer>
-
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
-                <Button Content="Scroll to Top" Click="ScrollToTopButton_Click" Margin="5"/>
-                <Button Content="Scroll to Bottom" Click="ScrollToBottomButton_Click" Margin="5"/>
-            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>

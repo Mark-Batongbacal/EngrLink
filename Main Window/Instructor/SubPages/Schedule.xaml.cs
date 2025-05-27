@@ -53,6 +53,8 @@ namespace EngrLink.Main_Window.Instructor.SubPages
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
+            button.IsEnabled = false;
             if (Frame.CanGoBack)
                 Frame.GoBack();
         }

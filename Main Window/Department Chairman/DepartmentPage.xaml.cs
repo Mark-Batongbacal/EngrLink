@@ -51,31 +51,41 @@ namespace EngrLink.Main_Window.Department_Chairman
         {
             if (Frame.CanGoBack)
                 Frame.GoBack();
+            var button = sender as Button;
+            button.IsEnabled = false;
+
         }
   
 
         private void Schedules_Click(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
+            button.IsEnabled = false;
             if (DepartmentChairFrame.Content?.GetType() != typeof(Schedules))
             {
                 DepartmentChairFrame.Content = null;
                 DepartmentChairFrame.Navigate(typeof(Schedules), this.Program);
+
             }
         }
 
 
         private void ListStudents_Click(object sender, RoutedEventArgs e)
         {
-
+            var button = sender as Button;
+            button.IsEnabled = false;
             if (DepartmentChairFrame.Content?.GetType() != typeof(ListOfStudents))
             { 
                 DepartmentChairFrame.Content = null;
                 DepartmentChairFrame.Navigate(typeof(ListOfStudents), this.Program);
+
             }
         }
 
         private void Announcements_Click(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
+            button.IsEnabled = false;
 
             if (DepartmentChairFrame.Content?.GetType() != typeof(AnnouncementPage))
             {
@@ -86,6 +96,8 @@ namespace EngrLink.Main_Window.Department_Chairman
 
         private void Enrollees_Click(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
+            button.IsEnabled = false;
             if (DepartmentChairFrame.Content?.GetType() != typeof(Enrollees))
             {
                 DepartmentChairFrame.Content = null;
@@ -95,10 +107,14 @@ namespace EngrLink.Main_Window.Department_Chairman
 
         private void Dashboard_Click(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
+            button.IsEnabled = false;
             if (DepartmentChairFrame.Content?.GetType() != typeof(Dashboard))
             {
                 DepartmentChairFrame.Content = null;
                 DepartmentChairFrame.Navigate(typeof(Dashboard), this.Program);
+
+
             }
         }
     }

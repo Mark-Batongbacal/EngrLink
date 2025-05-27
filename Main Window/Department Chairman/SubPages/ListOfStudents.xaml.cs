@@ -69,6 +69,9 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
         {
             if (Frame.CanGoBack)
                 Frame.GoBack();
+
+            var button = sender as Button;
+            button.IsEnabled = false;
         }
 
         private void StudentButton_Click(object sender, RoutedEventArgs e)
@@ -84,6 +87,8 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
 
                 Frame.Content = null;
                 Frame.Navigate(typeof(ShowGrades), studentId); // Pass the ID to the next page
+
+                button.IsEnabled = false;
             }
         }
 
