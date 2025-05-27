@@ -28,6 +28,7 @@ namespace EngrLink.Main_Window.Instructor
         public FacultyPage()
         {
             this.InitializeComponent();
+            FacultyFrame.Navigate(typeof(Instructor.SubPages.Dashboard));
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -70,7 +71,7 @@ namespace EngrLink.Main_Window.Instructor
             if (FacultyFrame.Content?.GetType() != typeof(Schedule))
             {
                 FacultyFrame.Content = null;
-                FacultyFrame.Navigate(typeof(Schedule), this.Id);
+                FacultyFrame.Navigate(typeof(Schedule), this.Profcode);
             }
         }
     }

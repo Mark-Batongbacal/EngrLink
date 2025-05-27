@@ -55,7 +55,7 @@
                     </ListView.Header>
 
                     <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="models:IndivSubject">
+                        <DataTemplate x:DataType="models:IndivSubjectView">
                             <Grid Padding="5">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="100"/>
@@ -65,11 +65,11 @@
                                     <ColumnDefinition Width="100"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{x:Bind Code}" Grid.Column="0" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
-                                <TextBlock Text="{x:Bind Subject}" Grid.Column="1" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
-                                <TextBlock Text="{x:Bind Units}" Grid.Column="2" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
-                                <TextBlock Text="{Binding Grade}" Grid.Column="3" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
-                                <TextBlock Text="{Binding Remarks}" Grid.Column="4" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
+                                <TextBlock Text="{x:Bind Sub.Code}" Grid.Column="0" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
+                                <TextBlock Text="{x:Bind Sub.Subject}" Grid.Column="1" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
+                                <TextBlock Text="{x:Bind Sub.Units}" Grid.Column="2" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding Sub.Grade}" Grid.Column="3" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding RemarksText}" Grid.Column="4" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
