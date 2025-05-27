@@ -19,6 +19,7 @@
     <None Remove="Main Window\Department Chairman\SubPages\Dashboard.xaml" />
     <None Remove="Main Window\Department Chairman\SubPages\Enrollees.xaml" />
     <None Remove="Main Window\Department Chairman\SubPages\ListOfStudents.xaml" />
+    <None Remove="Main Window\Department Chairman\SubPages\Schedules.xaml" />
     <None Remove="Main Window\Department Chairman\SubPages\ShowGrades.xaml" />
     <None Remove="Main Window\Instructor\SubPages\Dashboard.xaml" />
     <None Remove="Main Window\Students\SubPages\Dashboard.xaml" />
@@ -61,6 +62,11 @@
     <Content Update="Assets\banner.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Main Window\Department Chairman\SubPages\Schedules.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Main Window\Students\SubPages\FeesPage.xaml">
