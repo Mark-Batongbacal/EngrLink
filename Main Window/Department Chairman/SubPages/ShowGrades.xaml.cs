@@ -52,6 +52,7 @@ public sealed partial class ShowGrades : Page
             var gradesResponse = await client
                 .From<IndivSubject>()
                 .Filter("student_id", Supabase.Postgrest.Constants.Operator.Equals, studentId)
+                .Order("subject", Supabase.Postgrest.Constants.Ordering.Ascending)
                 .Get();
 
             SubjectViews = gradesResponse.Models
