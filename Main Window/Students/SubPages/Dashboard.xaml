@@ -8,7 +8,7 @@
     <Page.Background>
         <ImageBrush ImageSource="ms-appx:///Assets/my_background.png"
                     Stretch="UniformToFill"
-                    Opacity="0.7"/>
+                    Opacity="1"/>
     </Page.Background>
 
     <Grid Padding="20">
