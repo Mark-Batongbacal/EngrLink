@@ -14,7 +14,6 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
     {
         public string Program { get; set; }
 
-        // ObservableCollection to hold announcements
         public ObservableCollection<Announcement> Announcements { get; set; } = new ObservableCollection<Announcement>();
 
         public AnnouncementPage()
@@ -45,7 +44,6 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                     .Filter("program", Supabase.Postgrest.Constants.Operator.Equals, this.Program)
                     .Get();
 
-                // Clear existing announcements and add the fetched ones
                 Announcements.Clear();
                 foreach (var announcement in response.Models)
                 {
@@ -54,7 +52,6 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
             }
             catch (Exception ex)
             {
-                // Handle errors (optional)
                 MessageTextBlock.Text = $"Error loading announcements: {ex.Message}";
                 MessageTextBlock.Visibility = Visibility.Visible;
             }
@@ -102,10 +99,8 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
 
                 if (response.Models.Count > 0)
                 {
-                    // Add the new announcement to the ObservableCollection
                     Announcements.Add(response.Models[0]);
 
-                    // Clear input fields
                     AnnouncementContentTextBox.Text = "";
                     ShowToStudentsCheckBox.IsChecked = false;
                     ShowToTeachersCheckBox.IsChecked = false;

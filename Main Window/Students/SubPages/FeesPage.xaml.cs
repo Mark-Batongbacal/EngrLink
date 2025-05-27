@@ -10,12 +10,12 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media; // Needed for SolidColorBrush
+using Microsoft.UI.Xaml.Media; 
 using Microsoft.UI.Xaml.Navigation;
-using EngrLink.Models; // Ensure your Models namespace is included
-using System.ComponentModel; // For INotifyPropertyChanged
-using System.Diagnostics; // For Debug.WriteLine
-using System.Globalization; // Needed for CultureInfo for currency formatting
+using EngrLink.Models; 
+using System.ComponentModel;
+using System.Diagnostics; 
+using System.Globalization; 
 
 namespace EngrLink.Main_Window.Students.SubPages
 {
@@ -99,11 +99,10 @@ namespace EngrLink.Main_Window.Students.SubPages
             this.InitializeComponent();
             this.DataContext = this;
 
-            // Initialize all display properties with Peso sign
-            FormattedTotalFees = 0.ToString("C2", new CultureInfo("en-PH")); // Explicitly use Philippine Peso culture
-            FormattedPaidAmount = 0.ToString("C2", new CultureInfo("en-PH")); // Explicitly use Philippine Peso culture
-            FormattedRemainingFees = 0.ToString("C2", new CultureInfo("en-PH")); // Explicitly use Philippine Peso culture
-            RemainingFeesColor = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 255, 165, 0)); // Default Orange
+            FormattedTotalFees = 0.ToString("C2", new CultureInfo("en-PH")); 
+            FormattedPaidAmount = 0.ToString("C2", new CultureInfo("en-PH")); 
+            FormattedRemainingFees = 0.ToString("C2", new CultureInfo("en-PH")); 
+            RemainingFeesColor = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 255, 165, 0));
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -172,15 +171,14 @@ namespace EngrLink.Main_Window.Students.SubPages
             }
 
             int totalFees = CurrentStudent.Total ?? 0;
-            FormattedTotalFees = totalFees.ToString("C2", new CultureInfo("en-PH")); // Use en-PH
+            FormattedTotalFees = totalFees.ToString("C2", new CultureInfo("en-PH")); 
 
             int remainingBalance = CurrentStudent.Fees ?? 0;
-            FormattedRemainingFees = remainingBalance.ToString("C2", new CultureInfo("en-PH")); // Use en-PH
+            FormattedRemainingFees = remainingBalance.ToString("C2", new CultureInfo("en-PH")); 
 
             int paidAmount = totalFees - remainingBalance;
-            FormattedPaidAmount = paidAmount.ToString("C2", new CultureInfo("en-PH")); // Use en-PH
+            FormattedPaidAmount = paidAmount.ToString("C2", new CultureInfo("en-PH")); 
 
-            // Update the color based on the remaining balance
             if (remainingBalance == 0)
             {
                 RemainingFeesColor = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 128, 0));

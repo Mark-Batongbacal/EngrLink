@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="Announcements" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Padding="0,0,0,50" FontFamily="Verdana" Foreground="#74441e"/>
-
+        
         <Grid Grid.Row="1" ColumnSpacing="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -38,6 +38,7 @@
                 </StackPanel>
             </StackPanel>
 
+            <!-- Existing Announcements Section -->
             <StackPanel Grid.Column="1">
                 <TextBlock Text="Existing Announcements" FontSize="18" FontWeight="Bold" FontFamily="Verdana" Foreground="#74441e" Margin="0,0,0,10" />
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Background="#20FAFAFA" Padding="10" CornerRadius="8" BorderBrush="#74441e" BorderThickness="1" Height="400">

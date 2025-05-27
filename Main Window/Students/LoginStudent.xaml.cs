@@ -24,7 +24,7 @@ namespace EngrLink.Main_Window.Students
         private async void InitializeSupabaseClient()
         {
             supabaseClient = new Supabase.Client(
-                "https://dpouedmzpftnpodbopbi.supabase.co",  // Replace with your Supabase URL
+                "https://dpouedmzpftnpodbopbi.supabase.co",
                 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwb3VlZG16cGZ0bnBvZGJvcGJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDUwNDI2ODMsImV4cCI6MjA2MDYxODY4M30.XeZs98NROksWaNqE_q1HrgdxTLZ-Wmogwz4bWi4d_6s"                      // Replace with your Supabase anon/public key
             );
             await supabaseClient.InitializeAsync();

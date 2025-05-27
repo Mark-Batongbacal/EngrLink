@@ -18,9 +18,6 @@ using Supabase;
 using Supabase.Postgrest;
 
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace EngrLink.Main_Window.Enrollee
 {
     public sealed partial class EnrolleePage : Page
@@ -36,16 +33,13 @@ namespace EngrLink.Main_Window.Enrollee
         {
 
             {
-
-                // Check if all fields are filled
                 bool isValid = !string.IsNullOrWhiteSpace(NameTextBox.Text) &&
                                !string.IsNullOrWhiteSpace(AddressTextBox.Text) &&
                                !string.IsNullOrWhiteSpace(ContactTextBox.Text) &&
                                ProgramComboBox.SelectedItem is ComboBoxItem programItem &&
                                YearLevelComboBox.SelectedItem is ComboBoxItem yearItem &&
-                               BirthdayDatePicker.SelectedDate.HasValue; // Make sure a date is selected
+                               BirthdayDatePicker.SelectedDate.HasValue;
 
-                // Enable/Disable the Submit button based on validity
                 SubmitButton.IsEnabled = isValid;
             }
         }
@@ -60,29 +54,28 @@ namespace EngrLink.Main_Window.Enrollee
         }
         private async void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            // Collecting values from the input fields
             string name = NameTextBox.Text;
             string address = AddressTextBox.Text;
-            string contact = ContactTextBox.Text;  // You might want to handle errors here (e.g., try-catch)
-            string birthday = BirthdayDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd");  // Ensure the user selected a date
-            int units = 0; //placeholder only
+            string contact = ContactTextBox.Text; 
+            string birthday = BirthdayDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd"); 
+            int units = 0;
             var lastStudentResponse = await App.SupabaseClient
             .From<Student>()
-            .Order("id", Supabase.Postgrest.Constants.Ordering.Descending) // true means descending order to get the last inserted record
+            .Order("id", Supabase.Postgrest.Constants.Ordering.Descending) 
             .Limit(1)
             .Get();
 
-            int newId = 1;  // Default to 1 if no students exist yet
+            int newId = 1; 
 
             if (lastStudentResponse.Models.Count > 0)
             {
-                // Increment the last student's ID
+               
                 var lastStudent = lastStudentResponse.Models[0];
                 newId = lastStudent.Id + 1;
             }
 
             var fee = FeeCalculators.GetFee(year, program);
-            // Create a new student object
+
             var newStudent = new Student()
             {
                 Id = newId,
@@ -95,12 +88,11 @@ namespace EngrLink.Main_Window.Enrollee
                 Program = program,
                 Password = newId.ToString(),
                 Birthday = birthday,
-                Enrolled = false,  // You can change the default based on your requirement
-                Paid = false,      // You can change this as needed
+                Enrolled = false,  
+                Paid = false,    
                   
             };
 
-            // Inserting the new student into the database
             var response = App.SupabaseClient
                 .From<Student>()
                 .Insert(newStudent);
@@ -113,7 +105,7 @@ namespace EngrLink.Main_Window.Enrollee
                           $"Your Total Balance is ₱{fee}\n" +
                           $"Please pay a minimum amount of ₱5000\n",
                 CloseButtonText = "OK",
-                XamlRoot = this.Content.XamlRoot // Required in WinUI 3 to show dialog properly
+                XamlRoot = this.Content.XamlRoot
             };
 
             await dialog.ShowAsync();
@@ -127,7 +119,6 @@ namespace EngrLink.Main_Window.Enrollee
             YearLevelComboBox.Header = "Enter Year Level";
             BirthdayDatePicker.SelectedDate = null;
 
-            // Also reset internal tracking variables
             program = null;
             year = null;
 
@@ -152,7 +143,7 @@ namespace EngrLink.Main_Window.Enrollee
             if (textBox.Text != filteredText)
             {
                 textBox.Text = filteredText;
-                textBox.SelectionStart = Math.Min(caretIndex, textBox.Text.Length); // Restore caret position
+                textBox.SelectionStart = Math.Min(caretIndex, textBox.Text.Length);
             }
             CheckValid();
         }

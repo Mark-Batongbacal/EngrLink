@@ -15,15 +15,9 @@ using Windows.Foundation.Collections;
 using EngrLink.Main_Window.Students.SubPages;
 using System.Diagnostics;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace EngrLink.Main_Window.Students
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    /// 
     
     public sealed partial class StudentPage : Page
     {
@@ -57,8 +51,6 @@ namespace EngrLink.Main_Window.Students
 
         private void DashboardButton_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            button.IsEnabled = false;
             if (StudentsFrame.Content?.GetType() != typeof(Dashboard))
             {
                 StudentsFrame.Navigate(typeof(Dashboard), (this.Program, this.Id));
@@ -67,8 +59,6 @@ namespace EngrLink.Main_Window.Students
 
         private void ScheduleButton_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            button.IsEnabled = false;
             if (StudentsFrame.Content?.GetType() != typeof(Schedules))
             {
                 StudentsFrame.Navigate(typeof(Schedules), this.Id);
@@ -77,8 +67,6 @@ namespace EngrLink.Main_Window.Students
 
         private void AcadPerformanceButton_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            button.IsEnabled = false;
             if (StudentsFrame.Content?.GetType() != typeof(AcadPerformancePage))
             {
                 StudentsFrame.Navigate(typeof(AcadPerformancePage), this.Id);
@@ -87,8 +75,6 @@ namespace EngrLink.Main_Window.Students
 
         private void PerInfoButton_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            button.IsEnabled = false;
             if (StudentsFrame.Content?.GetType() != typeof(PersonalInfoPage))
             {
                 StudentsFrame.Navigate(typeof(PersonalInfoPage), this.Id);
@@ -97,8 +83,6 @@ namespace EngrLink.Main_Window.Students
 
         private void FeesButton_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            button.IsEnabled = false;
             if (StudentsFrame.Content?.GetType() != typeof(FeesPage))
             {
                 StudentsFrame.Navigate(typeof(FeesPage), this.Id);

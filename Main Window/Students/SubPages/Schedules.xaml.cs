@@ -15,14 +15,9 @@ using Microsoft.UI.Xaml.Navigation;
 using EngrLink.Models;
 using System.ComponentModel;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace EngrLink.Main_Window.Students.SubPages
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class Schedules : Page
     {
         public string Id { get; set; }

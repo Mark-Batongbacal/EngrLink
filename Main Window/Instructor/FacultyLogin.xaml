@@ -13,11 +13,9 @@
     >
     <Grid Padding="0" Background="#f7e8d9">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <!-- For the Banner -->
-                <RowDefinition Height="*"/>
-                <!-- For the Buttons -->
-            </Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
             <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Width="60" Height="40" Click="BackButton_Click" Grid.Row="1" />
 

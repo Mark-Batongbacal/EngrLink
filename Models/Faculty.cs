@@ -29,7 +29,7 @@ namespace EngrLink.Models
 
         [Column("program")]
         public string Program { get; set; }
-        public List<ScheduleDetail> ScheduleDetails { get; set; } // Ensure this property exists
+        public List<ScheduleDetail> ScheduleDetails { get; set; }
     }
 
     public class ScheduleDetail

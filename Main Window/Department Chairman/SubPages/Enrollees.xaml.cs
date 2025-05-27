@@ -15,14 +15,9 @@ using Microsoft.UI.Xaml.Navigation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace EngrLink.Main_Window.Department_Chairman.SubPages
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class Enrollees : Page
     {
 
@@ -47,7 +42,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
         {
             var client = App.SupabaseClient;
 
-            // Only get students where Enrolled is false
+
             var response = await client
                 .From<Student>()
                 .Filter("enrolled", Supabase.Postgrest.Constants.Operator.Equals, "false")
@@ -72,10 +67,10 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
             {
                 var student = viewModel.Student2;
 
-                // Toggle or set Enrolled to true
+
                 student.Enrolled = true;
 
-                // Update the student in the Supabase database
+
                 var client = App.SupabaseClient;
                 var result = await client
                     .From<Student>()
@@ -96,7 +91,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                     Debug.WriteLine($"Successfully updated enrollment for {student.Name}.");
                     foreach (var subject in response.Models)
                     {
-                        // 3. Create a new IndivSubjects entry for the student
+
                         var indivSubject = new IndivSubject
                         {
                             Id = student.Id,
