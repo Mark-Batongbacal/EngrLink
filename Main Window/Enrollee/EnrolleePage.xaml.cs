@@ -128,10 +128,9 @@ namespace EngrLink.Main_Window.Enrollee
             program = null;
             year = null;
 
-            // Disable submit button again
             SubmitButton.IsEnabled = false;
 
-            //Frame.GoBack(); gawin m to marky dear
+            Frame.GoBack(); 
 
         }
         private void Input_TextChanged(object sender, TextChangedEventArgs e)
@@ -179,6 +178,13 @@ namespace EngrLink.Main_Window.Enrollee
                 ProgramComboBox.Header = programitem.Content;
                 program = programitem.Content.ToString();
             }
+
+            if (program == "ARCHI")
+                FifthYearItem.Visibility = Visibility.Visible;
+            
+            else
+                FifthYearItem.Visibility = Visibility.Collapsed;
+
             CheckValid();
         }
     }
