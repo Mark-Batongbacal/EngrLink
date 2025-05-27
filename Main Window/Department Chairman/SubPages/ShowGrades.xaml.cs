@@ -82,6 +82,61 @@ public sealed partial class ShowGrades : Page
         }
     }
 
+    private void GradeInput_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (sender is TextBox textBox)
+        {
+            string input = textBox.Text;
+
+            if (string.IsNullOrEmpty(input))
+            {
+                return;
+            }
+
+            if (!input.All(char.IsDigit))
+            {
+                textBox.Text = string.Empty;
+                textBox.SelectionStart = textBox.Text.Length;
+                return;
+            }
+
+            if (input.Length == 1)
+            {
+                int firstDigit = int.Parse(input);
+
+                if (firstDigit < 6)
+                {
+                    textBox.Text = string.Empty;
+                }
+            }
+            else if (input.Length == 2)
+            {
+                if (int.TryParse(input, out int grade))
+                {
+                    if (grade >= 65 && grade <= 99)
+                    {
+                    }
+                    else
+                    {
+                        textBox.Text = string.Empty;
+                    }
+                }
+                else
+                {
+                    textBox.Text = string.Empty;
+                }
+            }
+            else
+            {
+                textBox.Text = string.Empty;
+            }
+
+            textBox.SelectionStart = textBox.Text.Length;
+        }
+    }
+
+
+
     private void RecalculateGWA()
     {
         double totalUnits = 0;
@@ -104,6 +159,9 @@ public sealed partial class ShowGrades : Page
 
     private async void SubmitButton_Click(object sender, RoutedEventArgs e)
     {
+        var button = sender as Button;
+        button.IsEnabled = false;
+
         var client = App.SupabaseClient;
         bool hasError = false;
 
@@ -137,8 +195,7 @@ public sealed partial class ShowGrades : Page
             CloseButtonText = "OK",
             XamlRoot = this.XamlRoot
         };
-        var button = sender as Button;
-        button.IsEnabled = false;
+        button.IsEnabled = true;
 
         await dialog.ShowAsync();
     }
