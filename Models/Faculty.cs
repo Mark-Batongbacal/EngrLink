@@ -23,5 +23,8 @@ namespace EngrLink.Models
 
         [Column("profcode")]
         public string ProfCode { get; set; }
+
+        [Column("program")]
+        public string Program { get; set; }
     }
 }

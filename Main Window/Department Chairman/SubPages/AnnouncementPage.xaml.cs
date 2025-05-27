@@ -21,7 +21,6 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
         {
             this.InitializeComponent();
             this.DataContext = this;
-            
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
