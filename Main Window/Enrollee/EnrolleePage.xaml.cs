@@ -183,7 +183,16 @@ namespace EngrLink.Main_Window.Enrollee
                 FifthYearItem.Visibility = Visibility.Visible;
             
             else
+            {
+                if (YearLevelComboBox.SelectedItem == FifthYearItem)
+                {
+                    YearLevelComboBox.SelectedIndex = -1;
+                    YearLevelComboBox.Header = "Enter Year Level";
+                    year = null;
+                }
                 FifthYearItem.Visibility = Visibility.Collapsed;
+            }
+                
 
             CheckValid();
         }
