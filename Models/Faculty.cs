@@ -23,5 +23,16 @@ namespace EngrLink.Models
 
         [Column("profcode")]
         public string ProfCode { get; set; }
+
+        [Column("schedule")]
+        public string Schedule { get; set; }
+        public List<ScheduleDetail> ScheduleDetails { get; set; } // Ensure this property exists
+    }
+
+    public class ScheduleDetail
+    {
+        public string Day { get; set; }
+        public string Time { get; set; }
+        public string Subject { get; set; }
     }
 }

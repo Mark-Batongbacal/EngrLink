@@ -14,37 +14,45 @@
     <Grid Padding="0">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Spacing="1">
             <TextBlock Text="Faculty Schedules" FontSize="40" HorizontalAlignment="Center" Padding="0,50,0,50"/>
-            <ListView x:Name="SchedulesListView" ItemsSource="{x:Bind FacultySchedules}" IsItemClickEnabled="False">
-                <ListView.Header>
-                    <Grid Padding="10" Background="#f0f0f0" CornerRadius="4">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150"/>
-                            <ColumnDefinition Width="300"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="Code" FontWeight="Bold" HorizontalAlignment="Left"/>
-                        <TextBlock Text="Name" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Left"/>
-                        <TextBlock Text="Action" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Left"/>
-                    </Grid>
-                </ListView.Header>
-
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Faculty">
-                        <Grid Padding="10">
+            <ScrollViewer x:Name="SchedulesScrollViewer">
+                <ListView x:Name="SchedulesListView" ItemsSource="{x:Bind FacultySchedules}" IsItemClickEnabled="False" Height="500">
+                    <ListView.Header>
+                        <Grid Padding="10" Background="#f0f0f0" CornerRadius="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="150"/>
                                 <ColumnDefinition Width="300"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="{x:Bind ProfCode}" HorizontalAlignment="Left"/>
-                            <TextBlock Text="{x:Bind Name}" Grid.Column="1" HorizontalAlignment="Left"/>
-                            <Button Content="View Schedule" Click="ViewScheduleButton_Click" Grid.Column="2" HorizontalAlignment="Left" DataContext="{Binding}"/>
+                            <TextBlock Text="Code" FontWeight="Bold" HorizontalAlignment="Left"/>
+                            <TextBlock Text="Name" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Left"/>
+                            <TextBlock Text="Action" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Left"/>
                         </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                    </ListView.Header>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Faculty">
+                            <Grid Padding="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="300"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="{x:Bind ProfCode}" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{x:Bind Name}" Grid.Column="1" HorizontalAlignment="Left"/>
+                                <Button Content="View Schedule" Click="ViewScheduleButton_Click" Grid.Column="2" HorizontalAlignment="Left"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                <Button Content="Scroll to Top" Click="ScrollToTopButton_Click" Margin="5"/>
+                <Button Content="Scroll to Bottom" Click="ScrollToBottomButton_Click" Margin="5"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>
