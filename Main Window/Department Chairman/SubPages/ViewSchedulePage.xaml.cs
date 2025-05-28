@@ -5,14 +5,31 @@ using Microsoft.UI.Xaml.Navigation;
 using Supabase;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace EngrLink.Main_Window.Department_Chairman.SubPages
 {
-    public sealed partial class ViewSchedulePage : Page
+    public sealed partial class ViewSchedulePage : Page, INotifyPropertyChanged
     {
-        public string FacultyName { get; set; }
+        private string facultyName;
+        public string FacultyName
+        {
+            get => facultyName;
+            set
+            {
+                if (facultyName != value)
+                {
+                    facultyName = value;
+                    OnPropertyChanged(nameof(FacultyName));
+                }
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         public ObservableCollection<Subjects> Subjects { get; set; } = new ObservableCollection<Subjects>();
 
         public ViewSchedulePage()
@@ -27,7 +44,8 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
 
             if (e.Parameter is Faculty faculty)
             {
-                FacultyName = faculty.Name;
+                this.FacultyName = faculty.Program == "ARCHI" ? "Architect " + faculty.Name: "Engineer " + faculty.Name;
+
                 _ = LoadSubjects(faculty.ProfCode);
             }
         }
@@ -45,6 +63,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
             try
             {
                 Debug.WriteLine($"Fetching subjects for ProfCode: {profCode}...");
+                Debug.Write(this.FacultyName);
                 var response = await client
                     .From<Subjects>()
                     .Filter("profcode", Supabase.Postgrest.Constants.Operator.Equals, profCode)
@@ -60,6 +79,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                     {
                         Subjects.Add(subject);
                     }
+
                 }
             }
             catch (System.Exception ex)
@@ -70,7 +90,6 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-
             if (Frame.CanGoBack)
                 Frame.GoBack();
         }

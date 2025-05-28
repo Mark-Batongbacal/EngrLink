@@ -52,6 +52,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                 var facultyResponse = await client
                     .From<Faculty>()
                     .Filter("program", Supabase.Postgrest.Constants.Operator.Equals, this.Program)
+                    .Order("profcode", ordering: Supabase.Postgrest.Constants.Ordering.Ascending)
                     .Get();
 
                 if (facultyResponse.Models != null && facultyResponse.Models.Any())
@@ -73,6 +74,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                                 .From<Subjects>()
                                 .Filter("profcode", Supabase.Postgrest.Constants.Operator.Equals, faculty.ProfCode)
                                 .Filter("program", Supabase.Postgrest.Constants.Operator.Equals, this.Program)
+                                .Order("year", ordering: Supabase.Postgrest.Constants.Ordering.Ascending)
                                 .Get();
 
                             if (scheduleResponse.Models != null && scheduleResponse.Models.Any())
@@ -146,9 +148,6 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
 
         private void ViewScheduleButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Frame.CanGoBack)
-                Frame.GoBack();
-
             if (sender is Button button && button.DataContext is Faculty faculty)
             {
                 Debug.WriteLine($"Viewing schedule for: {faculty.Name} (Code: {faculty.ProfCode})");
