@@ -17,46 +17,50 @@
 
     <ScrollViewer>
         <Grid Padding="20">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" Width="600">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" Width="700">
                 <TextBlock Text="Personal Information" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Padding="0,0,0,20" FontFamily="Verdana" Foreground="#74441e"/>
                 <Border BorderBrush="#74441e" BorderThickness="1" CornerRadius="8" Padding="20" Margin="0,0,0,20" Background="#20FAFAFA">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Spacing="150" Padding="20">
-                        <StackPanel Spacing="10">
-                            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Student ID:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="{Binding PersonalInfo.Id}" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="250"/>
+                        </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Spacing="10" VerticalAlignment="Top"  Padding="20">
+                                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Student ID:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Text="{Binding PersonalInfo.Id}" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
 
-                            <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
+                                <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
 
-                            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Name:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="{Binding PersonalInfo.Name}" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Name:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Text="{Binding PersonalInfo.Name}" TextWrapping="Wrap" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
 
-                            <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
+                                <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
 
-                            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Program:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="{Binding PersonalInfo.Program}" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Program:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Text="{Binding PersonalInfo.Program}" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
 
-                            <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
+                                <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
 
-                            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Year Level:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="{Binding PersonalInfo.Year}" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Year Level:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Text="{Binding PersonalInfo.Year}" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
 
-                            <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
+                                <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
 
-                            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Address:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="{Binding PersonalInfo.Address}" TextWrapping="Wrap" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Address:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Text="{Binding PersonalInfo.Address}" TextWrapping="Wrap" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
 
-                            <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
+                                <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
 
-                            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Contact No.:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="{Binding PersonalInfo.Contact}" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Contact No.:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Text="{Binding PersonalInfo.Contact}" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
 
-                            <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
+                                <Line Stroke="#74441e" StrokeThickness="1" Margin="0,5"/>
 
-                            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Birthdate:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="{Binding PersonalInfo.Birthday}" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
-                        </StackPanel>
-                        <Image x:Name="StudentProfileImage" VerticalAlignment="Top" HorizontalAlignment="Right" Width="200" Height="200" Stretch="UniformToFill" Source="ms-appx:///Assets/placeholder.png"/>
-                    </StackPanel>
+                                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Birthdate:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Text="{Binding PersonalInfo.Birthday}" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
+                            </StackPanel>
+                        <Image x:Name="StudentProfileImage" Grid.Column="1" Margin="0,0,20,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="200" Height="200" Stretch="UniformToFill" Source="ms-appx:///Assets/placeholder.png"/>
+                    </Grid>
                 </Border>
             </StackPanel>
         </Grid>

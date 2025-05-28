@@ -68,10 +68,6 @@ public sealed partial class ShowGrades : Page
         }
     }
 
-    /// <summary>
-    /// Loads student profile and grades data from Supabase.
-    /// </summary>
-    /// <param name="studentId">The ID of the student whose data is to be loaded.</param>
     private async System.Threading.Tasks.Task LoadStudentAndGradesData(int studentId)
     {
         var client = App.SupabaseClient;
@@ -343,7 +339,10 @@ public sealed partial class ShowGrades : Page
         // Call the new centralized save function
         bool hasError = await SaveGradesToDatabase();
 
-        RecalculateGWA(); // Recalculate GWA after saving, in case any grades were set to 0 or changed.
+        // After saving, reload the data to ensure the remarks are updated in the UI
+        await LoadStudentAndGradesData(_currentStudentId);
+
+        RecalculateGWA(); // Recalculate GWA after reloading, in case any grades were set to 0 or changed.
 
         var dialog = new ContentDialog
         {

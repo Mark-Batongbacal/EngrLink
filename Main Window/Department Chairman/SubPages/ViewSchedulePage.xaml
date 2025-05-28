@@ -16,7 +16,7 @@
     </Page.Background>
 
     <Grid Padding="20">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,20,0,0" Spacing="1">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Spacing="1">
             <TextBlock Text="{Binding FacultyName}" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Padding="0,0,0,50" FontFamily="Verdana" Foreground="#74441e"/>
             <TextBlock Text="Schedule Details" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center" Padding="0,0,0,50" FontFamily="Verdana" Foreground="#74441e"/>
 

@@ -23,7 +23,7 @@ public sealed partial class ShowGrades : Page
         private double _gwa;
         private string _period;
         private string _profileImageUrl;
-        
+
         public string Name { get => _name; set { _name = value; OnPropertyChanged(nameof(Name)); } }
         public string Id { get => _id; set { _id = value; OnPropertyChanged(nameof(Id)); } }
         public string Program { get => _program; set { _program = value; OnPropertyChanged(nameof(Program)); } }
@@ -259,8 +259,6 @@ public sealed partial class ShowGrades : Page
             }
         }
     }
-
-
     private void RecalculateGWA()
     {
         double totalUnits = 0;
@@ -297,34 +295,38 @@ public sealed partial class ShowGrades : Page
 
         foreach (var view in SubjectViews)
         {
-            try
+            // Only update grades for subjects taught by the current professor
+            if (view.Sub.ProfCode == _currentProfCode)
             {
-                // Determine which grade and remarks to save based on the currently selected period
-                if (StudentProfile.Period == "final")
+                try
                 {
-                    await client
-                        .From<IndivSubject>()
-                        .Where(x => x.Eme == view.Sub.Eme)
-                        .Set(x => x.Grade_F, view.Sub.Grade_F)
-                        .Set(x => x.Remarks_F, view.Sub.Grade_F >= 75) // Update final remarks based on final grade
-                        .Update();
-                    Debug.WriteLine($"Updated subject {view.Sub.Subject} (Final Grade) with grade {view.Sub.Grade_F}");
+                    // Determine which grade and remarks to save based on the currently selected period
+                    if (StudentProfile.Period == "final")
+                    {
+                        await client
+                            .From<IndivSubject>()
+                            .Where(x => x.Eme == view.Sub.Eme)
+                            .Set(x => x.Grade_F, view.Sub.Grade_F)
+                            .Set(x => x.Remarks_F, view.Sub.Grade_F >= 75) // Update final remarks based on final grade
+                            .Update();
+                        Debug.WriteLine($"Updated subject {view.Sub.Subject} (Final Grade) with grade {view.Sub.Grade_F}");
+                    }
+                    else // Assuming "midterm" or any other period defaults to Grade
+                    {
+                        await client
+                            .From<IndivSubject>()
+                            .Where(x => x.Eme == view.Sub.Eme)
+                            .Set(x => x.Grade, view.Sub.Grade)
+                            .Set(x => x.Remarks, view.Sub.Grade >= 75) // Update midterm remarks based on midterm grade
+                            .Update();
+                        Debug.WriteLine($"Updated subject {view.Sub.Subject} (Midterm Grade) with grade {view.Sub.Grade}");
+                    }
                 }
-                else // Assuming "midterm" or any other period defaults to Grade
+                catch (Exception ex)
                 {
-                    await client
-                        .From<IndivSubject>()
-                        .Where(x => x.Eme == view.Sub.Eme)
-                        .Set(x => x.Grade, view.Sub.Grade)
-                        .Set(x => x.Remarks, view.Sub.Grade >= 75) // Update midterm remarks based on midterm grade
-                        .Update();
-                    Debug.WriteLine($"Updated subject {view.Sub.Subject} (Midterm Grade) with grade {view.Sub.Grade}");
+                    Debug.WriteLine($"Error updating subject {view.Sub.Subject}: {ex.Message}");
+                    hasError = true;
                 }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error updating subject {view.Sub.Subject}: {ex.Message}");
-                hasError = true;
             }
         }
         return hasError;
@@ -341,6 +343,10 @@ public sealed partial class ShowGrades : Page
 
         // Call the new centralized save function
         bool hasError = await SaveGradesToDatabase();
+
+        // After saving, reload the data to ensure the remarks are updated in the UI
+        await LoadStudentAndGradesData(_currentStudentId, _currentProfCode);
+
 
         RecalculateGWA(); // Recalculate GWA after saving, in case any grades were set to 0 or changed.
 

@@ -16,31 +16,13 @@
             Opacity="1"/>
     </Page.Background>
 
-    <Grid Padding="20">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Spacing="1" Margin="0,20,0,0" >
-            <TextBlock Text="List of Students" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Padding="0,0,0,50" FontFamily="Verdana" Foreground="#74441e"/>
-            <ListView x:Name="StudentsListView" IsItemClickEnabled="False">
-                <ListView.Header>
-                    <Grid Padding="10" Background="#fad1ac" CornerRadius="4" >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="250"/>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Text=" ID" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                        <TextBlock Text=" Name" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                        <TextBlock Text=" Year" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                        <TextBlock Text=" Program" Grid.Column="3" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                        <TextBlock Text=" Action" Grid.Column="4" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                    </Grid>
-                </ListView.Header>
-
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="models:StudentViewModel">
-                        <Grid Margin="0,10,0,10">
+    <ScrollView>
+        <Grid Padding="20">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Spacing="1">
+                <TextBlock Text="List of Students" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Padding="0,0,0,50" FontFamily="Verdana" Foreground="#74441e"/>
+                <ListView x:Name="StudentsListView" IsItemClickEnabled="False">
+                    <ListView.Header>
+                        <Grid Padding="10" Background="#fad1ac" CornerRadius="4" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="250"/>
@@ -49,15 +31,35 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="{x:Bind Student2.Id}" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="{x:Bind Student2.Name}" Grid.Column="1" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="{x:Bind Student2.Year}" Grid.Column="2" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="{x:Bind Student2.Program}" Grid.Column="3" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                            <Button Content="View Grades" Click="StudentButton_Click" Grid.Column="4" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <TextBlock Text=" ID" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <TextBlock Text=" Name" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <TextBlock Text=" Year" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <TextBlock Text=" Program" Grid.Column="3" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <TextBlock Text=" Action" Grid.Column="4" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
                         </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackPanel>
-    </Grid>
+                    </ListView.Header>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="models:StudentViewModel">
+                            <Grid Margin="0,10,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="{x:Bind Student2.Id}" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Text="{x:Bind Student2.Name}" Grid.Column="1" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Text="{x:Bind Student2.Year}" Grid.Column="2" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Text="{x:Bind Student2.Program}" Grid.Column="3" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                                <Button Content="View Grades" Click="StudentButton_Click" Grid.Column="4" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </Grid>
+    </ScrollView>
 </Page>
