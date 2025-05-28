@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="Announcements" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Padding="0,0,0,50" FontFamily="Verdana" Foreground="#74441e"/>
-        
+
         <Grid Grid.Row="1" ColumnSpacing="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -29,7 +29,7 @@
 
             <StackPanel Grid.Column="0">
                 <TextBlock Text="Create Announcement" FontSize="18" FontWeight="Bold" FontFamily="Verdana" Foreground="#74441e" Margin="0,0,0,10" />
-                <StackPanel  Background="#20FAFAFA" BorderBrush="#74441e" BorderThickness="1" CornerRadius="8" Padding="20">
+                <StackPanel Background="#20FAFAFA" BorderBrush="#74441e" BorderThickness="1" CornerRadius="8" Padding="20">
                     <TextBox x:Name="AnnouncementContentTextBox" PlaceholderText="Enter announcement content" Margin="0,0,0,10" Height="100" TextWrapping="Wrap" />
                     <CheckBox x:Name="ShowToStudentsCheckBox" Content="Show to Students" Margin="0,0,0,5" />
                     <CheckBox x:Name="ShowToTeachersCheckBox" Content="Show to Teachers" Margin="0,0,0,10" />
@@ -38,7 +38,6 @@
                 </StackPanel>
             </StackPanel>
 
-            <!-- Existing Announcements Section -->
             <StackPanel Grid.Column="1">
                 <TextBlock Text="Existing Announcements" FontSize="18" FontWeight="Bold" FontFamily="Verdana" Foreground="#74441e" Margin="0,0,0,10" />
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Background="#20FAFAFA" Padding="10" CornerRadius="8" BorderBrush="#74441e" BorderThickness="1" Height="400">
@@ -46,7 +45,15 @@
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="models:Announcement">
                                 <Border Background="#20FAFAFA" CornerRadius="8" Padding="10" Margin="0,5,0,5" BorderBrush="#74441e" BorderThickness="1">
-                                    <TextBlock Text="{x:Bind Announcements}" FontSize="14" TextWrapping="Wrap" />
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Grid.Row="0" Text="{x:Bind Announcements}" FontSize="14" TextWrapping="Wrap"/>
+                                        <Button Content="Remove" Background="#FF6347" Foreground="White" FontWeight="Bold" CornerRadius="5" Padding="10,5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Margin="0,10,0,0" Click="RemoveAnnouncementButton_Click" DataContext="{x:Bind}"/>
+                                    </Grid>
                                 </Border>
                             </DataTemplate>
                         </ListView.ItemTemplate>
