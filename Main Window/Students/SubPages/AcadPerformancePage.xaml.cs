@@ -16,6 +16,7 @@ using EngrLink.Models;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
+using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace EngrLink.Main_Window.Students.SubPages
 {
@@ -58,8 +59,6 @@ namespace EngrLink.Main_Window.Students.SubPages
                 get => _gwa;
                 set { _gwa = value; OnPropertyChanged(nameof(GWA)); }
             }
-
-            // NEW PROPERTY for the Profile Image URL
             public string ProfileImageUrl
             {
                 get => _profileImageUrl;
@@ -125,7 +124,34 @@ namespace EngrLink.Main_Window.Students.SubPages
                     StudentProfile.Program = student.Program;
                     StudentProfile.Id = student.Id.ToString();
                     StudentProfile.Year = student.Year.ToString();
+                    StudentProfile.ProfileImageUrl = student.ProfileImageUrl;
                     Debug.WriteLine($"Student Profile Loaded - Name: {StudentProfile.Name}, Program: {StudentProfile.Program}, Year: {StudentProfile.Year}");
+
+                    if (!string.IsNullOrEmpty(StudentProfile.ProfileImageUrl))
+                    {
+                        try
+                        {
+                            Uri imageUri = new Uri(StudentProfile.ProfileImageUrl);
+                            BitmapImage bitmapImage = new BitmapImage(imageUri);
+                            StudentProfileImage.Source = bitmapImage;
+                            Debug.WriteLine($"Successfully loaded image from: {StudentProfile.ProfileImageUrl}");
+                        }
+                        catch (UriFormatException ex)
+                        {
+                            Debug.WriteLine($"Invalid image URL for student {StudentProfile.Id}: {StudentProfile.ProfileImageUrl} - {ex.Message}");
+                            StudentProfileImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/placeholder.png"));
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine($"Error loading image for student {StudentProfile.Id}: {ex.Message}");
+                            StudentProfileImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/placeholder.png"));
+                        }
+                    }
+                    else
+                    {
+                        StudentProfileImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/placeholder.png"));
+                        Debug.WriteLine($"No profile image URL found for student {StudentProfile.Id}. Displaying placeholder.");
+                    }
                 }
                 else
                 {
