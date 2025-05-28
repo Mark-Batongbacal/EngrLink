@@ -19,26 +19,23 @@ using Supabase;
 using System.Threading.Tasks;
 using Microsoft.UI.Windowing;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace EngrLink
 {
     public partial class App : Application
     {
-        public static string CurrentProgram { get; set; } = "Current Program"; // Add this property
+        public static string CurrentProgram { get; set; } = "Current Program";
 
         public static Supabase.Client SupabaseClient;
+        public static Window? MainWindow { get; set; }
 
         public App()
         {
             this.InitializeComponent();
         }
-        public static Window? MainWindow { get; private set; }
+
         protected override async void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
-
-            bool supabaseReady = await TryInitializeSupabase();
+            bool supabaseReady = await TryReinitializeSupabase();
 
             if (supabaseReady)
             {
@@ -52,7 +49,7 @@ namespace EngrLink
             }
         }
 
-        private async Task<bool> TryInitializeSupabase()
+        public static async Task<bool> TryReinitializeSupabase()
         {
             var options = new SupabaseOptions
             {
@@ -78,10 +75,5 @@ namespace EngrLink
                 return false;
             }
         }
-
-
-
-
-        private Window? m_window;
     }
 }

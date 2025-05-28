@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Title="Connection Error">
-
+    
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="ms-appx:///Assets/my_background.png" Stretch="UniformToFill" Opacity="1"/>
@@ -22,6 +22,38 @@
         <StackPanel Grid.Row="1" VerticalAlignment="Center">
             <TextBlock Text="Unable to connect to the server." FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" TextWrapping="Wrap" FontFamily="Verdana" Margin="0,50,0,50" Foreground="#74441e"/>
             <TextBlock Text="Please check your internet connection or try again later." FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" TextWrapping="Wrap" FontFamily="Verdana" Margin="0,0,0,150" Foreground="#74441e"/>
+            <Button x:Name="RetryButton" Click="RetryButton_Click" Background="Transparent" BorderBrush="Transparent" Foreground="#74441e" FontSize="500" HorizontalAlignment="Center">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="Foreground" Value="#74441e" />
+                        <Setter Property="FontSize" Value="500" />
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <ContentPresenter
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}" />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+
+                <SymbolIcon Symbol="Refresh"/>
+            </Button>
+            <ProgressRing x:Name="LoadingRing"
+              Width="50"
+              Height="50"
+              IsActive="False"
+              Foreground="#74441e"
+              HorizontalAlignment="Center"
+              Margin="0,20,0,0"/>
+            
         </StackPanel>
     </Grid>
 </Window>
