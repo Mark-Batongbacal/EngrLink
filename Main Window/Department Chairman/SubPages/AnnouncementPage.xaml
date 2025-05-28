@@ -30,10 +30,10 @@
             <StackPanel Grid.Column="0">
                 <TextBlock Text="Create Announcement" FontSize="18" FontWeight="Bold" FontFamily="Verdana" Foreground="#74441e" Margin="0,0,0,10" />
                 <StackPanel Background="#20FAFAFA" BorderBrush="#74441e" BorderThickness="1" CornerRadius="8" Padding="20">
-                    <TextBox x:Name="AnnouncementContentTextBox" PlaceholderText="Enter announcement content" Margin="0,0,0,10" Height="100" TextWrapping="Wrap" />
-                    <CheckBox x:Name="ShowToStudentsCheckBox" Content="Show to Students" Margin="0,0,0,5" />
-                    <CheckBox x:Name="ShowToTeachersCheckBox" Content="Show to Teachers" Margin="0,0,0,10" />
-                    <Button Content="Post Announcement" Click="PostAnnouncementButton_Click" Background="#fad1ac" Foreground="#74441e" FontWeight="Bold" CornerRadius="5" Padding="10,5" />
+                    <TextBox x:Name="AnnouncementContentTextBox" PlaceholderText="Enter announcement content" Margin="0,0,0,10" Height="100" TextWrapping="Wrap" FontSize="12" FontFamily="Verdana" Foreground="#74441e"/>
+                    <CheckBox x:Name="ShowToStudentsCheckBox" Content="Show to Students" Margin="0,0,0,5" FontSize="13" FontFamily="Verdana" Foreground="#74441e"/>
+                    <CheckBox x:Name="ShowToTeachersCheckBox" Content="Show to Teachers" Margin="0,0,0,10" FontSize="13" FontFamily="Verdana" Foreground="#74441e"/>
+                    <Button Content="Post Announcement" Click="PostAnnouncementButton_Click" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5" CornerRadius="5" Padding="10,5" />
                     <TextBlock x:Name="MessageTextBlock" Foreground="Red" Visibility="Collapsed" Margin="0,10,0,0" />
                 </StackPanel>
             </StackPanel>
@@ -51,8 +51,8 @@
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
 
-                                        <TextBlock Grid.Row="0" Text="{x:Bind Announcements}" FontSize="14" TextWrapping="Wrap"/>
-                                        <Button Content="Remove" Background="#FF6347" Foreground="White" FontWeight="Bold" CornerRadius="5" Padding="10,5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Margin="0,10,0,0" Click="RemoveAnnouncementButton_Click" DataContext="{x:Bind}"/>
+                                        <TextBlock Grid.Row="0" Text="{x:Bind Announcements}" FontSize="14" TextWrapping="Wrap" FontFamily="Verdana" Foreground="#74441e"/>
+                                        <Button Content="Remove" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5" CornerRadius="5" Padding="10,5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Margin="0,10,0,0" Click="RemoveAnnouncementButton_Click" DataContext="{x:Bind}"/>
                                     </Grid>
                                 </Border>
                             </DataTemplate>
