@@ -16,7 +16,7 @@
         Opacity="1"/>
     </Page.Background>
 
-    <ScrollView>
+    <ScrollViewer>
         <Grid Padding="20">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Spacing="1">
                 <TextBlock Text="Faculty Schedules" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Padding="0,0,0,50" FontFamily="Verdana" Foreground="#74441e"/>
@@ -53,5 +53,5 @@
                 </ScrollViewer>
             </StackPanel>
         </Grid>
-    </ScrollView>
+    </ScrollViewer>
 </Page>

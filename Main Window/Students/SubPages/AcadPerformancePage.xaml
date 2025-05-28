@@ -15,48 +15,42 @@
                 Opacity="1"/>
     </Page.Background>
 
-    <ScrollView>
-        <Grid Padding="20">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Spacing="1">
-                <Border BorderThickness="1" BorderBrush="#74441e" Padding="10" CornerRadius="8" Background="#20FAFAFA" Margin="0,20,0,0">
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel Margin="0,30,0,30" Padding="20" CornerRadius="10" Grid.Column="0">
-                            <TextBlock Text="{Binding StudentProfile.Name}" FontSize="21" FontWeight="Bold" FontFamily="Verdana" Foreground="#74441e" />
-                            <TextBlock Text="{Binding StudentProfile.Id}" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="{Binding StudentProfile.Program}" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="{Binding StudentProfile.Year}" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
+    <Grid>
+        <ScrollViewer>
+            <Grid Padding="20">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Spacing="1">
+                    <Border BorderThickness="1" BorderBrush="#74441e" Padding="10" CornerRadius="8" Background="#20FAFAFA" Margin="0,20,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Margin="0,30,0,30" Padding="20" CornerRadius="10">
+                                <TextBlock Text="{Binding StudentProfile.Name}" FontSize="21" FontWeight="Bold" FontFamily="Verdana" Foreground="#74441e" />
+                                <TextBlock Text="{Binding StudentProfile.Id}" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Text="{Binding StudentProfile.Program}" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Text="{Binding StudentProfile.Year}" FontSize="16" FontFamily="Verdana" Foreground="#74441e"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="120,30,0,30" Padding="20" CornerRadius="10" VerticalAlignment="Center">
+                                <TextBlock Text="GWA:" FontSize="18" FontWeight="SemiBold" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Text="{Binding StudentProfile.GWA}" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
+                            </StackPanel>
                         </StackPanel>
+                    </Border>
 
-                        <StackPanel Margin="120,30,0,30" Padding="20" CornerRadius="10" Grid.Column="1" VerticalAlignment="Center">
-                            <TextBlock Text="GWA:" FontSize="18" FontWeight="SemiBold" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="{Binding StudentProfile.GWA}" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
-                        </StackPanel>
-                    </StackPanel>
-                </Border>
-                
-                <TextBlock Text="Grades" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Padding="0,50,0,50" FontFamily="Verdana" Foreground="#74441e"/>
-                <ListView x:Name="SubjectsListView" IsItemClickEnabled="False">
-                    <ListView.Header>
-                        <Grid Padding="5" Background="#fad1ac" CornerRadius="4">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="400"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="100"/>
-                            </Grid.ColumnDefinitions>
+                    <ComboBox x:Name="GradePeriodComboBox"
+              Width="200"
+              Margin="0,0,0,20"
+              SelectedIndex="0"
+              SelectionChanged="GradePeriodComboBox_SelectionChanged"
+              HorizontalAlignment="Center"
+              FontFamily="Verdana"
+              Foreground="#74441e">
+                        <ComboBoxItem Content="Midterm" Tag="midterm"/>
+                        <ComboBoxItem Content="Final" Tag="final"/>
+                    </ComboBox>
 
-                            <TextBlock Text="   Code" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="   Subject Name" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="   Units" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="   Grade" Grid.Column="3" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="   Remarks" Grid.Column="4" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                        </Grid>
-                    </ListView.Header>
-
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="models:IndivSubjectView">
-                            <Grid Padding="5">
+                    <TextBlock Text="Grades" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Padding="0,50,0,50" FontFamily="Verdana" Foreground="#74441e"/>
+                    <ListView x:Name="SubjectsListView" IsItemClickEnabled="False">
+                        <ListView.Header>
+                            <Grid Padding="5" Background="#fad1ac" CornerRadius="4">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="100"/>
                                     <ColumnDefinition Width="400"/>
@@ -65,16 +59,36 @@
                                     <ColumnDefinition Width="100"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{x:Bind Sub.Code}" Grid.Column="0" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
-                                <TextBlock Text="{x:Bind Sub.Subject}" Grid.Column="1" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
-                                <TextBlock Text="{x:Bind Sub.Units}" Grid.Column="2" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
-                                <TextBlock Text="{Binding Sub.Grade}" Grid.Column="3" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
-                                <TextBlock Text="{Binding RemarksText}" Grid.Column="4" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
+                                <TextBlock Text="    Code" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Text="    Subject Name" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Text="    Units" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Text="    Grade" Grid.Column="3" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBlock Text="    Remarks" Grid.Column="4" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
                             </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackPanel>
-        </Grid>
-    </ScrollView>
+                        </ListView.Header>
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="models:IndivSubjectView">
+                                <Grid Padding="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="400"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Text="{x:Bind Sub.Code}" Grid.Column="0" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{x:Bind Sub.Subject}" Grid.Column="1" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{x:Bind Sub.Units}" Grid.Column="2" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding DisplayedGrade}" Grid.Column="3" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding RemarksText}" Grid.Column="4" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
 </Page>

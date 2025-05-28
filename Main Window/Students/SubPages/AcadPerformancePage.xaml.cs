@@ -15,6 +15,7 @@ using Microsoft.UI.Xaml.Navigation;
 using EngrLink.Models;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Collections.ObjectModel;
 
 namespace EngrLink.Main_Window.Students.SubPages
 {
@@ -62,23 +63,30 @@ namespace EngrLink.Main_Window.Students.SubPages
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public ObservableCollection<IndivSubjectView> SubjectViews { get; set; } = new ObservableCollection<IndivSubjectView>();
+
         public StudentProfileModel StudentProfile { get; set; } = new StudentProfileModel();
 
-        public string Id { get; set; } 
+        public string StudentId { get; set; }
 
         public AcadPerformancePage()
         {
             this.InitializeComponent();
             this.DataContext = this;
+            SubjectsListView.ItemsSource = SubjectViews;
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (e.Parameter is string Id) 
+            if (e.Parameter is string studentId)
             {
-                this.Id = Id;
-                Debug.WriteLine($"Navigated with Student ID: {this.Id}");
+                this.StudentId = studentId;
+                Debug.WriteLine($"Navigated with Student ID: {this.StudentId}");
+            }
+            else
+            {
+                Debug.WriteLine("Navigation parameter is not a string or is null.");
             }
             await LoadStudentData();
         }
@@ -89,54 +97,15 @@ namespace EngrLink.Main_Window.Students.SubPages
 
             try
             {
-                var gradesResponse = await client
-                    .From<IndivSubject>()
-                    .Filter("student_id", Supabase.Postgrest.Constants.Operator.Equals, this.Id)
-                    .Order("code", Supabase.Postgrest.Constants.Ordering.Ascending)
-                    .Get();
-
-                var subjects = gradesResponse.Models;
-                var subjectViews = subjects
-                .Select(sub => new IndivSubjectView { Sub = sub })
-                .ToList();
-
-                SubjectsListView.ItemsSource = subjectViews;
-                double totalUnits = 0;
-                double totalWeightedGrades = 0;
-
-                foreach (var subject in subjects)
+                if (string.IsNullOrEmpty(StudentId))
                 {
-                   
-                    if (subject.Grade > 0) 
-                    {
-                        totalUnits += subject.Units;
-                        totalWeightedGrades += subject.Grade * subject.Units;
-                    }
+                    Debug.WriteLine("StudentId is null or empty. Cannot load student profile.");
+                    return;
                 }
 
-                if (totalUnits > 0)
-                {
-                    StudentProfile.GWA = Math.Round(totalWeightedGrades / totalUnits, 2);
-                }
-                else
-                {
-                    StudentProfile.GWA = 0; 
-                }
-                Debug.WriteLine($"Calculated GWA: {StudentProfile.GWA}");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error loading subjects or calculating GWA: {ex.Message}");
-                
-            }
-
-
-
-            try
-            {
                 var studentResponse = await client
                     .From<Student>()
-                    .Filter("id", Supabase.Postgrest.Constants.Operator.Equals, this.Id)
+                    .Filter("id", Supabase.Postgrest.Constants.Operator.Equals, StudentId)
                     .Get();
 
                 var student = studentResponse.Models.FirstOrDefault();
@@ -151,13 +120,79 @@ namespace EngrLink.Main_Window.Students.SubPages
                 }
                 else
                 {
-                    Debug.WriteLine($"Student with ID {this.Id} not found in the 'Student' table.");
+                    Debug.WriteLine($"Student with ID {StudentId} not found in the 'Student' table.");
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error loading student profile: {ex.Message}");
             }
+
+            try
+            {
+                if (string.IsNullOrEmpty(StudentId))
+                {
+                    Debug.WriteLine("StudentId is null or empty. Cannot load grades.");
+                    return;
+                }
+
+                var gradesResponse = await client
+                    .From<IndivSubject>()
+                    .Filter("student_id", Supabase.Postgrest.Constants.Operator.Equals, StudentId)
+                    .Order("code", Supabase.Postgrest.Constants.Ordering.Ascending)
+                    .Get();
+
+                SubjectViews.Clear();
+                foreach (var sub in gradesResponse.Models)
+                {
+                    SubjectViews.Add(new IndivSubjectView { Sub = sub });
+                }
+
+                UpdateDisplayedGrades("midterm");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error loading subjects or calculating GWA: {ex.Message}");
+            }
+        }
+
+        private void GradePeriodComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (GradePeriodComboBox.SelectedItem is ComboBoxItem selectedItem &&
+                selectedItem.Tag is string period)
+            {
+                UpdateDisplayedGrades(period);
+            }
+        }
+
+        private void UpdateDisplayedGrades(string period)
+        {
+            if (SubjectViews == null || !SubjectViews.Any())
+            {
+                Debug.WriteLine("No subjects to update grades for.");
+                StudentProfile.GWA = 0;
+                return;
+            }
+
+            double totalUnits = 0;
+            double totalWeightedGrades = 0;
+
+            foreach (var item in SubjectViews)
+            {
+                double grade = period == "final" ? item.Sub.Grade_F : item.Sub.Grade;
+                item.DisplayedGrade = grade;
+
+                if (grade > 0)
+                {
+                    totalUnits += item.Sub.Units;
+                    totalWeightedGrades += grade * item.Sub.Units;
+                }
+            }
+
+            StudentProfile.GWA = totalUnits > 0 ? Math.Round(totalWeightedGrades / totalUnits, 2) : 0;
+
+            SubjectsListView.ItemsSource = null;
+            SubjectsListView.ItemsSource = SubjectViews;
         }
     }
 }

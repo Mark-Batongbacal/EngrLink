@@ -1,20 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Supabase;
 using Supabase.Postgrest.Attributes;
 using Supabase.Postgrest.Models;
-using Supabase;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 namespace EngrLink.Models
 {
     public class IndivSubjectView
     {
-        public IndivSubject Sub { get; set; }
-        public string RemarksText => Sub?.Remarks == true ? "Passed" : "Failed";
+        private IndivSubject _sub;
+        private double _displayedGrade;
 
+        public IndivSubject Sub
+        {
+            get => _sub;
+            set
+            {
+                if (_sub != value)
+                {
+                    _sub = value;
+                    OnPropertyChanged(nameof(Sub));
+                    OnPropertyChanged(nameof(RemarksText));
+                }
+            }
+        }
+
+        public string RemarksText
+        {
+            get => Sub?.Remarks == true ? "Passed" : "Failed";
+        }
+
+        public double DisplayedGrade
+        {
+            get => _displayedGrade;
+            set
+            {
+                if (_displayedGrade != value)
+                {
+                    _displayedGrade = value;
+                    OnPropertyChanged(nameof(DisplayedGrade));
+                }
+            }
+        }
         public bool IsEditable { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
     [Table("Individual_Subjects")]
@@ -53,5 +90,7 @@ namespace EngrLink.Models
         [Column("profcode")]
         public string ProfCode { get; set; }
 
+        [Column("grade_f")]
+        public int Grade_F { get; set; }
     }
 }

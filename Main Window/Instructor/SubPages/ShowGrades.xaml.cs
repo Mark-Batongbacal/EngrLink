@@ -167,6 +167,8 @@ public sealed partial class ShowGrades : Page
             : 0;
     }
 
+
+
     private async void SubmitButton_Click(object sender, RoutedEventArgs e)
     {
         var client = App.SupabaseClient;
