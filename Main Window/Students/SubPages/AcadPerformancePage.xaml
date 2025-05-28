@@ -17,7 +17,7 @@
 
     <ScrollViewer>
         <Grid Padding="20">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Spacing="1">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Spacing="1">
                 <Border BorderThickness="1" BorderBrush="#74441e" Padding="10" CornerRadius="8" Background="#20FAFAFA" Margin="0,20,0,0">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Margin="0,30,0,30" Padding="20" CornerRadius="10" Grid.Column="0">

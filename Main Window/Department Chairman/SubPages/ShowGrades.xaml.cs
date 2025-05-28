@@ -136,8 +136,6 @@ public sealed partial class ShowGrades : Page
         }
     }
 
-
-
     private void RecalculateGWA()
     {
         double totalUnits = 0;

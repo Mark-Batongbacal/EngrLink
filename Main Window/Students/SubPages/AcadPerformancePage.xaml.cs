@@ -15,7 +15,7 @@ using Microsoft.UI.Xaml.Navigation;
 using EngrLink.Models;
 using System.ComponentModel;
 using System.Diagnostics;
-using Microsoft.UI.Xaml.Media.Imaging; // ADDED: For BitmapImage
+using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace EngrLink.Main_Window.Students.SubPages
 {
@@ -28,7 +28,7 @@ namespace EngrLink.Main_Window.Students.SubPages
             private string _program;
             private string _year;
             private double _gwa;
-            private string _profileImageUrl; // ADDED: To store the image URL
+            private string _profileImageUrl;
 
             public string Name
             {
