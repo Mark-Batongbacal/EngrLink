@@ -15,7 +15,7 @@
                 Opacity="1"/>
     </Page.Background>
 
-    <ScrollView>
+    <ScrollViewer>
         <Grid Padding="20">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Spacing="1">
                 <Border BorderThickness="1" BorderBrush="#74441e" Padding="10" CornerRadius="8" Background="#20FAFAFA" Margin="0,20,0,0">
@@ -31,9 +31,10 @@
                             <TextBlock Text="GWA:" FontSize="18" FontWeight="SemiBold" FontFamily="Verdana" Foreground="#74441e"/>
                             <TextBlock Text="{Binding StudentProfile.GWA}" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
                         </StackPanel>
+                        <Image x:Name="StudentProfileImage" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="150,0,0,0" Width="150" Height="150" Stretch="UniformToFill" Source="ms-appx:///Assets/placeholder.png"/>
                     </StackPanel>
                 </Border>
-                
+
                 <TextBlock Text="Grades" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Padding="0,50,0,50" FontFamily="Verdana" Foreground="#74441e"/>
                 <ListView x:Name="SubjectsListView" IsItemClickEnabled="False">
                     <ListView.Header>
@@ -46,11 +47,11 @@
                                 <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="   Code" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="   Subject Name" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="   Units" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="   Grade" Grid.Column="3" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="   Remarks" Grid.Column="4" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <TextBlock Text="    Code" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <TextBlock Text="    Subject Name" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <TextBlock Text="    Units" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <TextBlock Text="    Grade" Grid.Column="3" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <TextBlock Text="    Remarks" Grid.Column="4" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
                         </Grid>
                     </ListView.Header>
 
@@ -76,5 +77,5 @@
                 </ListView>
             </StackPanel>
         </Grid>
-    </ScrollView>
+    </ScrollViewer>
 </Page>
