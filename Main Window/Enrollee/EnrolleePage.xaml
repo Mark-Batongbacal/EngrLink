@@ -17,12 +17,7 @@
 
         <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Width="60" Height="40" Click="BackButton_Click" Grid.Row="1" />
 
-        <StackPanel
-            Grid.Row="1"
-            Orientation="Vertical" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Stretch" 
-            Padding="100">
+        <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Stretch" Padding="100">
             <TextBox x:Name="NameTextBox" PlaceholderText="Enter Full Name" TextChanged="Input_TextChanged" Width="300" Height="40" Margin="5" FontSize="12" FontFamily="Verdana" Padding="10"/>
 
             <TextBox x:Name="AddressTextBox" PlaceholderText="Enter Address" TextChanged="Input_TextChanged" Width="300" Height="40" Margin="5" FontSize="12" FontFamily="Verdana" Padding="10"/>
@@ -45,7 +40,11 @@
             </ComboBox>
             <DatePicker x:Name="BirthdayDatePicker" Header="Enter Birthday" DateChanged="Input_DateChanged" Width="300" Height="60" Margin="5" FontSize="12" FontFamily="Verdana" Foreground="#74441e"/>
 
-
+            <StackPanel Orientation="Horizontal" Spacing="10" Margin="5" HorizontalAlignment="Center">
+                <Button x:Name="SelectImageButton" Content="Select Profile Image" Click="SelectImageButton_Click" Width="145" Height="40" FontSize="12" FontFamily="Verdana" Foreground="#74441e"/>
+                <Image x:Name="ProfileImagePreview" Width="100" Height="100" Stretch="UniformToFill" Source="ms-appx:///Assets/placeholder.png"/>
+            </StackPanel>
+            <TextBlock x:Name="ImageStatusTextBlock" TextWrapping="Wrap" Margin="5" FontSize="10" Foreground="Red" HorizontalAlignment="Center"/>
             <Button Name="SubmitButton" Content="Submit" Width="300" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SubmitButton_Click" FontSize="14" FontFamily="Verdana" Foreground="#74441e"/>
         </StackPanel>
     </Grid>

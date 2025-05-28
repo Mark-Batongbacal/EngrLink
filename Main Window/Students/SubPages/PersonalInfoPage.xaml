@@ -15,11 +15,18 @@
                 Opacity="1"/>
     </Page.Background>
 
-    <ScrollView>
+    <ScrollViewer>
         <Grid Padding="20">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" Width="600">
-                <TextBlock Text="Personal Information" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Padding="0,0,0,50" FontFamily="Verdana" Foreground="#74441e"/>
+                <TextBlock Text="Personal Information" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Padding="0,0,0,20" FontFamily="Verdana" Foreground="#74441e"/>
 
+                <Border BorderBrush="#74441e" BorderThickness="1" CornerRadius="8" Padding="10" Margin="0,0,0,20" Background="#20FAFAFA"
+                        HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image x:Name="StudentProfileImage"
+                           Width="150" Height="150"
+                           Stretch="UniformToFill"
+                           Source="ms-appx:///Assets/placeholder.png" />
+                </Border>
                 <Border BorderBrush="#74441e" BorderThickness="1" CornerRadius="8" Padding="20" Margin="0,0,0,20" Background="#20FAFAFA">
                     <StackPanel Spacing="10">
                         <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Student ID:" FontSize="21" FontFamily="Verdana" Foreground="#74441e"/>
@@ -58,5 +65,5 @@
                 </Border>
             </StackPanel>
         </Grid>
-    </ScrollView>
+    </ScrollViewer>
 </Page>
