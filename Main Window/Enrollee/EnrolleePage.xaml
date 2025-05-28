@@ -43,8 +43,13 @@
                 <Button x:Name="SelectImageButton" Content="Select Profile Image" Click="SelectImageButton_Click" Width="145" Height="40" FontSize="12" FontFamily="Verdana" Foreground="#74441e"/>
                 <Image x:Name="ProfileImagePreview" Width="100" Height="100" Stretch="UniformToFill" Source="ms-appx:///Assets/placeholder.png"/>
             </StackPanel>
-            <TextBlock x:Name="ImageStatusTextBlock" TextWrapping="Wrap" Margin="5" FontSize="10" Foreground="Red" HorizontalAlignment="Center"/>
-            <Button Name="SubmitButton" Content="Submit" Width="300" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SubmitButton_Click" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
+            
+            <StackPanel>
+                <TextBlock x:Name="ImageStatusTextBlock" Width="300" TextWrapping="Wrap" Margin="0,5,0,10" FontSize="10" Foreground="Red" FontFamily="Verdana" HorizontalAlignment="Center" HorizontalTextAlignment="Center"/>
+            </StackPanel>
+            
+            <Button Name="SubmitButton" Content="Submit" Width="300" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SubmitButton_Click" FontSize="14" FontFamily="Verdana" Foreground="#74441e"/>
+            
         </StackPanel>
     </Grid>
 </Page>

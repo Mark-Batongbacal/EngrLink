@@ -8,12 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Diagnostics;
+
 namespace EngrLink.Models
 {
-    public class IndivSubjectView
+    public class IndivSubjectView : INotifyPropertyChanged
     {
         private IndivSubject _sub;
         private double _displayedGrade;
+        private string _period = "midterm"; // Changed default to "midterm" for consistency with ShowGrades
 
         public IndivSubject Sub
         {
@@ -24,14 +27,49 @@ namespace EngrLink.Models
                 {
                     _sub = value;
                     OnPropertyChanged(nameof(Sub));
+                    // Call UpdateDisplayedGrade here to ensure it's set when Sub changes
+                    UpdateDisplayedGrade();
                     OnPropertyChanged(nameof(RemarksText));
                 }
             }
         }
 
+        public string Period
+        {
+            get => _period;
+            set
+            {
+                if (_period != value)
+                {
+                    _period = value;
+                    // Ensure displayed grade is updated when the period changes
+                    UpdateDisplayedGrade();
+                    OnPropertyChanged(nameof(Period));
+                    OnPropertyChanged(nameof(RemarksText));
+                }
+            }
+        }
+
+        public void UpdateDisplayedGrade()
+        {
+            if (Sub == null)
+            {
+                DisplayedGrade = 0; // Default or handle null Sub
+                return;
+            }
+            // Ensure DisplayedGrade setter is used, which updates _displayedGrade and triggers PropertyChanged
+            DisplayedGrade = Period == "final" ? Sub.Grade_F : Sub.Grade;
+        }
+
         public string RemarksText
         {
-            get => Sub?.Remarks == true ? "Passed" : "Failed";
+            get
+            {
+                if (Sub == null) return "N/A"; // Handle null Sub
+                return Period == "final"
+                    ? (Sub.Remarks_F == true ? "Passed" : "Failed")
+                    : (Sub.Remarks == true ? "Passed" : "Failed");
+            }
         }
 
         public double DisplayedGrade
@@ -42,15 +80,23 @@ namespace EngrLink.Models
                 if (_displayedGrade != value)
                 {
                     _displayedGrade = value;
+                    if (Sub != null)
+                    {
+                        if (Period == "final")
+                            Sub.Grade_F = (int)value;
+                        else
+                            Sub.Grade = (int)value;
+                    }
                     OnPropertyChanged(nameof(DisplayedGrade));
+                    OnPropertyChanged(nameof(RemarksText)); // Ensure remarks update when grade changes
                 }
             }
         }
+
         public bool IsEditable { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName) =>
+        public void OnPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
@@ -92,5 +138,8 @@ namespace EngrLink.Models
 
         [Column("grade_f")]
         public int Grade_F { get; set; }
+
+        [Column("passed_f")]
+        public bool Remarks_F { get; set; }
     }
 }

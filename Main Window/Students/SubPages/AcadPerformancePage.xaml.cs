@@ -29,42 +29,16 @@ namespace EngrLink.Main_Window.Students.SubPages
             private string _program;
             private string _year;
             private double _gwa;
+            private string _period;
             private string _profileImageUrl;
 
-            public string Name
-            {
-                get => _name;
-                set { _name = value; OnPropertyChanged(nameof(Name)); }
-            }
-
-            public string Id
-            {
-                get => _id;
-                set { _id = value; OnPropertyChanged(nameof(Id)); }
-            }
-
-            public string Program
-            {
-                get => _program;
-                set { _program = value; OnPropertyChanged(nameof(Program)); }
-            }
-
-            public string Year
-            {
-                get => _year;
-                set { _year = value; OnPropertyChanged(nameof(Year)); }
-            }
-            public double GWA
-            {
-                get => _gwa;
-                set { _gwa = value; OnPropertyChanged(nameof(GWA)); }
-            }
-            public string ProfileImageUrl
-            {
-                get => _profileImageUrl;
-                set { _profileImageUrl = value; OnPropertyChanged(nameof(ProfileImageUrl)); }
-            }
-
+            public string Name { get => _name; set { _name = value; OnPropertyChanged(nameof(Name)); } }
+            public string Id { get => _id; set { _id = value; OnPropertyChanged(nameof(Id)); } }
+            public string Program { get => _program; set { _program = value; OnPropertyChanged(nameof(Program)); } }
+            public string Year { get => _year; set { _year = value; OnPropertyChanged(nameof(Year)); } }
+            public double GWA { get => _gwa; set { _gwa = value; OnPropertyChanged(nameof(GWA)); } }
+            public string Period { get => _period; set { _period = value; OnPropertyChanged(nameof(Period)); } }
+            public string ProfileImageUrl { get => _profileImageUrl; set { _profileImageUrl = value; OnPropertyChanged(nameof(ProfileImageUrl)); } }
 
             public event PropertyChangedEventHandler PropertyChanged;
             protected void OnPropertyChanged(string propertyName) =>
@@ -72,9 +46,7 @@ namespace EngrLink.Main_Window.Students.SubPages
         }
 
         public ObservableCollection<IndivSubjectView> SubjectViews { get; set; } = new ObservableCollection<IndivSubjectView>();
-
         public StudentProfileModel StudentProfile { get; set; } = new StudentProfileModel();
-
         public string StudentId { get; set; }
 
         public AcadPerformancePage()
@@ -125,37 +97,23 @@ namespace EngrLink.Main_Window.Students.SubPages
                     StudentProfile.Id = student.Id.ToString();
                     StudentProfile.Year = student.Year.ToString();
                     StudentProfile.ProfileImageUrl = student.ProfileImageUrl;
-                    Debug.WriteLine($"Student Profile Loaded - Name: {StudentProfile.Name}, Program: {StudentProfile.Program}, Year: {StudentProfile.Year}");
 
                     if (!string.IsNullOrEmpty(StudentProfile.ProfileImageUrl))
                     {
                         try
                         {
-                            Uri imageUri = new Uri(StudentProfile.ProfileImageUrl);
-                            BitmapImage bitmapImage = new BitmapImage(imageUri);
+                            var bitmapImage = new BitmapImage(new Uri(StudentProfile.ProfileImageUrl));
                             StudentProfileImage.Source = bitmapImage;
-                            Debug.WriteLine($"Successfully loaded image from: {StudentProfile.ProfileImageUrl}");
                         }
-                        catch (UriFormatException ex)
+                        catch
                         {
-                            Debug.WriteLine($"Invalid image URL for student {StudentProfile.Id}: {StudentProfile.ProfileImageUrl} - {ex.Message}");
-                            StudentProfileImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/placeholder.png"));
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine($"Error loading image for student {StudentProfile.Id}: {ex.Message}");
                             StudentProfileImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/placeholder.png"));
                         }
                     }
                     else
                     {
                         StudentProfileImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/placeholder.png"));
-                        Debug.WriteLine($"No profile image URL found for student {StudentProfile.Id}. Displaying placeholder.");
                     }
-                }
-                else
-                {
-                    Debug.WriteLine($"Student with ID {StudentId} not found in the 'Student' table.");
                 }
             }
             catch (Exception ex)
@@ -165,12 +123,6 @@ namespace EngrLink.Main_Window.Students.SubPages
 
             try
             {
-                if (string.IsNullOrEmpty(StudentId))
-                {
-                    Debug.WriteLine("StudentId is null or empty. Cannot load grades.");
-                    return;
-                }
-
                 var gradesResponse = await client
                     .From<IndivSubject>()
                     .Filter("student_id", Supabase.Postgrest.Constants.Operator.Equals, StudentId)
@@ -183,7 +135,7 @@ namespace EngrLink.Main_Window.Students.SubPages
                     SubjectViews.Add(new IndivSubjectView { Sub = sub });
                 }
 
-                UpdateDisplayedGrades("midterm");
+                UpdateDisplayedGrades(StudentProfile.Period);
             }
             catch (Exception ex)
             {
@@ -194,26 +146,24 @@ namespace EngrLink.Main_Window.Students.SubPages
         private void GradePeriodComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (GradePeriodComboBox.SelectedItem is ComboBoxItem selectedItem &&
-                selectedItem.Tag is string period)
+                selectedItem.Tag is string periodTag)
             {
-                UpdateDisplayedGrades(period);
+                StudentProfile.Period = periodTag; // Update the StudentProfile's period
+                UpdateDisplayedGrades(StudentProfile.Period); // Recalculate GWA and trigger subject view updates
+                LoadStudentData();
             }
         }
 
         private void UpdateDisplayedGrades(string period)
         {
-            if (SubjectViews == null || !SubjectViews.Any())
-            {
-                Debug.WriteLine("No subjects to update grades for.");
-                StudentProfile.GWA = 0;
-                return;
-            }
-
+            
             double totalUnits = 0;
             double totalWeightedGrades = 0;
 
             foreach (var item in SubjectViews)
             {
+                item.Period = period;
+                Debug.Write(item.DisplayedGrade);
                 double grade = period == "final" ? item.Sub.Grade_F : item.Sub.Grade;
                 item.DisplayedGrade = grade;
 
@@ -225,9 +175,6 @@ namespace EngrLink.Main_Window.Students.SubPages
             }
 
             StudentProfile.GWA = totalUnits > 0 ? Math.Round(totalWeightedGrades / totalUnits, 2) : 0;
-
-            SubjectsListView.ItemsSource = null;
-            SubjectsListView.ItemsSource = SubjectViews;
         }
     }
 }
