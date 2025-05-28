@@ -28,6 +28,7 @@ namespace EngrLink.Main_Window.Students.SubPages
             private string _program;
             private string _year;
             private double _gwa;
+            private string _profileImageUrl;
 
             public string Name
             {
@@ -57,6 +58,14 @@ namespace EngrLink.Main_Window.Students.SubPages
                 get => _gwa;
                 set { _gwa = value; OnPropertyChanged(nameof(GWA)); }
             }
+
+            // NEW PROPERTY for the Profile Image URL
+            public string ProfileImageUrl
+            {
+                get => _profileImageUrl;
+                set { _profileImageUrl = value; OnPropertyChanged(nameof(ProfileImageUrl)); }
+            }
+
 
             public event PropertyChangedEventHandler PropertyChanged;
             protected void OnPropertyChanged(string propertyName) =>

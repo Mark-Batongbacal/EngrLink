@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace EngrLink.Main_Window.Instructor.SubPages;
 
@@ -19,12 +20,14 @@ public sealed partial class ShowGrades : Page
         private string _id;
         private string _year;
         private double _gwa;
+        private string _profileImageUrl;
 
         public string Name { get => _name; set { _name = value; OnPropertyChanged(nameof(Name)); } }
         public string Id { get => _id; set { _id = value; OnPropertyChanged(nameof(Id)); } }
         public string Program { get => _program; set { _program = value; OnPropertyChanged(nameof(Program)); } }
         public string Year { get => _year; set { _year = value; OnPropertyChanged(nameof(Year)); } }
         public double GWA { get => _gwa; set { _gwa = value; OnPropertyChanged(nameof(GWA)); } }
+        public string ProfileImageUrl { get => _profileImageUrl; set { _profileImageUrl = value; OnPropertyChanged(nameof(ProfileImageUrl)); } }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName) =>
@@ -51,47 +54,102 @@ public sealed partial class ShowGrades : Page
         {
 
             CanEditGrades = SubjectViews.Any() && SubjectViews.First().Sub.ProfCode == profCode;
-           
+
             Debug.WriteLine($"Navigated with Student ID: {studentId}");
             var client = App.SupabaseClient;
 
-            // Get grades
-            var gradesResponse = await client
-                .From<IndivSubject>()
-                .Filter("student_id", Supabase.Postgrest.Constants.Operator.Equals, studentId)
-                .Order("subject", Supabase.Postgrest.Constants.Ordering.Ascending)
-                .Get();
-
-            SubjectViews = gradesResponse.Models
-            .Select(sub => new IndivSubjectView
+            try
             {
-                Sub = sub,
-                IsEditable = sub.ProfCode == profCode   
-            })
-            .ToList();
+                var gradesResponse = await client
+                    .From<IndivSubject>()
+                    .Filter("student_id", Supabase.Postgrest.Constants.Operator.Equals, studentId)
+                    .Order("subject", Supabase.Postgrest.Constants.Ordering.Ascending)
+                    .Get();
 
-            StudentsListView.ItemsSource = SubjectViews;
+                SubjectViews = gradesResponse.Models
+                .Select(sub => new IndivSubjectView
+                {
+                    Sub = sub,
+                    IsEditable = sub.ProfCode == profCode
+                })
+                .ToList();
 
-            // Get student info
-            var studentResponse = await client
-                .From<Student>()
-                .Filter("id", Supabase.Postgrest.Constants.Operator.Equals, studentId)
-                .Get();
-
-            var student = studentResponse.Models.FirstOrDefault();
-            if (student != null)
+                StudentsListView.ItemsSource = SubjectViews;
+            }
+            catch (Exception ex)
             {
-                StudentProfile.Name = student.Name;
-                StudentProfile.Program = student.Program;
-                StudentProfile.Year = student.Year;
-                StudentProfile.Id = student.Id.ToString();
+                Debug.WriteLine($"Error loading grades: {ex.Message}");
+            }
 
-                Debug.WriteLine(StudentProfile.Name);
-                Debug.WriteLine(StudentProfile.Program);
-                Debug.WriteLine(StudentProfile.Year);
+            try
+            {
+                var studentResponse = await client
+                    .From<Student>()
+                    .Filter("id", Supabase.Postgrest.Constants.Operator.Equals, studentId)
+                    .Get();
+
+                var student = studentResponse.Models.FirstOrDefault();
+                if (student != null)
+                {
+                    StudentProfile.Name = student.Name;
+                    StudentProfile.Program = student.Program;
+                    StudentProfile.Year = student.Year;
+                    StudentProfile.Id = student.Id.ToString();
+                    StudentProfile.ProfileImageUrl = student.ProfileImageUrl;
+
+                    Debug.WriteLine(StudentProfile.Name);
+                    Debug.WriteLine(StudentProfile.Program);
+                    Debug.WriteLine(StudentProfile.Year);
+                    Debug.WriteLine($"Profile Image URL: {StudentProfile.ProfileImageUrl}");
+
+                    if (!string.IsNullOrEmpty(StudentProfile.ProfileImageUrl))
+                    {
+                        try
+                        {
+                            Uri imageUri = new Uri(StudentProfile.ProfileImageUrl);
+                            BitmapImage bitmapImage = new BitmapImage(imageUri);
+                            StudentProfileImage.Source = bitmapImage;
+                            Debug.WriteLine($"Successfully loaded image from: {StudentProfile.ProfileImageUrl}");
+                        }
+                        catch (UriFormatException ex)
+                        {
+                            Debug.WriteLine($"Invalid image URL for student {StudentProfile.Id}: {StudentProfile.ProfileImageUrl} - {ex.Message}");
+                            StudentProfileImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/placeholder.png"));
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine($"Error loading image for student {StudentProfile.Id}: {ex.Message}");
+                            StudentProfileImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/placeholder.png"));
+                        }
+                    }
+                    else
+                    {
+                        StudentProfileImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/placeholder.png"));
+                        Debug.WriteLine($"No profile image URL found for student {StudentProfile.Id}. Displaying placeholder.");
+                    }
+                }
+                else
+                {
+                    Debug.WriteLine($"Student with ID {studentId} not found in the 'Student' table.");
+                    StudentProfile.Name = "N/A";
+                    StudentProfile.Program = "N/A";
+                    StudentProfile.Id = studentId.ToString();
+                    StudentProfile.Year = "N/A";
+                    StudentProfile.GWA = 0;
+                    StudentProfile.ProfileImageUrl = null;
+                    StudentProfileImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/placeholder.png"));
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error loading student profile: {ex.Message}");
             }
 
             RecalculateGWA();
+        }
+        else
+        {
+            Debug.WriteLine("ShowGrades page navigated to without required studentId and profCode.");
         }
     }
 
