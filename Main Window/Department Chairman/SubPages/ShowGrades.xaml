@@ -37,6 +37,12 @@
                 </Border>
 
                 <TextBlock Text="Grades" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Padding="0,50,0,50" FontFamily="Verdana" Foreground="#74441e"/>
+
+                <ComboBox x:Name="GradePeriodComboBox" Width="200" Margin="0,0,0,10" SelectedIndex="0" SelectionChanged="GradePeriodComboBox_SelectionChanged" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e">
+                    <ComboBoxItem Content="Midterm" Tag="midterm"/>
+                    <ComboBoxItem Content="Final" Tag="final"/>
+                </ComboBox>
+
                 <ListView x:Name="StudentsListView" IsItemClickEnabled="False">
                     <ListView.Header>
                         <Grid Padding="5" Background="#fad1ac" CornerRadius="4">
@@ -70,7 +76,7 @@
                                 <TextBlock Text="{x:Bind Sub.Code}" Grid.Column="0" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
                                 <TextBlock Text="{x:Bind Sub.Subject}" Grid.Column="1" TextWrapping="Wrap" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
                                 <TextBlock Text="{x:Bind Sub.Units}" Grid.Column="2" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                                <TextBox Text="{x:Bind Sub.Grade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextChanged="GradeInput_TextChanged"/>
+                                <TextBox Text="{x:Bind DisplayedGrade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextChanged="GradeInput_TextChanged"/>
                                 <TextBlock Text="{x:Bind RemarksText}" Grid.Column="4" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
                             </Grid>
                         </DataTemplate>
