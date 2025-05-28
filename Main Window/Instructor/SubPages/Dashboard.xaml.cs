@@ -1,4 +1,4 @@
-using EngrLink.Models; 
+using EngrLink.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Supabase;
@@ -11,6 +11,7 @@ using static Supabase.Postgrest.Constants;
 using Microsoft.UI.Xaml.Navigation;
 using System.Diagnostics;
 using System.ComponentModel;
+using Supabase.Postgrest.Interfaces;
 
 namespace EngrLink.Main_Window.Instructor.SubPages
 {
@@ -65,7 +66,7 @@ namespace EngrLink.Main_Window.Instructor.SubPages
             };
 
             _autoFlipTimer = new DispatcherTimer();
-            _autoFlipTimer.Interval = TimeSpan.FromSeconds(5); 
+            _autoFlipTimer.Interval = TimeSpan.FromSeconds(5);
             _autoFlipTimer.Tick += AutoFlipTimer_Tick;
 
         }
@@ -112,8 +113,8 @@ namespace EngrLink.Main_Window.Instructor.SubPages
         {
             if (ImageSources.Any())
             {
-                int currentIndex = DashboardFlipView.SelectedIndex; 
-                int nextIndex = (currentIndex + 1) % ImageSources.Count; 
+                int currentIndex = DashboardFlipView.SelectedIndex;
+                int nextIndex = (currentIndex + 1) % ImageSources.Count;
 
                 DashboardFlipView.SelectedIndex = nextIndex;
             }
@@ -126,10 +127,17 @@ namespace EngrLink.Main_Window.Instructor.SubPages
 
             try
             {
-                var response = await client
-                    .From<Announcement>()
-                    .Filter("program", Operator.Equals, this.Program)
-                    .Get();
+                // Fix: Initialize query as IPostgrestTable<Announcement>
+                // This ensures the type remains consistent throughout the query building.
+                var query = client.From<Announcement>() as IPostgrestTable<Announcement>;
+
+                if (this.Program != "N/A")
+                {
+                    query = query.Filter("program", Operator.Equals, this.Program);
+                }
+
+                // Now call .Get() on the IPostgrestTable type
+                var response = await query.Get();
 
                 if (response?.Models != null && response.Models.Any())
                 {
@@ -137,12 +145,13 @@ namespace EngrLink.Main_Window.Instructor.SubPages
 
                     foreach (var announcement in response.Models)
                     {
-                        if (announcement.ForFac)
+                        if (announcement.ForFac) // Ensure we only add announcements for faculty
                         {
                             StudentAnnouncements.Add(announcement);
                         }
                     }
-                    Debug.WriteLine($"Loaded {StudentAnnouncements.Count} announcements for students in program {this.Program}.");
+
+                    Debug.WriteLine($"Loaded {StudentAnnouncements.Count} announcements for faculty in program {this.Program}.");
                 }
                 else
                 {
@@ -151,7 +160,7 @@ namespace EngrLink.Main_Window.Instructor.SubPages
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error loading student announcements: {ex.Message}");
+                Debug.WriteLine($"Error loading announcements: {ex.Message}");
             }
         }
     }
