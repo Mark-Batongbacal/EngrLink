@@ -26,14 +26,18 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="350"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="150"/>
                                 <ColumnDefinition Width="200"/>
                                 <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="   Code" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="   Subject Name" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="   Schedule" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                            <TextBlock Text="   Units" Grid.Column="3" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <TextBlock Text="    Code" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <TextBlock Text="    Subject Name" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <TextBlock Text="    Year" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <TextBlock Text="    Program" Grid.Column="3" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <TextBlock Text="    Schedule" Grid.Column="4" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                            <TextBlock Text="    Units" Grid.Column="5" FontWeight="Bold" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
                         </Grid>
                     </ListView.Header>
 
@@ -43,14 +47,18 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="100"/>
                                     <ColumnDefinition Width="350"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
                                     <ColumnDefinition Width="200"/>
                                     <ColumnDefinition Width="100"/>
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Text="{x:Bind Code}" Grid.Column="0" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
                                 <TextBlock Text="{x:Bind Subject}" Grid.Column="1" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
-                                <TextBlock Text="{x:Bind Schedule}" Grid.Column="2" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
-                                <TextBlock Text="{x:Bind Units}" Grid.Column="3" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
+                                <TextBlock Text="{x:Bind Year}" Grid.Column="2" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
+                                <TextBlock Text="{x:Bind Program}" Grid.Column="3" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
+                                <TextBlock Text="{x:Bind Schedule}" Grid.Column="4" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
+                                <TextBlock Text="{x:Bind Units}" Grid.Column="5" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextWrapping="Wrap"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
