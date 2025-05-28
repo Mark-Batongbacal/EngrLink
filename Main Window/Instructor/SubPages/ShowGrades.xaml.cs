@@ -27,7 +27,6 @@ public sealed partial class ShowGrades : Page
         public string Program { get => _program; set { _program = value; OnPropertyChanged(nameof(Program)); } }
         public string Year { get => _year; set { _year = value; OnPropertyChanged(nameof(Year)); } }
         public double GWA { get => _gwa; set { _gwa = value; OnPropertyChanged(nameof(GWA)); } }
-
         public string ProfileImageUrl { get => _profileImageUrl; set { _profileImageUrl = value; OnPropertyChanged(nameof(ProfileImageUrl)); } }
 
         public event PropertyChangedEventHandler PropertyChanged;

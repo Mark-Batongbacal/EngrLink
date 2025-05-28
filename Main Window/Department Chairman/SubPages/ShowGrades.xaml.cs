@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace EngrLink.Main_Window.Department_Chairman.SubPages;
 
@@ -19,12 +20,14 @@ public sealed partial class ShowGrades : Page
         private string _program;
         private string _year;
         private double _gwa;
+        private string _profileImageUrl;
 
         public string Name { get => _name; set { _name = value; OnPropertyChanged(nameof(Name)); } }
         public string Id { get => _id; set { _id = value; OnPropertyChanged(nameof(Id)); } }
         public string Program { get => _program; set { _program = value; OnPropertyChanged(nameof(Program)); } }
         public string Year { get => _year; set { _year = value; OnPropertyChanged(nameof(Year)); } }
         public double GWA { get => _gwa; set { _gwa = value; OnPropertyChanged(nameof(GWA)); } }
+        public string ProfileImageUrl { get => _profileImageUrl; set { _profileImageUrl = value; OnPropertyChanged(nameof(ProfileImageUrl)); } }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName) =>
@@ -73,12 +76,38 @@ public sealed partial class ShowGrades : Page
                 StudentProfile.Program = student.Program;
                 StudentProfile.Year = student.Year;
                 StudentProfile.Id = student.Id.ToString();
+                StudentProfile.ProfileImageUrl = student.ProfileImageUrl;
 
                 Debug.WriteLine(StudentProfile.Name);
                 Debug.WriteLine(StudentProfile.Program);
                 Debug.WriteLine(StudentProfile.Year);
-            }
 
+                if (!string.IsNullOrEmpty(StudentProfile.ProfileImageUrl))
+                {
+                    try
+                    {
+                        Uri imageUri = new Uri(StudentProfile.ProfileImageUrl);
+                        BitmapImage bitmapImage = new BitmapImage(imageUri);
+                        StudentProfileImage.Source = bitmapImage;
+                        Debug.WriteLine($"Successfully loaded image from: {StudentProfile.ProfileImageUrl}");
+                    }
+                    catch (UriFormatException ex)
+                    {
+                        Debug.WriteLine($"Invalid image URL for student {StudentProfile.Id}: {StudentProfile.ProfileImageUrl} - {ex.Message}");
+                        StudentProfileImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/placeholder.png"));
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"Error loading image for student {StudentProfile.Id}: {ex.Message}");
+                        StudentProfileImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/placeholder.png"));
+                    }
+                }
+                else
+                {
+                    StudentProfileImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/placeholder.png"));
+                    Debug.WriteLine($"No profile image URL found for student {StudentProfile.Id}. Displaying placeholder.");
+                }
+            }
             RecalculateGWA();
         }
     }
