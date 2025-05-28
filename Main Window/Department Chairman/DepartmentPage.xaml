@@ -20,13 +20,17 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0" Background="#ffc797" VerticalAlignment="Stretch" Spacing="1" Grid.Row="1">
+            
             <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Width="60" Height="40" Click="BackButton_Click" Grid.Row="1" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
+            
             <AppBarSeparator/>
+            
             <Button x:Name="Dashboard" Content="Dashboard" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="Dashboard_Click" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
             <Button x:Name="Schedules" Content="List of Faculty" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="Schedules_Click" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
             <Button x:Name="ListStudents" Content="List of Students" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="ListStudents_Click" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
             <Button x:Name="Announcements" Content="Announcements" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="Announcements_Click" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
             <Button x:Name="Enrollees" Content="Enrollees" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="Enrollees_Click" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
+            
         </StackPanel>
 
         <Frame x:Name="DepartmentChairFrame" Grid.Column="1" Grid.Row="1"/>

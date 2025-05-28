@@ -24,6 +24,9 @@ namespace EngrLink.Models
         [Column("profcode")]
         public string ProfCode { get; set; }
 
+        [Column("year")]
+        public string Year { get; set; }
+
         [Column("schedule")]
         public string Schedule { get; set; }
 

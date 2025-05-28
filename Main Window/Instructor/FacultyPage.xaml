@@ -21,13 +21,14 @@
 
         <StackPanel Grid.Column="0" Background="#ffc797" VerticalAlignment="Stretch" Spacing="1" Grid.Row="1">
 
-        <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="40" Click="BackButton_Click"/>
-
-        <AppBarSeparator/>
-
-        <Button x:Name="DashboardButton" Content="Dashboard" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="DashboardButton_Click"/>
-        <Button x:Name="ListStudents" Content="List of Students" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="ListStudents_Click"/>
-        <Button x:Name="Schedules" Content="Schedules" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="Schedules_Click"/>
+            <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Width="60" Height="40" Click="BackButton_Click" Grid.Row="1" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
+            
+            <AppBarSeparator/>
+            
+            <Button x:Name="DashboardButton" Content="Dashboard" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="DashboardButton_Click" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
+            <Button x:Name="ListStudents" Content="List of Students" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="ListStudents_Click" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
+            <Button x:Name="Schedules" Content="Schedules" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="Schedules_Click" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
+            
         </StackPanel>
 
         <Frame x:Name="FacultyFrame" Grid.Column="1" Grid.Row="1"/>

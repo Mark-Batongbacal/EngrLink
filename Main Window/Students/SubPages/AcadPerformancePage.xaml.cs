@@ -92,7 +92,7 @@ namespace EngrLink.Main_Window.Students.SubPages
                 var gradesResponse = await client
                     .From<IndivSubject>()
                     .Filter("student_id", Supabase.Postgrest.Constants.Operator.Equals, this.Id)
-                    .Order("subject", Supabase.Postgrest.Constants.Ordering.Ascending)
+                    .Order("code", Supabase.Postgrest.Constants.Ordering.Ascending)
                     .Get();
 
                 var subjects = gradesResponse.Models;
