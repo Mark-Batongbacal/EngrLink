@@ -10,9 +10,13 @@
     RequestedTheme="Light"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Padding="20" Background="#f7e8d9">
+    <Grid Padding="0" Background="#f7e8d9">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Width="60" Height="40" Click="BackButton_Click" Grid.Row="1" />
+        <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Width="60" Height="40" Click="BackButton_Click" Grid.Row="1" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
 
         <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Stretch" Padding="100">
 
@@ -20,7 +24,7 @@
 
             <PasswordBox x:Name="Password" PlaceholderText="Enter Password" PasswordChanged="Input_TextChanged" PasswordRevealMode="Peek" Width="300" Height="40" Margin="5" FontSize="12" FontFamily="Verdana" Padding="10"/>
 
-            <Button x:Name="SubmitButton" Content="Submit" Width="300" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SubmitButton_Click" FontSize="14" FontFamily="Verdana" Margin="5" Padding="10" Foreground="#74441e"/>
+            <Button x:Name="SubmitButton" Content="Submit" Width="300" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SubmitButton_Click" FontSize="14" FontFamily="Verdana" Margin="5" Padding="10" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
 
         </StackPanel>
     </Grid>

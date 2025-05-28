@@ -12,7 +12,7 @@
 
     <Grid Padding="20" Background="#f7e8d9">
 
-        <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Width="60" Height="40" Click="BackButton_Click" Grid.Row="1" />
+        <Button x:Name="BackButton" Content="←" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Width="60" Height="40" Click="BackButton_Click" Grid.Row="1" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
 
         <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Stretch" Padding="100">
 
