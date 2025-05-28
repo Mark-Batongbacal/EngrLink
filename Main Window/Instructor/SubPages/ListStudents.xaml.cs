@@ -63,6 +63,7 @@ namespace EngrLink.Main_Window.Instructor.SubPages
                     var studResponse = await client
                         .From<Student>()
                         .Filter("program", Supabase.Postgrest.Constants.Operator.Equals, pair.Program)
+                        .Filter("enrolled", Supabase.Postgrest.Constants.Operator.Equals, "true")
                         .Filter("year", Supabase.Postgrest.Constants.Operator.Equals, pair.Year)
                         .Filter("id", Supabase.Postgrest.Constants.Operator.GreaterThan, 17)
                         .Order("program", Supabase.Postgrest.Constants.Ordering.Ascending)
