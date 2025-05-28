@@ -50,18 +50,38 @@ namespace EngrLink.Main_Window.Accounting
 
         private async void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            button.IsEnabled = false;
 
             string accid = AccID.Text.Trim();
             string password = Password.Password.Trim();
 
+            var button = sender as Button;
+            button.IsEnabled = false;
+
             try
             {
-                var response = await App.SupabaseClient
+                // this is our main database call.
+                var supabaseCallTask = App.SupabaseClient
                     .From<Faculty>()
                     .Filter("id", Supabase.Postgrest.Constants.Operator.Equals, accid)
                     .Get();
+
+                // this is our 5-second timeout.
+                var timeoutTask = Task.Delay(TimeSpan.FromSeconds(5));
+
+                // waits for either the database call to finish or the timeout to occur.
+                var completedTask = await Task.WhenAny(supabaseCallTask, timeoutTask);
+
+                if (completedTask == timeoutTask)
+                {
+                    // if the timeout task finished first, it means the connection is slow.
+                    await ShowDialog("Connection Slow", "Connection is slow, please try again");
+                    button.IsEnabled = true;
+                    return; // exit the method.
+                }
+
+                // if we reached here, the supabase call completed within the timeout.
+                var response = await supabaseCallTask; // actually await the original task to get its result.
+
 
                 var ac = response.Models.FirstOrDefault();
                 Debug.WriteLine($"Returned rows: {response.Models.Count}");
@@ -69,9 +89,8 @@ namespace EngrLink.Main_Window.Accounting
                 if (ac != null && ac.Password == password && ac.Id == 100)
                 {
                     await ShowDialog("Login Successful", "Welcome back!");
-                    Frame.Navigate(typeof(AccountingPage), ac.ProfCode); 
+                    Frame.Navigate(typeof(AccountingPage), ac.ProfCode);
                 }
-
 
                 else
                 {
@@ -96,6 +115,8 @@ namespace EngrLink.Main_Window.Accounting
                 };
                 await errorDialog.ShowAsync();
             }
+
+            button.IsEnabled = true;
         }
 
         private async Task ShowDialog(string title, string message)

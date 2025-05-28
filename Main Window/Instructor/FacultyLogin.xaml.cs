@@ -54,15 +54,35 @@ namespace EngrLink.Main_Window.Instructor
         {
             var button = sender as Button;
             button.IsEnabled = false;
+
             string facid = FacID.Text.Trim();
             string password = Password.Password.Trim();
 
             try
             {
-                var response = await App.SupabaseClient
+                // this is our main database call.
+                var supabaseCallTask = App.SupabaseClient
                     .From<Faculty>()
                     .Filter("id", Supabase.Postgrest.Constants.Operator.Equals, facid)
                     .Get();
+
+                // this is our 5-second timeout.
+                var timeoutTask = Task.Delay(TimeSpan.FromSeconds(5));
+
+                // waits for either the database call to finish or the timeout to occur.
+                var completedTask = await Task.WhenAny(supabaseCallTask, timeoutTask);
+
+                if (completedTask == timeoutTask)
+                {
+                    // if the timeout task finished first, it means the connection is slow.
+                    await ShowDialog("Connection Slow", "Connection is slow, please try again");
+                    button.IsEnabled = true;
+                    return; // exit the method.
+                }
+
+                // if we reached here, the supabase call completed within the timeout.
+                var response = await supabaseCallTask; // actually await the original task to get its result.
+
 
                 var fac = response.Models.FirstOrDefault();
                 Debug.WriteLine($"Returned rows: {response.Models.Count}");
@@ -70,7 +90,7 @@ namespace EngrLink.Main_Window.Instructor
                 if (fac != null && fac.Password == password && fac.Id != 100)
                 {
                     await ShowDialog("Login Successful", "Welcome back!");
-                    Frame.Navigate(typeof(FacultyPage), (fac.ProfCode,fac.Id.ToString(), fac.Program));
+                    Frame.Navigate(typeof(FacultyPage), (fac.ProfCode, fac.Id.ToString(), fac.Program));
                 }
                 else
                 {
@@ -95,6 +115,7 @@ namespace EngrLink.Main_Window.Instructor
                 };
                 await errorDialog.ShowAsync();
             }
+            button.IsEnabled = true;
         }
 
 

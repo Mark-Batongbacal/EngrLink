@@ -49,7 +49,7 @@ namespace EngrLink.Main_Window.Students
         private async void SubmitNewPassword_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
-            if (button != null) button.IsEnabled = false;
+            button.IsEnabled = false;
 
             string studentIdInput = StudentID.Text.Trim();
             string newPassword = NewPassword.Password.Trim();
@@ -71,10 +71,29 @@ namespace EngrLink.Main_Window.Students
 
             try
             {
-                var studentResponse = await App.SupabaseClient
+                // this is our main database call for password change.
+                var supabaseCallTask = App.SupabaseClient
                     .From<Student>()
                     .Filter("id", Supabase.Postgrest.Constants.Operator.Equals, int.Parse(studentIdInput))
                     .Get();
+
+                // this is our 5-second timeout.
+                var timeoutTask = Task.Delay(TimeSpan.FromSeconds(5));
+
+                // waits for either the database call to finish or the timeout to occur.
+                var completedTask = await Task.WhenAny(supabaseCallTask, timeoutTask);
+
+                if (completedTask == timeoutTask)
+                {
+                    // if the timeout task finished first, it means the connection is slow.
+                    await ShowDialog("Connection Slow", "Connection is slow, please try again");
+                    if (button != null) button.IsEnabled = true;
+                    return; // exit the method.
+                }
+
+                // if we reached here, the supabase call completed within the timeout.
+                var studentResponse = await supabaseCallTask; // actually await the original task to get its result.
+
 
                 var student = studentResponse.Models.FirstOrDefault();
 
@@ -97,17 +116,14 @@ namespace EngrLink.Main_Window.Students
                 Debug.WriteLine($"Error changing password: {ex.Message}");
                 await ShowDialog("Error", $"Something went wrong: {ex.Message}");
             }
-            finally
-            {
-                if (button != null) button.IsEnabled = true;
-            }
+            button.IsEnabled = true;
         }
 
 
         private async void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
-            if (button != null) button.IsEnabled = false;
+            button.IsEnabled = false;
 
             string studentid = StudentID.Text.Trim();
             string password = Password.Password.Trim();
@@ -116,10 +132,28 @@ namespace EngrLink.Main_Window.Students
 
             try
             {
-                var studentResponse = await App.SupabaseClient
+                // this is our main database call for login.
+                var supabaseCallTask = App.SupabaseClient
                     .From<Student>()
                     .Filter("id", Supabase.Postgrest.Constants.Operator.Equals, int.Parse(StudentID.Text))
                     .Get();
+
+                // this is our 5-second timeout.
+                var timeoutTask = Task.Delay(TimeSpan.FromSeconds(5));
+
+                // waits for either the database call to finish or the timeout to occur.
+                var completedTask = await Task.WhenAny(supabaseCallTask, timeoutTask);
+
+                if (completedTask == timeoutTask)
+                {
+                    // if the timeout task finished first, it means the connection is slow.
+                    await ShowDialog("Connection Slow", "Connection is slow, please try again");
+                    button.IsEnabled = true;
+                    return; // exit the method.
+                }
+
+                // if we reached here, the supabase call completed within the timeout.
+                var studentResponse = await supabaseCallTask; // actually await the original task to get its result.
 
                 var student = studentResponse.Models.FirstOrDefault();
                 if (student != null)
@@ -174,10 +208,7 @@ namespace EngrLink.Main_Window.Students
                 };
                 await errorDialog.ShowAsync();
             }
-            finally
-            {
-                if (button != null) button.IsEnabled = true;
-            }
+            button.IsEnabled = true;
         }
 
         private async Task ShowDialog(string title, string message)

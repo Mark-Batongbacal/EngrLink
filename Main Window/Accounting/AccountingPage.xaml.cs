@@ -97,8 +97,6 @@ namespace EngrLink.Main_Window.Accounting
 
         private async void SubmitPaymentButton_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            button.IsEnabled = false;
 
             if (currentStudent == null)
             {
@@ -127,6 +125,9 @@ namespace EngrLink.Main_Window.Accounting
                     .Where(x => x.Id == currentStudent.Id)
                     .Update(currentStudent);
 
+                var button = sender as Button;
+                button.IsEnabled = false;
+
                 if (updateResponse != null && updateResponse.ResponseMessage.IsSuccessStatusCode)
                 {
                     RemainingBalanceText.Text = currentStudent.Fees?.ToString("N0");
@@ -137,7 +138,7 @@ namespace EngrLink.Main_Window.Accounting
                         .From<EngrLink.Models.Student>() // Fully qualify the Student type
                         .Where(x => x.Id == currentStudent.Id)
                         .Get();
-
+                    button.IsEnabled = true;
                     if (getResponse != null && getResponse.Models != null && getResponse.Models.Any())
                     {
                         currentStudent = getResponse.Models.FirstOrDefault();
