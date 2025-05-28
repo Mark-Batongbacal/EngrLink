@@ -13,13 +13,13 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Supabase;                 // Keep this
-using Supabase.Postgrest;       // Keep this
-using Supabase.Storage;         // Keep this
-using Windows.Storage;          // Keep this
-using Windows.Storage.Pickers;  // Keep this
-using Microsoft.UI.Xaml.Media.Imaging; // Keep this
-using System.Threading.Tasks;  // Keep this
+using Supabase;
+using Supabase.Postgrest;
+using Supabase.Storage;
+using Windows.Storage;
+using Windows.Storage.Pickers;
+using Microsoft.UI.Xaml.Media.Imaging;
+using System.Threading.Tasks;
 
 namespace EngrLink.Main_Window.Enrollee
 {
@@ -35,26 +35,33 @@ namespace EngrLink.Main_Window.Enrollee
         {
             this.InitializeComponent();
             CheckValid();
+            BirthdayDatePicker.MaxYear = new DateTimeOffset(new DateTime(2008, 12, 31));
+            if (string.IsNullOrEmpty(ContactTextBox.Text))
+            {
+                ContactTextBox.Text = "+63";
+                ContactTextBox.SelectionStart = ContactTextBox.Text.Length;
+            }
         }
 
         private void CheckValid()
         {
-            {
-                bool isValid = !string.IsNullOrWhiteSpace(NameTextBox.Text) &&
-                               !string.IsNullOrWhiteSpace(AddressTextBox.Text) &&
-                               !string.IsNullOrWhiteSpace(ContactTextBox.Text) &&
-                               ProgramComboBox.SelectedItem is ComboBoxItem programItem &&
-                               YearLevelComboBox.SelectedItem is ComboBoxItem yearItem &&
-                               BirthdayDatePicker.SelectedDate.HasValue;
-                SubmitButton.IsEnabled = isValid;
-            }
+            bool isValid = !string.IsNullOrWhiteSpace(NameTextBox.Text) &&
+                            !string.IsNullOrWhiteSpace(AddressTextBox.Text) &&
+                            !string.IsNullOrWhiteSpace(ContactTextBox.Text) &&
+                            ProgramComboBox.SelectedItem is ComboBoxItem programItem &&
+                            YearLevelComboBox.SelectedItem is ComboBoxItem yearItem &&
+                            BirthdayDatePicker.SelectedDate.HasValue &&
+                            _selectedImageFile != null;
+            SubmitButton.IsEnabled = isValid;
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
-            button.IsEnabled = false;
-
+            if (button != null)
+            {
+                button.IsEnabled = false;
+            }
             if (Frame.CanGoBack)
                 Frame.GoBack();
         }
@@ -110,7 +117,6 @@ namespace EngrLink.Main_Window.Enrollee
                     string bucketName = "profile";
                     string fileName = $"{Guid.NewGuid()}_{_selectedImageFile.Name}";
 
-                    // The Upload method in Supabase.Storage 2.x expects a Stream and then the file name
                     using (var stream = await _selectedImageFile.OpenStreamForReadAsync())
                     {
                         byte[] fileBytes;
@@ -144,7 +150,7 @@ namespace EngrLink.Main_Window.Enrollee
                     }
 
                 }
-                catch (Exception ex) // This should now be recognized
+                catch (Exception ex)
                 {
                     ImageStatusTextBlock.Text = $"Supabase error during image upload: {ex.Message}";
                     return;
@@ -199,8 +205,8 @@ namespace EngrLink.Main_Window.Enrollee
                     {
                         Title = "Submission Successful",
                         Content = $"Your Student ID is {newId}. Remember this for your Login.\n" +
-                                  $"Your Total Balance is ₱{fee}\n" +
-                                  $"Please pay a minimum amount of ₱5000\n",
+                                    $"Your Total Balance is ₱{fee}\n" +
+                                    $"Please pay a minimum amount of ₱5000\n",
                         CloseButtonText = "OK",
                         XamlRoot = this.Content.XamlRoot
                     };
@@ -250,7 +256,40 @@ namespace EngrLink.Main_Window.Enrollee
             }
         }
 
-        private void Input_TextChanged(object sender, TextChangedEventArgs e)
+        private void Input_NameChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox == null) return;
+
+            int caretIndex = textBox.SelectionStart;
+            string originalText = textBox.Text;
+            string filteredText = "";
+            int periodCount = 0;
+
+            foreach (char c in originalText)
+            {
+                if (char.IsLetter(c) || c == ' ' || c == '-')
+                {
+                    filteredText += c;
+                }
+                else if (c == '.')
+                {
+                    if (periodCount == 0)
+                    {
+                        filteredText += c;
+                        periodCount++;
+                    }
+                }
+            }
+
+            if (originalText != filteredText)
+            {
+                textBox.Text = filteredText;
+                textBox.SelectionStart = Math.Min(caretIndex, textBox.Text.Length);
+            }
+            CheckValid();
+        }
+        private void Input_AddressChanged(object sender, TextChangedEventArgs e)
         {
             CheckValid();
         }
@@ -260,15 +299,56 @@ namespace EngrLink.Main_Window.Enrollee
             TextBox textBox = sender as TextBox;
             if (textBox == null) return;
 
+            string currentText = textBox.Text;
+            string newText = currentText;
             int caretIndex = textBox.SelectionStart;
 
-            string filteredText = new string(textBox.Text.Where(char.IsDigit).ToArray());
-
-            if (textBox.Text != filteredText)
+            if (!currentText.StartsWith("+63"))
             {
-                textBox.Text = filteredText;
-                textBox.SelectionStart = Math.Min(caretIndex, textBox.Text.Length);
+                newText = "+63";
+                if (currentText.Length > 0 && currentText[0] == '+')
+                {
+                    string digitsAfterPlus = new string(currentText.SkipWhile(c => c != '+').Skip(1).Where(char.IsDigit).ToArray());
+                    newText += digitsAfterPlus;
+                }
+                else
+                {
+                    newText = "+63" + new string(currentText.Where(char.IsDigit).ToArray());
+                }
+
+                if (caretIndex < newText.Length)
+                {
+                    caretIndex = Math.Max(3, caretIndex);
+                }
             }
+
+            string prefix = "+63";
+            string digitsOnly = "";
+            if (newText.Length > prefix.Length)
+            {
+                digitsOnly = new string(newText.Substring(prefix.Length).Where(char.IsDigit).ToArray());
+                if (digitsOnly.Length > 10)
+                {
+                    digitsOnly = digitsOnly.Substring(0, 10);
+                }
+            }
+
+            newText = prefix + digitsOnly;
+
+            if (textBox.Text != newText)
+            {
+                textBox.Text = newText;
+
+                if (caretIndex < 3)
+                {
+                    textBox.SelectionStart = 3;
+                }
+                else
+                {
+                    textBox.SelectionStart = Math.Min(caretIndex, textBox.Text.Length);
+                }
+            }
+
             CheckValid();
         }
 
