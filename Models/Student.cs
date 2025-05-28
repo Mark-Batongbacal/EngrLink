@@ -61,6 +61,9 @@ namespace EngrLink.Models
 
         [Column("password")]
         public string Password { get; set; }
+
+        [Column("profile_image_url")]
+        public string ProfileImageUrl { get; set; }
     }
 }
 
