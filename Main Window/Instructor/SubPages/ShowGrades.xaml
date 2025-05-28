@@ -64,15 +64,10 @@
                                     <ColumnDefinition Width="100"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{x:Bind Sub.Code}" Grid.Column="0" HorizontalAlignment="Left"/>
-                                <TextBlock Text="{x:Bind Sub.Subject}" Grid.Column="1" HorizontalAlignment="Left"/>
-                                <TextBlock Text="{x:Bind Sub.Units}" Grid.Column="2" HorizontalAlignment="Left"/>
-                                <TextBox Text="{x:Bind Sub.Grade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{x:Bind IsEditable}" Grid.Column="3" HorizontalAlignment="Left" TextChanged="GradeInput_TextChanged"/>
-                                <TextBlock Text="{x:Bind RemarksText}" Grid.Column="4" HorizontalAlignment="Left"/>
                                 <TextBlock Text="{x:Bind Sub.Code}" Grid.Column="0" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
                                 <TextBlock Text="{x:Bind Sub.Subject}" Grid.Column="1" TextWrapping="Wrap" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
                                 <TextBlock Text="{x:Bind Sub.Units}" Grid.Column="2" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
-                                <TextBox Text="{x:Bind Sub.Grade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{x:Bind IsEditable}" Grid.Column="3" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
+                                <TextBox Text="{x:Bind Sub.Grade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{x:Bind IsEditable}" Grid.Column="3" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e" TextChanged="GradeInput_TextChanged"/>
                                 <TextBlock Text="{x:Bind RemarksText}" Grid.Column="4" HorizontalAlignment="Left" FontFamily="Verdana" Foreground="#74441e"/>
                             </Grid>
                         </DataTemplate>
