@@ -1,0 +1,19 @@
+<ContentDialog
+    x:Class="EngrLink.Main_Window.Enrollee.ImageCropperDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    mc:Ignorable="d"
+    Title="Crop Image"
+    PrimaryButtonText="Crop"
+    CloseButtonText="Cancel"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    RequestedTheme="Light"
+    DefaultButton="Primary">
+
+    <Grid Height="400" Width="400">
+        <controls:ImageCropper x:Name="ImageCropperControl" AspectRatio="1.0" />
+    </Grid>
+</ContentDialog>

@@ -20,12 +20,14 @@ using Windows.Storage;
 using Windows.Storage.Pickers;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System.Threading.Tasks;
+using Windows.Graphics.Imaging;
 
 namespace EngrLink.Main_Window.Enrollee
 {
     public sealed partial class EnrolleePage : Page
     {
         private StorageFile _selectedImageFile;
+        private WriteableBitmap _croppedBitmapImage;
         private string _uploadedImageUrl;
 
         public string program;
@@ -78,25 +80,103 @@ namespace EngrLink.Main_Window.Enrollee
             var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(App.MainWindow);
             WinRT.Interop.InitializeWithWindow.Initialize(openPicker, hwnd);
 
-            _selectedImageFile = await openPicker.PickSingleFileAsync();
+            _selectedImageFile = await openPicker.PickSingleFileAsync(); // Get the original file
 
             if (_selectedImageFile != null)
             {
+                // Display a temporary preview while the cropper dialog opens
                 using (var stream = await _selectedImageFile.OpenAsync(FileAccessMode.Read))
                 {
-                    var bitmapImage = new BitmapImage();
-                    await bitmapImage.SetSourceAsync(stream);
-                    ProfileImagePreview.Source = bitmapImage;
+                    var tempBitmap = new BitmapImage();
+                    await tempBitmap.SetSourceAsync(stream);
+                    ProfileImagePreview.Source = tempBitmap; // Show original image before cropping
                 }
-                ImageStatusTextBlock.Text = $"Selected: {_selectedImageFile.Name}";
+                ImageStatusTextBlock.Text = $"Opening cropper for: {_selectedImageFile.Name}";
+
+                // Create the dialog, passing the original image file
+                var imageCropperDialog = new ImageCropperDialog(_selectedImageFile);
+                imageCropperDialog.XamlRoot = this.Content.XamlRoot; // Set XamlRoot for the dialog
+
+                var result = await imageCropperDialog.ShowAsync();
+
+                if (result == ContentDialogResult.Primary) // If user clicked "Crop"
+                {
+                    // *** CHANGE THIS LINE: Use the CroppedBitmap property ***
+                    _croppedBitmapImage = imageCropperDialog.CroppedBitmap;
+
+                    if (_croppedBitmapImage != null)
+                    {
+                        ProfileImagePreview.Source = _croppedBitmapImage; // Display the cropped image
+                        ImageStatusTextBlock.Text = $"Image cropped successfully.";
+
+                        // Convert the WriteableBitmap from the dialog to a StorageFile for upload
+
+                        // Update the problematic line to use the new method:
+                        _selectedImageFile = await ConvertWriteableBitmapToStorageFileAsync(_croppedBitmapImage, "cropped_image.png");
+                    }
+                    else
+                    {
+                        // This case should be caught by the dialog now, but as a fallback
+                        ImageStatusTextBlock.Text = "Image cropping failed or cancelled by dialog.";
+                        ProfileImagePreview.Source = new BitmapImage(new Uri("ms-appx:///Assets/placeholder.png"));
+                        _selectedImageFile = null;
+                        _croppedBitmapImage = null;
+                    }
+                }
+                else // If user clicked "Cancel" or dismissed the dialog
+                {
+                    ImageStatusTextBlock.Text = "Image selection or cropping cancelled.";
+                    ProfileImagePreview.Source = new BitmapImage(new Uri("ms-appx:///Assets/placeholder.png"));
+                    _selectedImageFile = null; // Clear the original selected file
+                    _croppedBitmapImage = null; // Clear cropped image reference
+                }
             }
             else
             {
                 ImageStatusTextBlock.Text = "Image selection cancelled.";
                 ProfileImagePreview.Source = new BitmapImage(new Uri("ms-appx:///Assets/placeholder.png"));
                 _selectedImageFile = null;
+                _croppedBitmapImage = null;
             }
             CheckValid();
+        }
+
+        private async Task<StorageFile> ConvertBitmapImageToStorageFileAsync(BitmapImage bitmapImage, string desiredFileName)
+        {
+            if (bitmapImage == null) return null;
+
+            // Get a temporary folder
+            StorageFolder tempFolder = ApplicationData.Current.TemporaryFolder;
+            StorageFile tempFile = await tempFolder.CreateFileAsync(desiredFileName, CreationCollisionOption.ReplaceExisting);
+
+            // Get the BitmapImage's actual pixel data (this can be tricky, as BitmapImage often doesn't expose raw pixels directly)
+            // A more robust approach might be to capture the cropped content directly from the ImageCropperControl
+            // For now, let's assume we can get the render target bitmap from the preview itself if needed,
+            // or better yet, get the byte array directly from the ImageCropperDialog.
+
+            // Given your ImageCropperDialog returns a BitmapImage,
+            // you'll need to render it to a RenderTargetBitmap and then encode it.
+            var renderTargetBitmap = new RenderTargetBitmap();
+            // Assuming ProfileImagePreview is the Image element where the cropped image is displayed
+            await renderTargetBitmap.RenderAsync(ProfileImagePreview); // Render the displayed cropped image
+
+            var pixelBuffer = await renderTargetBitmap.GetPixelsAsync();
+            var pixels = pixelBuffer.ToArray();
+
+            using (var stream = await tempFile.OpenAsync(FileAccessMode.ReadWrite))
+            {
+                var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream); // You can choose PngEncoderId or JpegEncoderId
+                encoder.SetPixelData(
+                    BitmapPixelFormat.Bgra8,
+                    BitmapAlphaMode.Premultiplied,
+                    (uint)renderTargetBitmap.PixelWidth,
+                    (uint)renderTargetBitmap.PixelHeight,
+                    96.0, 96.0,
+                    pixels);
+                await encoder.FlushAsync();
+            }
+
+            return tempFile;
         }
 
         private async void SubmitButton_Click(object sender, RoutedEventArgs e)
@@ -388,6 +468,29 @@ namespace EngrLink.Main_Window.Enrollee
                 FifthYearItem.Visibility = Visibility.Collapsed;
             }
             CheckValid();
+        }
+        private async Task<StorageFile> ConvertWriteableBitmapToStorageFileAsync(WriteableBitmap writeableBitmap, string desiredFileName)
+        {
+            if (writeableBitmap == null) return null;
+
+            // Get a temporary folder
+            StorageFolder tempFolder = ApplicationData.Current.TemporaryFolder;
+            StorageFile tempFile = await tempFolder.CreateFileAsync(desiredFileName, CreationCollisionOption.ReplaceExisting);
+
+            using (var stream = await tempFile.OpenAsync(FileAccessMode.ReadWrite))
+            {
+                var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream);
+                encoder.SetPixelData(
+                    BitmapPixelFormat.Bgra8,
+                    BitmapAlphaMode.Premultiplied,
+                    (uint)writeableBitmap.PixelWidth,
+                    (uint)writeableBitmap.PixelHeight,
+                    96.0, 96.0,
+                    writeableBitmap.PixelBuffer.ToArray());
+                await encoder.FlushAsync();
+            }
+
+            return tempFile;
         }
     }
 }
