@@ -21,7 +21,7 @@
         <Image Source="Assets/banner.png" Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Row="0"/>
         <StackPanel Grid.Row="1" VerticalAlignment="Center">
             <TextBlock Text="Unable to connect to the server." FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" TextWrapping="Wrap" FontFamily="Verdana" Margin="0,50,0,50" Foreground="#74441e"/>
-            <TextBlock Text="Please check your internet connection or try again later." FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" TextWrapping="Wrap" FontFamily="Verdana" Margin="0,0,0,150" Foreground="#74441e"/>
+            <TextBlock Text="Please check your internet connection or try again later." FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" TextWrapping="Wrap" FontFamily="Verdana" Margin="0,0,0,80" Foreground="#74441e"/>
             <Button x:Name="RetryButton" Click="RetryButton_Click" Background="Transparent" BorderBrush="Transparent" Foreground="#74441e" FontSize="500" HorizontalAlignment="Center">
                 <Button.Style>
                     <Style TargetType="Button">
