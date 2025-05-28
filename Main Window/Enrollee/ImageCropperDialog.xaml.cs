@@ -1,18 +1,18 @@
 using CommunityToolkit.WinUI.Controls;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using Windows.Storage.Streams; // For InMemoryRandomAccessStream
+using Windows.Storage.Streams;
 using System.Threading.Tasks;
 using System;
-using System.Runtime.InteropServices.WindowsRuntime; // For ToArray()
-using Windows.Graphics.Imaging; // For BitmapEncoder and BitmapFileFormat
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Graphics.Imaging;
 
 namespace EngrLink.Main_Window.Enrollee
 {
     public sealed partial class ImageCropperDialog : ContentDialog
     {
         private IRandomAccessStreamReference _imageStreamRef;
-        public WriteableBitmap CroppedBitmap { get; private set; } // This will hold the final cropped image
+        public WriteableBitmap CroppedBitmap { get; private set; } // holds the final cropped image.
 
         public ImageCropperDialog(IRandomAccessStreamReference imageStreamRef)
         {
@@ -31,78 +31,69 @@ namespace EngrLink.Main_Window.Enrollee
                 {
                     using (var stream = await _imageStreamRef.OpenReadAsync())
                     {
-                        // First, load into a BitmapImage to get dimensions, then transfer to WriteableBitmap.
-                        // This handles the 'BitmapImage' to 'WriteableBitmap' conversion for the Source.
                         var tempBitmapImage = new BitmapImage();
                         await tempBitmapImage.SetSourceAsync(stream);
 
-                        // Now, create a WriteableBitmap to be the actual source for the ImageCropperControl
-                        // You need to rewind the stream for the second SetSourceAsync call.
-                        stream.Seek(0);
+                        stream.Seek(0); // rewind the stream for the next load.
                         var writableBitmapSource = new WriteableBitmap(tempBitmapImage.PixelWidth, tempBitmapImage.PixelHeight);
                         await writableBitmapSource.SetSourceAsync(stream);
 
-                        ImageCropperControl.Source = writableBitmapSource; // Assign the WriteableBitmap as the source
+                        ImageCropperControl.Source = writableBitmapSource; // sets the image source for the cropper.
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error loading image into cropper: {ex.Message}");
+                    Console.WriteLine($"error loading image into cropper: {ex.Message}");
                     var errorDialog = new ContentDialog
                     {
-                        Title = "Image Load Error",
-                        Content = $"Could not load image for cropping: {ex.Message}",
-                        CloseButtonText = "OK",
-                        XamlRoot = this.XamlRoot // Ensure error dialog also has XamlRoot
+                        Title = "image load error",
+                        Content = $"could not load image for cropping: {ex.Message}",
+                        CloseButtonText = "ok",
+                        XamlRoot = this.XamlRoot
                     };
                     await errorDialog.ShowAsync();
-                    this.Hide(); // Close the dialog on error
+                    this.Hide(); // closes the dialog on error.
                 }
             }
         }
-
         private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             var deferral = args.GetDeferral();
             try
             {
-                // Use InMemoryRandomAccessStream to capture the cropped image data
                 using (var stream = new InMemoryRandomAccessStream())
                 {
-                    // This is the correct method to get the cropped image from the ImageCropper control
-                    await ImageCropperControl.SaveAsync(stream, BitmapFileFormat.Png); // Save as PNG
+                    await ImageCropperControl.SaveAsync(stream, BitmapFileFormat.Png); // saves the cropped image to stream.
 
-                    stream.Seek(0); // Important: Rewind the stream to read from it
+                    stream.Seek(0); // rewind the stream to read.
 
-                    // Create a new WriteableBitmap and load the cropped image from the stream
                     var croppedWritableBitmap = new WriteableBitmap(
                         (int)ImageCropperControl.CroppedRegion.Width,
                         (int)ImageCropperControl.CroppedRegion.Height);
                     await croppedWritableBitmap.SetSourceAsync(stream);
 
-                    CroppedBitmap = croppedWritableBitmap; // Assign the result to the public property
+                    CroppedBitmap = croppedWritableBitmap; // assigns the cropped image.
                 }
 
                 if (CroppedBitmap == null)
                 {
-                    Console.WriteLine("Cropped image is null after cropping attempt.");
-                    // If for some reason cropping produced no image, prevent dialog from closing
-                    args.Cancel = true;
+                    Console.WriteLine("cropped image is null after cropping attempt.");
+                    args.Cancel = true; // prevents dialog from closing if no image.
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error getting cropped image: {ex.Message}");
-                CroppedBitmap = null; // Clear cropped bitmap on error
+                Console.WriteLine($"error getting cropped image: {ex.Message}");
+                CroppedBitmap = null; // clears cropped bitmap on error.
                 var errorDialog = new ContentDialog
                 {
-                    Title = "Cropping Error",
-                    Content = $"An error occurred during cropping: {ex.Message}",
-                    CloseButtonText = "OK",
+                    Title = "cropping error",
+                    Content = $"an error occurred during cropping: {ex.Message}",
+                    CloseButtonText = "ok",
                     XamlRoot = this.XamlRoot
                 };
                 await errorDialog.ShowAsync();
-                args.Cancel = true; // Prevent the dialog from closing if an error occurs
+                args.Cancel = true; // prevents dialog from closing on error.
             }
             finally
             {
