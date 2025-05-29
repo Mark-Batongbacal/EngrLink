@@ -41,21 +41,27 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
         private async void LoadStudents()
         {
             var client = App.SupabaseClient;
+           
+            try
+            {
+                var response = await client
+                    .From<Student>()
+                    .Filter("enrolled", Supabase.Postgrest.Constants.Operator.Equals, "false")
+                    .Filter("program", Supabase.Postgrest.Constants.Operator.Equals, this.Program)
+                    .Filter("id", Supabase.Postgrest.Constants.Operator.GreaterThan, 17)
+                    .Order("year", ordering: Supabase.Postgrest.Constants.Ordering.Ascending)
+                    .Get();
 
+                var studentViewModels = response.Models
+                    .Select(s => new StudentViewModel { Student2 = s })
+                    .ToList();
 
-            var response = await client
-                .From<Student>()
-                .Filter("enrolled", Supabase.Postgrest.Constants.Operator.Equals, "false")
-                .Filter("program", Supabase.Postgrest.Constants.Operator.Equals, this.Program)
-                .Filter("id", Supabase.Postgrest.Constants.Operator.GreaterThan, 17)
-                .Order("year", ordering: Supabase.Postgrest.Constants.Ordering.Ascending)
-                .Get();
-
-            var studentViewModels = response.Models
-                .Select(s => new StudentViewModel { Student2 = s })
-                .ToList();
-
-            StudentsListView.ItemsSource = studentViewModels;
+                StudentsListView.ItemsSource = studentViewModels;
+            }
+            catch
+            {
+                Frame.Navigate(typeof(ErrorPage), typeof(Dashboard));
+            }
         }
         private async void StudentButton_Click(object sender, RoutedEventArgs e)
         {

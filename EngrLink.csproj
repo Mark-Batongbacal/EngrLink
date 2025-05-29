@@ -20,6 +20,7 @@
     <None Remove="Assets\my_background.png" />
     <None Remove="Assets\placeholder.png" />
     <None Remove="ConnectionErrorWindow.xaml" />
+    <None Remove="ErrorPage.xaml" />
 	<None Remove="Main Window\Accounting\LoginAccounting.xaml" />
     <None Remove="Main Window\Department Chairman\LoginDepartment.xaml" />
     <None Remove="Main Window\Department Chairman\SubPages\AnnouncementPage.xaml" />
@@ -91,6 +92,11 @@
     <Content Update="Assets\placeholder.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="ErrorPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Main Window\Enrollee\ImageCropperDialog.xaml">

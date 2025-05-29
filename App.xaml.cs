@@ -33,7 +33,12 @@ namespace EngrLink
             this.InitializeComponent();
         }
 
-        protected override async void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+        protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+        {
+            InitAppAsync(); // don't await
+        }
+
+        private async void InitAppAsync()
         {
             bool supabaseReady = await TryReinitializeSupabase();
 
@@ -48,6 +53,7 @@ namespace EngrLink
                 errorWindow.Activate();
             }
         }
+
 
         public static async Task<bool> TryReinitializeSupabase()
         {

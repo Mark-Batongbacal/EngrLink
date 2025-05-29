@@ -53,10 +53,9 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                     Announcements.Add(announcement);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                MessageTextBlock.Text = $"Error loading announcements: {ex.Message}";
-                MessageTextBlock.Visibility = Visibility.Visible;
+                Frame.Navigate(typeof(ErrorPage), typeof(Dashboard));
             }
         }
 

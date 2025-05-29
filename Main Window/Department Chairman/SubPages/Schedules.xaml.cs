@@ -116,8 +116,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Critical Error loading faculty schedules: {ex.Message}");
-                Debug.WriteLine(ex.StackTrace);
+                Frame.Navigate(typeof(ErrorPage), typeof(Dashboard));
             }
         }
 

@@ -54,12 +54,6 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
         {
             var client = App.SupabaseClient;
 
-            if (client == null)
-            {
-                Debug.WriteLine("Error: SupabaseClient is not initialized.");
-                return;
-            }
-
             try
             {
                 Debug.WriteLine($"Fetching subjects for ProfCode: {profCode}...");
@@ -84,7 +78,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
             }
             catch (System.Exception ex)
             {
-                Debug.WriteLine($"Error fetching subjects: {ex.Message}");
+                Frame.Navigate(typeof(ErrorPage), typeof(Dashboard));
             }
         }
 
