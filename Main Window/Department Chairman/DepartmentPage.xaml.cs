@@ -39,7 +39,7 @@ namespace EngrLink.Main_Window.Department_Chairman
                 Debug.WriteLine($"Navigated with Program: {Program}");
                 this.Program = Program;
             }
-            DepartmentChairFrame.Navigate(typeof(Dashboard), this.Program);
+            DepartmentChairFrame.Navigate(typeof(Dashboard), (this.Program, ""));
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -96,7 +96,7 @@ namespace EngrLink.Main_Window.Department_Chairman
             if (DepartmentChairFrame.Content?.GetType() != typeof(Dashboard))
             {
                 DepartmentChairFrame.Content = null;
-                DepartmentChairFrame.Navigate(typeof(Dashboard), this.Program);
+                DepartmentChairFrame.Navigate(typeof(Dashboard), (this.Program, ""));
             }
         }
     }
