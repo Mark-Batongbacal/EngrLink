@@ -94,6 +94,8 @@ namespace EngrLink.Main_Window.Students.SubPages
             }
         }
 
+        public string Program { get; set; }
+        public string Id { get; set; }
         public FeesPage()
         {
             this.InitializeComponent();
@@ -109,17 +111,19 @@ namespace EngrLink.Main_Window.Students.SubPages
         {
             base.OnNavigatedTo(e);
 
-            if (e.Parameter is int studentIdInt)
+            if (e.Parameter is (string studentIdString, string program))
             {
-                this.StudentId = studentIdInt;
-                Debug.WriteLine($"Navigated to FeesPage with Student ID (int): {this.StudentId}");
-                await LoadFeesInfo();
-            }
-            else if (e.Parameter is string studentIdString && int.TryParse(studentIdString, out int parsedId))
-            {
-                this.StudentId = parsedId;
+                this.Id = studentIdString;
+                this.StudentId = int.Parse(studentIdString);
+                this.Program = program;
                 Debug.WriteLine($"Navigated to FeesPage with Student ID (parsed string): {this.StudentId}");
-                await LoadFeesInfo();
+                try
+                {
+                    await LoadFeesInfo();
+                }
+                catch
+                {
+                }
             }
             else
             {
@@ -130,10 +134,11 @@ namespace EngrLink.Main_Window.Students.SubPages
 
         private async System.Threading.Tasks.Task LoadFeesInfo()
         {
-            var client = App.SupabaseClient;
-
             try
             {
+                var client = App.SupabaseClient;
+
+            
                 var response = await client
                     .From<Student>()
                     .Filter("id", Supabase.Postgrest.Constants.Operator.Equals, this.StudentId)
@@ -155,7 +160,7 @@ namespace EngrLink.Main_Window.Students.SubPages
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error loading fees information: {ex.Message}");
-                CurrentStudent = new Student { Name = "Error Loading", Total = 0, Fees = 0 };
+                Frame.Navigate(typeof(ErrorPage), (typeof(Dashboard), this.Program, this.Id));
             }
         }
 

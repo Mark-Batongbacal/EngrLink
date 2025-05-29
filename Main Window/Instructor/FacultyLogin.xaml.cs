@@ -46,6 +46,27 @@ namespace EngrLink.Main_Window.Instructor
 
         private void Input_TextChanged(object sender, RoutedEventArgs e)
         {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null)
+            {
+                string currentText = textBox.Text;
+                string newText = string.Empty;
+
+                foreach (char c in currentText)
+                {
+                    if (char.IsDigit(c))
+                    {
+                        newText += c;
+                    }
+                }
+                if (textBox.Text != newText)
+                {
+                    textBox.TextChanged -= Input_TextChanged;
+                    textBox.Text = newText;
+                    textBox.SelectionStart = textBox.Text.Length;
+                    textBox.TextChanged += Input_TextChanged;
+                }
+            }
             CheckValid();
         }
 
@@ -90,7 +111,7 @@ namespace EngrLink.Main_Window.Instructor
                 if (fac != null && fac.Password == password && fac.Id != 100)
                 {
                     await ShowDialog("Login Successful", "Welcome back!");
-                    Frame.Navigate(typeof(FacultyPage), (fac.ProfCode, fac.Id.ToString(), fac.Program));
+                    Frame.Navigate(typeof(FacultyPage), (fac.ProfCode, fac.Id.ToString(), fac.Program, fac.Name));
                 }
                 else
                 {

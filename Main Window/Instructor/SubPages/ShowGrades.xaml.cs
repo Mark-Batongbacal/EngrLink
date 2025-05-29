@@ -42,7 +42,7 @@ public sealed partial class ShowGrades : Page
 
     private string _currentProfCode;
     private int _currentStudentId;
-
+    private string Name;
     public ShowGrades()
     {
         InitializeComponent();
@@ -55,10 +55,11 @@ public sealed partial class ShowGrades : Page
     {
         base.OnNavigatedTo(e);
 
-        if (e.Parameter is (int studentId, string profCode))
+        if (e.Parameter is (int studentId, string profCode, string name))
         {
             _currentProfCode = profCode;
             _currentStudentId = studentId;
+            Name = name;
             Debug.WriteLine($"Navigated with Student ID: {studentId}, Professor Code: {profCode}");
             await LoadStudentAndGradesData(_currentStudentId, _currentProfCode);
         }
@@ -93,7 +94,7 @@ public sealed partial class ShowGrades : Page
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"Error loading grades: {ex.Message}");
+            Frame.Navigate(typeof(ErrorPage), (typeof(Dashboard), StudentProfile.Program, this.Name));
         }
 
         try

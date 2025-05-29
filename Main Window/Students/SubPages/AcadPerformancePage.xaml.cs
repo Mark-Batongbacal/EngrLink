@@ -48,6 +48,7 @@ namespace EngrLink.Main_Window.Students.SubPages
         public ObservableCollection<IndivSubjectView> SubjectViews { get; set; } = new ObservableCollection<IndivSubjectView>();
         public StudentProfileModel StudentProfile { get; set; } = new StudentProfileModel();
         public string StudentId { get; set; }
+        public string Program { get; set; }
 
         public AcadPerformancePage()
         {
@@ -59,10 +60,11 @@ namespace EngrLink.Main_Window.Students.SubPages
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (e.Parameter is string studentId)
+            if (e.Parameter is (string studentId, string program))
             {
                 this.StudentId = studentId;
-                Debug.WriteLine($"Navigated with Student ID: {this.StudentId}");
+                this.Program = program;
+            Debug.WriteLine($"Navigated with Student ID: {this.StudentId}");
             }
             else
             {
@@ -118,7 +120,7 @@ namespace EngrLink.Main_Window.Students.SubPages
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error loading student profile: {ex.Message}");
+                Frame.Navigate(typeof(ErrorPage), (typeof(Dashboard), this.Program, this.StudentId));
             }
 
             try

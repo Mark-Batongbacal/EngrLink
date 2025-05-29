@@ -22,6 +22,7 @@ namespace EngrLink.Main_Window.Students.SubPages
     public sealed partial class PersonalInfoPage : Page, INotifyPropertyChanged
     {
         public string StudentId { get; set; }
+        public string Program { get; set; }
 
         private Student _personalInfo;
         public Student PersonalInfo
@@ -47,9 +48,10 @@ namespace EngrLink.Main_Window.Students.SubPages
         {
             base.OnNavigatedTo(e);
 
-            if (e.Parameter is string studentId)
+            if (e.Parameter is (string studentId, string program))
             {
                 this.StudentId = studentId;
+                this.Program = program;
                 Debug.WriteLine($"Navigated to PersonalInfoPage with Student ID: {this.StudentId}");
                 await LoadPersonalInfo();
             }
@@ -62,6 +64,7 @@ namespace EngrLink.Main_Window.Students.SubPages
 
         private async System.Threading.Tasks.Task LoadPersonalInfo()
         {
+
             var client = App.SupabaseClient;
 
             try
@@ -116,10 +119,12 @@ namespace EngrLink.Main_Window.Students.SubPages
             }
             catch (Exception ex)
             {
+                Frame.Navigate(typeof(ErrorPage), (typeof(Dashboard), this.Program, this.StudentId));
                 Debug.WriteLine($"Error loading personal info from Supabase: {ex.Message}");
                 // Handle the error (e.g., show a message to the user)
                 PersonalInfo = null; // Clear info on error
                 StudentProfileImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/error_placeholder.png")); // Show error image
+
             }
         }
 

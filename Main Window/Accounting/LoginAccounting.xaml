@@ -20,7 +20,7 @@
 
         <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Stretch" Padding="100">
 
-            <TextBox x:Name="AccID" PlaceholderText="Enter ID" TextChanged="Input_TextChanged" Width="300" Height="40" Margin="5" FontSize="12" FontFamily="Verdana" Padding="10"/>
+            <TextBox x:Name="AccID" PlaceholderText="Enter ID" TextChanged="Input_TextChanged" Width="300" Height="40" Margin="5" FontSize="12" FontFamily="Verdana" Padding="10"  InputScope="Digits"/>
 
             <PasswordBox x:Name="Password" PlaceholderText="Enter Password" PasswordChanged="Input_TextChanged" PasswordRevealMode="Peek" Width="300" Height="40" Margin="5" FontSize="12" FontFamily="Verdana" Padding="10"/>
 

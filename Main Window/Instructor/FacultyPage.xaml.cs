@@ -25,6 +25,8 @@ namespace EngrLink.Main_Window.Instructor
         public string Id { get; set; }
 
         public string Program { get; set; }
+        
+        public string Name { get; set; }
         public FacultyPage()
         {
             this.InitializeComponent();
@@ -34,14 +36,14 @@ namespace EngrLink.Main_Window.Instructor
         {
             base.OnNavigatedTo(e);
 
-            if (e.Parameter is (string code, string id, string prog))
+            if (e.Parameter is (string code, string id, string prog, string name))
             {
                 this.Profcode = code;
                 this.Id = id;
                 this.Program = prog;
+                this.Name = name;
             }
-
-            FacultyFrame.Navigate(typeof(Instructor.SubPages.Dashboard), (this.Program, this.Id));
+            FacultyFrame.Navigate(typeof(Instructor.SubPages.Dashboard), (this.Program, this.Name));
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -54,7 +56,7 @@ namespace EngrLink.Main_Window.Instructor
         {
             if (FacultyFrame.Content?.GetType() != typeof(Instructor.SubPages.Dashboard))
             {
-                FacultyFrame.Navigate(typeof(Instructor.SubPages.Dashboard), (this.Program,this.Id));
+                FacultyFrame.Navigate(typeof(Instructor.SubPages.Dashboard), (this.Program,this.Name));
             }
         }
 
@@ -64,7 +66,7 @@ namespace EngrLink.Main_Window.Instructor
             if (FacultyFrame.Content?.GetType() != typeof(ListStudents))
             {
                 FacultyFrame.Content = null;
-                FacultyFrame.Navigate(typeof(ListStudents), this.Profcode);
+                FacultyFrame.Navigate(typeof(ListStudents), (this.Profcode,this.Program, this.Name));
             }
         }
 
@@ -73,7 +75,7 @@ namespace EngrLink.Main_Window.Instructor
             if (FacultyFrame.Content?.GetType() != typeof(Schedule))
             {
                 FacultyFrame.Content = null;
-                FacultyFrame.Navigate(typeof(Schedule), this.Profcode);
+                FacultyFrame.Navigate(typeof(Schedule), (this.Profcode,this.Name, this.Program));
             }
         }
     }

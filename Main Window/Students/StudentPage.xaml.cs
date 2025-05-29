@@ -61,7 +61,7 @@ namespace EngrLink.Main_Window.Students
         {
             if (StudentsFrame.Content?.GetType() != typeof(Schedules))
             {
-                StudentsFrame.Navigate(typeof(Schedules), this.Id);
+                StudentsFrame.Navigate(typeof(Schedules), (this.Id, this.Program));
             }
         }
 
@@ -69,7 +69,7 @@ namespace EngrLink.Main_Window.Students
         {
             if (StudentsFrame.Content?.GetType() != typeof(AcadPerformancePage))
             {
-                StudentsFrame.Navigate(typeof(AcadPerformancePage), this.Id);
+                StudentsFrame.Navigate(typeof(AcadPerformancePage), (this.Id, this.Program));
             }
         }
 
@@ -77,7 +77,7 @@ namespace EngrLink.Main_Window.Students
         {
             if (StudentsFrame.Content?.GetType() != typeof(PersonalInfoPage))
             {
-                StudentsFrame.Navigate(typeof(PersonalInfoPage), this.Id);
+                StudentsFrame.Navigate(typeof(PersonalInfoPage), (this.Id, this.Program));
             }
         }
 
@@ -85,7 +85,7 @@ namespace EngrLink.Main_Window.Students
         {
             if (StudentsFrame.Content?.GetType() != typeof(FeesPage))
             {
-                StudentsFrame.Navigate(typeof(FeesPage), this.Id);
+                StudentsFrame.Navigate(typeof(FeesPage), (this.Id, this.Program));
             }
         }
     }

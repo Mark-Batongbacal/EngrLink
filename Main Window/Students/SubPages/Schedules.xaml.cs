@@ -21,6 +21,7 @@ namespace EngrLink.Main_Window.Students.SubPages
     public sealed partial class Schedules : Page
     {
         public string Id { get; set; }
+        public string Program { get; set; }
         public Schedules()
         {
             this.InitializeComponent();
@@ -29,23 +30,31 @@ namespace EngrLink.Main_Window.Students.SubPages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (e.Parameter is string Id)
+            if (e.Parameter is (string id, string program))
             {
-                this.Id = Id;
+                this.Id = id;
+                this.Program = program;
             }
             LoadSchedule();
         }
         private async void LoadSchedule()
         {
-            var client = App.SupabaseClient;
+            try
+            {
+                var client = App.SupabaseClient;
 
-            var response = await client
-              .From<IndivSubject>()
-              .Filter("student_id", Supabase.Postgrest.Constants.Operator.Equals, this.Id)
-              .Order("code", Supabase.Postgrest.Constants.Ordering.Ascending)
-              .Get();
+                var response = await client
+                  .From<IndivSubject>()
+                  .Filter("student_id", Supabase.Postgrest.Constants.Operator.Equals, this.Id)
+                  .Order("code", Supabase.Postgrest.Constants.Ordering.Ascending)
+                  .Get();
 
-            ScheduleListView.ItemsSource = response.Models;
+                ScheduleListView.ItemsSource = response.Models;
+            }
+            catch
+            { 
+                Frame.Navigate(typeof(ErrorPage), (typeof(Dashboard), this.Program, this.Id));
+            }
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

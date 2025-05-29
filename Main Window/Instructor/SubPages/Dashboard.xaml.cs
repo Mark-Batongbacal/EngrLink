@@ -78,15 +78,9 @@ namespace EngrLink.Main_Window.Instructor.SubPages
             if (e.Parameter is ValueTuple<string, string> parameterTuple)
             {
                 this.Program = parameterTuple.Item1;
-                string studentId = parameterTuple.Item2;
+                string name = parameterTuple.Item2;
 
-                var response = await App.SupabaseClient
-                    .From<Faculty>()
-                    .Filter("id", Operator.Equals, studentId)
-                    .Get();
-
-                this.Name = $"Welcome {response.Models.FirstOrDefault()?.Name ?? "Unknown Student"}!";
-                Debug.WriteLine($"Dashboard loaded for student: {this.Name}, Program: {this.Program}, ID: {studentId}");
+                this.Name = $"Welcome {name ?? "Unknown Student"}!";
             }
             else
             {

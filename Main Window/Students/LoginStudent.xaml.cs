@@ -38,6 +38,27 @@ namespace EngrLink.Main_Window.Students
 
         private void Input_TextChanged(object sender, RoutedEventArgs e)
         {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null)
+            {
+                string currentText = textBox.Text;
+                string newText = string.Empty;
+
+                foreach (char c in currentText)
+                {
+                    if (char.IsDigit(c))
+                    {
+                        newText += c;
+                    }
+                }
+                if (textBox.Text != newText)
+                {
+                    textBox.TextChanged -= Input_TextChanged;
+                    textBox.Text = newText;
+                    textBox.SelectionStart = textBox.Text.Length;
+                    textBox.TextChanged += Input_TextChanged;
+                }
+            }
             CheckValid();
         }
 

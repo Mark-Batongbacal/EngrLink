@@ -20,6 +20,8 @@ namespace EngrLink.Main_Window.Instructor.SubPages
     public sealed partial class Schedule : Page
     {
         public string Profcode { get; set; }
+        public string Program { get; set; }
+        public string Name { get; set; }
         public Schedule()
         {
             this.InitializeComponent();
@@ -28,24 +30,33 @@ namespace EngrLink.Main_Window.Instructor.SubPages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (e.Parameter is string code)
+            if (e.Parameter is (string code, string name, string program))
             {
                 this.Profcode = code;
+                this.Name = name;
+                this.Program = program;
             }
             LoadSchedule();
         }
         private async void LoadSchedule()
         {
-            var client = App.SupabaseClient;
+            try
+            {
+                var client = App.SupabaseClient;
 
-            var response = await client
-                .From<Subjects>()
-                .Filter("profcode", Supabase.Postgrest.Constants.Operator.Equals, this.Profcode)
-                .Order("program", Supabase.Postgrest.Constants.Ordering.Ascending)
-                .Order("year", Supabase.Postgrest.Constants.Ordering.Ascending)
-                .Get();
+                var response = await client
+                    .From<Subjects>()
+                    .Filter("profcode", Supabase.Postgrest.Constants.Operator.Equals, this.Profcode)
+                    .Order("program", Supabase.Postgrest.Constants.Ordering.Ascending)
+                    .Order("year", Supabase.Postgrest.Constants.Ordering.Ascending)
+                    .Get();
 
-            ScheduleListView.ItemsSource = response.Models;
+                ScheduleListView.ItemsSource = response.Models;
+            }
+            catch
+            {
+                Frame.Navigate(typeof(ErrorPage), (typeof(Dashboard), this.Program, this.Name));
+            }
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
