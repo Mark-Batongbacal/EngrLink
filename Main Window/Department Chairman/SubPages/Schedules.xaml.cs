@@ -116,7 +116,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
             }
             catch (Exception ex)
             {
-                Frame.Navigate(typeof(ErrorPage), typeof(Dashboard));
+                Frame.Navigate(typeof(ErrorPage), (typeof(Dashboard), this.Program, ""));
             }
         }
 

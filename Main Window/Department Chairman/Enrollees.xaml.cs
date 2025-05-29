@@ -60,7 +60,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
             }
             catch
             {
-                Frame.Navigate(typeof(ErrorPage), typeof(Dashboard));
+                Frame.Navigate(typeof(ErrorPage), (typeof(Dashboard), this.Program, ""));
             }
         }
         private async void StudentButton_Click(object sender, RoutedEventArgs e)

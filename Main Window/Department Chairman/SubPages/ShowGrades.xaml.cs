@@ -145,7 +145,7 @@ public sealed partial class ShowGrades : Page
         
         catch(Exception ex)
         {
-            Frame.Navigate(typeof(ErrorPage), typeof(Dashboard));
+            Frame.Navigate(typeof(ErrorPage), (typeof(Dashboard), StudentProfile.Program, ""));
         }
     }
 

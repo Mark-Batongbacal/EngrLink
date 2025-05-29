@@ -27,6 +27,9 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
                 }
             }
         }
+
+        public string Program;
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -45,7 +48,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
             if (e.Parameter is Faculty faculty)
             {
                 this.FacultyName = faculty.Program == "ARCHI" ? "Architect " + faculty.Name: "Engineer " + faculty.Name;
-
+                Program = faculty.Program;
                 _ = LoadSubjects(faculty.ProfCode);
             }
         }
@@ -78,7 +81,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
             }
             catch (System.Exception ex)
             {
-                Frame.Navigate(typeof(ErrorPage), typeof(Dashboard));
+                Frame.Navigate(typeof(ErrorPage), (typeof(Dashboard), this.Program, ""));
             }
         }
 

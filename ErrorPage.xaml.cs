@@ -31,13 +31,15 @@ namespace EngrLink
 
         public Type TargetPageType;
         public string Program;
+        public string Id;
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Frame.GoBack();
-            if (e.Parameter is (Type pageType, string program))
+            if (e.Parameter is (Type pageType, string program, string id))
             {
                 TargetPageType = pageType;
                 Program = program;
+                Id = id;
             }
         }
 
@@ -54,7 +56,7 @@ namespace EngrLink
             if (isReady)
             {
 
-                Frame.Navigate(TargetPageType, Program);
+                Frame.Navigate(TargetPageType, (Program, Id));
             }
             else
             {

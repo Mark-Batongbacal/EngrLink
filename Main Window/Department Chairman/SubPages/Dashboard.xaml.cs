@@ -33,6 +33,7 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
         }
 
         public string Program { get; set; }
+        public string Trash { get; set; }
 
         private ObservableCollection<string> _imageSources;
         public ObservableCollection<string> ImageSources
@@ -72,9 +73,10 @@ namespace EngrLink.Main_Window.Department_Chairman.SubPages
         {
             base.OnNavigatedTo(e);
 
-            if (e.Parameter is string programParameter)
+            if (e.Parameter is ValueTuple<string, string> parameterTuple)
             {
-                this.Program = programParameter;
+                this.Program = parameterTuple.Item1;
+                this.Trash = parameterTuple.Item2; 
                 Debug.WriteLine($"Chairman Dashboard: Navigated with Program: {this.Program}");
 
                 try
