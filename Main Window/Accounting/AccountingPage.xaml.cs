@@ -120,13 +120,13 @@ namespace EngrLink.Main_Window.Accounting
             {
                 currentStudent.Fees -= amountPaid;
 
+                var button = sender as Button;
+                button.IsEnabled = false;
+
                 var updateResponse = await supabaseClient
                     .From<EngrLink.Models.Student>() // Fully qualify the Student type
                     .Where(x => x.Id == currentStudent.Id)
                     .Update(currentStudent);
-
-                var button = sender as Button;
-                button.IsEnabled = false;
 
                 if (updateResponse != null && updateResponse.ResponseMessage.IsSuccessStatusCode)
                 {
@@ -167,6 +167,32 @@ namespace EngrLink.Main_Window.Accounting
             };
 
             await dialog.ShowAsync();
+        }
+
+        private void Input_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null)
+            {
+                string currentText = textBox.Text;
+                string newText = string.Empty;
+
+                foreach (char c in currentText)
+                {
+                    if (char.IsDigit(c))
+                    {
+                        newText += c;
+                    }
+                }
+
+                if (textBox.Text != newText)
+                {
+                    textBox.TextChanged -= Input_TextChanged;
+                    textBox.Text = newText;
+                    textBox.SelectionStart = textBox.Text.Length;
+                    textBox.TextChanged += Input_TextChanged;
+                }
+            }
         }
     }
 }

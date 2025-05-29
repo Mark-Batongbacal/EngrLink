@@ -39,6 +39,7 @@ namespace EngrLink.Main_Window.Enrollee
         {
             this.InitializeComponent();
             CheckValid(); // checks if inputs are valid for submission.
+            BirthdayDatePicker.MinYear = new DateTimeOffset(new DateTime(1950, 01, 01)); // sets the max birth year.
             BirthdayDatePicker.MaxYear = new DateTimeOffset(new DateTime(2008, 12, 31)); // sets the max birth year.
             if (string.IsNullOrEmpty(ContactTextBox.Text))
             {
@@ -89,7 +90,7 @@ namespace EngrLink.Main_Window.Enrollee
                 Windows.Storage.FileProperties.BasicProperties basicProperties = await file.GetBasicPropertiesAsync();
                 if (basicProperties.Size > max_image_size_bytes) // checks file size.
                 {
-                    ImageStatusTextBlock.Text = $"image size exceeds 100mb. please choose a smaller image.";
+                    ImageStatusTextBlock.Text = $"Image size exceeds 10 mb. Please choose a smaller image.";
                     ProfileImagePreview.Source = new BitmapImage(new Uri("ms-appx:///assets/placeholder.png"));
                     _selectedImageFile = null;
                     _croppedBitmapImage = null;
@@ -105,7 +106,7 @@ namespace EngrLink.Main_Window.Enrollee
                     await tempBitmap.SetSourceAsync(stream);
                     ProfileImagePreview.Source = tempBitmap; // shows original image.
                 }
-                ImageStatusTextBlock.Text = $"opening cropper for: {_selectedImageFile.Name}";
+                ImageStatusTextBlock.Text = $"Opening cropper for: {_selectedImageFile.Name}";
 
                 var imageCropperDialog = new ImageCropperDialog(_selectedImageFile);
                 imageCropperDialog.XamlRoot = this.Content.XamlRoot;
@@ -119,13 +120,13 @@ namespace EngrLink.Main_Window.Enrollee
                     if (_croppedBitmapImage != null)
                     {
                         ProfileImagePreview.Source = _croppedBitmapImage; // displays cropped image.
-                        ImageStatusTextBlock.Text = $"image cropped successfully.";
+                        ImageStatusTextBlock.Text = $"Image cropped successfully.";
 
                         _selectedImageFile = await ConvertWriteableBitmapToStorageFileAsync(_croppedBitmapImage, "cropped_image.png"); // converts cropped bitmap for upload.
                     }
                     else
                     {
-                        ImageStatusTextBlock.Text = "image cropping failed or cancelled by dialog.";
+                        ImageStatusTextBlock.Text = "Image cropping failed or cancelled by dialog.";
                         ProfileImagePreview.Source = new BitmapImage(new Uri("ms-appx:///assets/placeholder.png"));
                         _selectedImageFile = null;
                         _croppedBitmapImage = null;
@@ -133,7 +134,7 @@ namespace EngrLink.Main_Window.Enrollee
                 }
                 else // if user clicked "cancel".
                 {
-                    ImageStatusTextBlock.Text = "image selection or cropping cancelled.";
+                    ImageStatusTextBlock.Text = "Image selection or cropping cancelled.";
                     ProfileImagePreview.Source = new BitmapImage(new Uri("ms-appx:///assets/placeholder.png"));
                     _selectedImageFile = null;
                     _croppedBitmapImage = null;
@@ -141,7 +142,7 @@ namespace EngrLink.Main_Window.Enrollee
             }
             else // if no file was selected at all.
             {
-                ImageStatusTextBlock.Text = "image selection cancelled.";
+                ImageStatusTextBlock.Text = "Image selection cancelled.";
                 ProfileImagePreview.Source = new BitmapImage(new Uri("ms-appx:///assets/placeholder.png"));
                 _selectedImageFile = null;
                 _croppedBitmapImage = null;
@@ -213,24 +214,24 @@ namespace EngrLink.Main_Window.Enrollee
                                 .From(bucketName)
                                 .GetPublicUrl(fileName);
 
-                            ImageStatusTextBlock.Text = $"image uploaded successfully.";
+                            ImageStatusTextBlock.Text = $"Image uploaded successfully.";
                         }
                         else
                         {
-                            ImageStatusTextBlock.Text = "image upload failed. please try again.";
+                            ImageStatusTextBlock.Text = "Image upload failed. Please try again.";
                             return;
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    ImageStatusTextBlock.Text = $"supabase error during image upload: {ex.Message}";
+                    ImageStatusTextBlock.Text = $"Supabase error during image upload: {ex.Message}";
                     return;
                 }
             }
             else
             {
-                ImageStatusTextBlock.Text = "no profile image selected. proceeding without image.";
+                ImageStatusTextBlock.Text = "No profile image selected. Proceeding without image.";
             }
 
             int newId = 1;
@@ -275,11 +276,11 @@ namespace EngrLink.Main_Window.Enrollee
                 {
                     var dialog = new ContentDialog
                     {
-                        Title = "submission successful",
-                        Content = $"your student id is {newId}. remember this for your login.\n" +
-                                    $"your total balance is ₱{fee}\n" +
-                                    $"please pay a minimum amount of ₱5000\n",
-                        CloseButtonText = "ok",
+                        Title = "Submission successful",
+                        Content = $"Your student id is {newId}. Remember this for your login.\n" +
+                                    $"Your total balance is ₱{fee}\n" +
+                                    $"Please pay a minimum amount of ₱5000\n",
+                        CloseButtonText = "Ok",
                         XamlRoot = this.Content.XamlRoot
                     };
                     await dialog.ShowAsync();
@@ -290,8 +291,8 @@ namespace EngrLink.Main_Window.Enrollee
                     ContactTextBox.Text = "";
                     ProgramComboBox.SelectedItem = null;
                     YearLevelComboBox.SelectedItem = null;
-                    ProgramComboBox.Header = "enter program";
-                    YearLevelComboBox.Header = "enter year level";
+                    ProgramComboBox.Header = "Enter program";
+                    YearLevelComboBox.Header = "Enter year level";
                     BirthdayDatePicker.SelectedDate = null;
                     ProfileImagePreview.Source = new BitmapImage(new Uri("ms-appx:///assets/placeholder.png"));
                     ImageStatusTextBlock.Text = "";
@@ -308,9 +309,9 @@ namespace EngrLink.Main_Window.Enrollee
                 {
                     var dialog = new ContentDialog
                     {
-                        Title = "submission failed",
-                        Content = "failed to enroll student. please check your inputs and try again.",
-                        CloseButtonText = "ok",
+                        Title = "Submission failed",
+                        Content = "Failed to enroll student. Please check your inputs and try again.",
+                        CloseButtonText = "Ok",
                         XamlRoot = this.Content.XamlRoot
                     };
                     await dialog.ShowAsync();
@@ -320,9 +321,9 @@ namespace EngrLink.Main_Window.Enrollee
             {
                 var dialog = new ContentDialog
                 {
-                    Title = "error",
-                    Content = $"an error occurred: {ex.Message}",
-                    CloseButtonText = "ok",
+                    Title = "Error",
+                    Content = $"An error occurred: {ex.Message}",
+                    CloseButtonText = "Ok",
                     XamlRoot = this.Content.XamlRoot
                 };
                 await dialog.ShowAsync();
@@ -455,7 +456,7 @@ namespace EngrLink.Main_Window.Enrollee
                 if (YearLevelComboBox.SelectedItem == FifthYearItem)
                 {
                     YearLevelComboBox.SelectedIndex = -1;
-                    YearLevelComboBox.Header = "enter year level";
+                    YearLevelComboBox.Header = "Enter year level";
                     year = null;
                 }
                 FifthYearItem.Visibility = Visibility.Collapsed; // hides 5th year for other programs.
