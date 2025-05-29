@@ -57,6 +57,12 @@ namespace EngrLink.Main_Window.Accounting
                         newText += c;
                     }
                 }
+
+                if (newText.Length > 3)
+                {
+                    newText = newText.Substring(0, 3);
+                }
+
                 if (textBox.Text != newText)
                 {
                     textBox.TextChanged -= Input_TextChanged;

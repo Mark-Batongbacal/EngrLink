@@ -27,9 +27,9 @@
             <AppBarSeparator/>
 
             <Button x:Name="DashboardButton" Content="Dashboard" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="DashboardButton_Click" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
-            <Button x:Name="AcadPerformanceButton" Content="Academic Performance" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="AcadPerformanceButton_Click" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
-            <Button x:Name="PerInfoButton" Content="Personal Information" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="PerInfoButton_Click" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
             <Button x:Name="ScheduleButton" Content="Schedule" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="ScheduleButton_Click" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
+            <Button x:Name="PerInfoButton" Content="Personal Information" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="PerInfoButton_Click" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
+            <Button x:Name="AcadPerformanceButton" Content="Academic Performance" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="AcadPerformanceButton_Click" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
             <Button x:Name="FeesButton" Content="Fees" Width="230" Height="40" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="FeesButton_Click" FontSize="14" FontFamily="Verdana" Foreground="#74441e" BorderBrush="#74441e" BorderThickness="0.5"/>
 
         </StackPanel>

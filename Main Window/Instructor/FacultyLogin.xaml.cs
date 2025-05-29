@@ -59,6 +59,12 @@ namespace EngrLink.Main_Window.Instructor
                         newText += c;
                     }
                 }
+
+                if (newText.Length > 7)
+                {
+                    newText = newText.Substring(0, 7);
+                }
+
                 if (textBox.Text != newText)
                 {
                     textBox.TextChanged -= Input_TextChanged;

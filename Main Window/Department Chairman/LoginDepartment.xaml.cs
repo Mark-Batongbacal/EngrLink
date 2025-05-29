@@ -59,6 +59,12 @@ namespace EngrLink.Main_Window.Department_Chairman
                         newText += c;
                     }
                 }
+
+                if (newText.Length > 5)
+                {
+                    newText = newText.Substring(0, 5);
+                }
+
                 if (textBox.Text != newText)
                 {
                     textBox.TextChanged -= Input_TextChanged;

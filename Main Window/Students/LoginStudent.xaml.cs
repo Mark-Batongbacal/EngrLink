@@ -51,7 +51,13 @@ namespace EngrLink.Main_Window.Students
                         newText += c;
                     }
                 }
-                if (textBox.Text != newText)
+
+                if (newText.Length > 9)
+                {
+                    newText = newText.Substring(0, 9);
+                }
+
+                if (textBox.Text != newText ) 
                 {
                     textBox.TextChanged -= Input_TextChanged;
                     textBox.Text = newText;
